@@ -1,11 +1,10 @@
 # Methode de travail
 
 La branche ``main`` est la branche "production".
-Pour chaque semaine, une branche ``rendu<numéro de semaine>`` est crée, c'est une branche "release"
+
+Pour chaque semaine, une branche ``rendu<numéro de semaine>`` est crée, c'est une branche "release".
+
 Les fonctionnalité sont codées dans une branche ``feature-<Nom>`` avant d'être merge request à la branche ``rendu`` puis enfin au ``main``.
-
-
-
 
 # Inscryption
 
