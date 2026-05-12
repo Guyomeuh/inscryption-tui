@@ -5,4 +5,41 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+package models {
+    package cards {
+        abstract class Card {
+            - m_name: String 
+            - m_hp: Integer
+        }
+
+        class AnimalCard extends Card {
+            - m_attack: Integer 
+            - m_blood: Integer 
+            - m_bone: Integer 
+        }
+
+        class ObstacleCard extends Card {
+        }
+
+        package modifiers {
+            abstract class Decorator extends models.cards.Card {
+                - m_card: Card
+            } 
+
+            class Airborne extends Decorator {
+
+            }
+        }
+    }
+}
+
+package views {
+}
+
+package controllers {
+    class FlyingAnimal implements models.modifiers.Flying {
+    }
+    FlyingAnimal o-U-> models.cards.AnimalCard
+}
+
 @enduml
