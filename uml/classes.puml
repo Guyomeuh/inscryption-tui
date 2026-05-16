@@ -7,6 +7,16 @@ hide empty members
 
 package models {
     package cards {
+        abstract class CardContainer {
+            - m_cards: Card[*]
+        }
+
+        class Deck extends CardContainer {
+        }
+
+        class Hand extends CardContainer {
+        }
+
         abstract class Card {
             - m_name: String 
             - m_hp: Integer
@@ -31,15 +41,57 @@ package models {
             }
         }
     }
+
+    package game {
+        interface Playable {
+        }
+
+        class Player implements Playable {
+            - m_hand: Hand
+        }
+
+        class Bot implements Playable {
+            - m_hand: Hand
+        }
+
+        class Board {
+            - <<static>> m_turnNumber: Integer
+            - m_players: Playable[*]
+            - m_deck: Deck
+        }
+    }
 }
 
 package views {
 }
 
 package controllers {
-    class FlyingAnimal implements models.modifiers.Flying {
+    package cards {
+        class FlyingAnimal implements models.modifiers.Flying {
+        }
+
+        FlyingAnimal o-U-> models.cards.AnimalCard
     }
-    FlyingAnimal o-U-> models.cards.AnimalCard
+
+    package game {
+        class PlayerController {
+            - m_player: Player
+        }
+
+        class BotController {
+            - m_bot: Bot 
+        }
+
+        class BoardController {
+            - m_board: Board
+        }
+    }
+
+    class GameController {
+        - m_board: BoardController 
+        - m_player: PlayerController
+        - m_bot: BotController 
+    }
 }
 
 @enduml
