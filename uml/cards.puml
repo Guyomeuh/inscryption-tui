@@ -36,7 +36,7 @@ class AnimalCard extends BaseCard implements AliveCard {
     - m_blood: Integer
     - m_bone: Integer
 
-    + <<Creates>> AnimalCard(name: String, hp: Integer)
+    + <<Creates>> AnimalCard(name: String, hp: Integer, attack: Integer, blood: Integer, bone: Integer)
 
     + toString(): String
 }
