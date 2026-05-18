@@ -7,7 +7,7 @@ hide empty members
 
 interface Card <<interface>> {
     + getName(): String
-    + getHp(): String
+    + getHp(): Integer
     + getDamaged(damages: Integer)
 }
 
