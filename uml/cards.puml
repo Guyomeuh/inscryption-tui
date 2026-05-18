@@ -12,7 +12,10 @@ interface Card <<interface>> {
 }
 
 interface AliveCard <<interface>> implements Card {
-    + attack(): Integer
+    + getBlood(): Integer
+    + getBone(): Integer
+    + getAttack(): Integer
+    + attack(opponent: Card)
 }
 
 abstract class BaseCard <<abstract>> implements Card {
