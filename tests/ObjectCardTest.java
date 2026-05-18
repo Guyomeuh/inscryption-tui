@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -20,5 +21,12 @@ public class ObjectCardTest {
 
         oc.getDamaged(2);
         assertTrue(oc.getHp() == 0);
+    }
+
+    @Test
+    public void tostring(){
+        ObjectCard oc = new ObjectCard("rock", 3);
+
+        assertEquals(oc.toString(), "rock: 3hp");
     }
 }
