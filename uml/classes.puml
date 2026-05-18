@@ -61,9 +61,10 @@ package models {
 
         class Game
         {
-            -<<Create>> Game()
-            +<<Create>> Game1()
-            +<<Create>> Game2()
+            - m_board
+            - <<Create>> Game(player : Player)
+            + <<Create>> Game1(player : Player)
+            + <<Create>> Game2(player : Player)
         }
 
         class Player implements Playable {
