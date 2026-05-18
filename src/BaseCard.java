@@ -19,7 +19,13 @@ public abstract class BaseCard implements Card {
 
     @Override
     public void getDamaged(int damages){
-        this.m_hp -= damages;
+        // ensures hp >= 0
+        if (damages <= this.m_hp){
+            this.m_hp -= damages;
+        }
+        else {
+            this.m_hp = 0;
+        }
     }
 
     @Override
