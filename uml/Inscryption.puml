@@ -1,0 +1,44 @@
+@startuml
+
+class Carte
+{
+- m_nom : String
+- m_vie : Integer
+- m_degat : Integer
+- m_modificateur : Modificateur
+- m_sang : Integer
+
++ <<Create>> Carte(
++ Attaque
+}
+
+class Ecureuil extends Carte
+{
+}
+
+class Loup extends Carte
+{
+}
+
+class Chat extends Carte
+{
+}
+
+class Grizzly extends Carte
+{
+}
+
+class Coyote extends Carte
+Interface Modificateur
+{
+
+}
+
+class Vol implements Modificateur
+{
+}
+
+
+
+
+@enduml

@@ -9,30 +9,43 @@ package models {
     package cards {
         abstract class CardContainer {
             - m_cards: Card[*]
+            # <<Create>> CardContainer()
+            # add(card : Card) : Boolean
+            # remove(card : Card) : Boolean
+            # contains(card : Card) : Boolean
+            # getIndex(card : Card) : Integer
+            # getSize(card : Card) : Integer
+            # toString() : String
         }
 
         class Deck extends CardContainer {
+            + <<Create>> Deck()
+            + draw(numCarte : Integer) : Card
+
         }
 
         class Hand extends CardContainer {
         }
 
-        abstract class Card {
-            - m_name: String 
+        Interface Card {
+
+        }
+
+        class AnimalCard implements Card {
+            - m_name: String
+            - m_hp: Integer
+            - m_attack: Integer
+            - m_blood: Integer
+            - m_bone: Integer
+        }
+
+        class ObstacleCard implements Card {
+            - m_name: String
             - m_hp: Integer
         }
 
-        class AnimalCard extends Card {
-            - m_attack: Integer 
-            - m_blood: Integer 
-            - m_bone: Integer 
-        }
-
-        class ObstacleCard extends Card {
-        }
-
         package modifiers {
-            abstract class Decorator extends models.cards.Card {
+            abstract class Decorator implements models.cards.Card {
                 - m_card: Card
             } 
 
@@ -46,12 +59,22 @@ package models {
         interface Playable {
         }
 
+        class Game
+        {
+            -<<Create>> Game()
+            +<<Create>> Game1()
+            +<<Create>> Game2()
+        }
+
         class Player implements Playable {
             - m_hand: Hand
+            - m_deck : Deck
+            + draw() : Card
         }
 
         class Bot implements Playable {
             - m_hand: Hand
+            - m_deck : Deck
         }
 
         class Board {
@@ -67,7 +90,7 @@ package views {
 
 package controllers {
     package cards {
-        class FlyingAnimal implements models.modifiers.Flying {
+        class FlyingAnimal implements models.cards.modifiers.Airborne {
         }
 
         FlyingAnimal o-U-> models.cards.AnimalCard
