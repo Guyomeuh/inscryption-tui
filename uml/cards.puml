@@ -23,8 +23,6 @@ abstract class BaseCard <<abstract>> implements Card {
     - m_hp: Integer 
 
     + <<Creates>> BaseCard(name: String, hp: Integer)
-
-    + toString(): String
 }
 
 class ObjectCard extends BaseCard {
