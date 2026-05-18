@@ -9,12 +9,33 @@ package models {
     package cards {
         abstract class CardContainer {
             - m_cards: Card[*]
+
+            + <<Creates>> CardContainer()
+
+            + add(card: Card): Boolean
+            + remove(index: Integer): Boolean
+            + remove(card: Card): Boolean 
+            + getIndex(card: Card): Integer
+            + getSize(): Integer
+
+            + toString(): String
         }
 
         class Deck extends CardContainer {
+            + <<Creates>> Deck()
+
+            + draw(): Integer
+
+            + toString(): String
         }
 
         class Hand extends CardContainer {
+            + <<Creates>> Hand()
+
+            + draw()
+            + place(index: Integer)
+
+            + toString(): String
         }
 
         abstract class Card {
