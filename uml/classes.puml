@@ -67,7 +67,7 @@ package views {
 
 package controllers {
     package cards {
-        class FlyingAnimal implements models.modifiers.Flying {
+        class FlyingAnimal implements models.cards.modifiers.Airborne {
         }
 
         FlyingAnimal o-U-> models.cards.AnimalCard
