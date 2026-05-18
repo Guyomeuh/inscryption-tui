@@ -1,0 +1,112 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+class Inscryption
+{
+    +Main (args : String[*])
+}
+
+package View
+{
+}
+package Model
+{
+    package Gameplay
+    {
+        class Game
+        {
+            - m_board : Board
+            - m_player : Player
+            - m_bot : Bot
+            +<<Create>> GameModel(strategy : GameStrategy, player : Player)
+            +setStrategy()
+            +initBoard()
+            +initBot()
+            +initGame()
+            +endTurn(target : Player)
+            +sacrifice(position : Integer, player : Player)
+            +place(position : Integer, player : Player)
+            +draw(player : Player)
+        }
+
+        interface GameStrategy
+        {
+            +nextAction()
+            +initBoard()
+        }
+
+        class Game1 implements GameStrategy
+        {
+            +nextAction()
+            +initBoard()
+        }
+
+        class Game2 implements GameStrategy
+        {
+            +nextAction()
+            +initBoard()
+        }
+
+        class Game3 implements GameStrategy
+        {
+            +nextAction()
+            +initBoard()
+        }
+
+        Game "0..1" o---> "m_strategy" GameStrategy  : > applies
+        Game "0..1" *-L> "m_board" Board : \t\t\t
+
+        class Board
+        {
+            - <<Static>> m_turn : Integer
+            - m_playerBoard : Cards[*]
+            - m_botBoard : Cards[*]
+            - m_botToBeComing : Cards[*]
+            + <<Create>> Board(gameNumber Integer)
+            + isFull(board : Cards[*]) : Boolean
+            + isOccupied(position : Integer, player : Player) : Boolean
+            + set(position : Integer, player : Player) : Boolean
+            + remove(position : Integer, player : Player) : Boolean
+            + getOppositeCard(position : Integer, player : Player) : Cards
+            + attack(free : Boolean)
+
+        }
+
+        class Player
+        {
+            - m_deck : Cards[*]
+            - m_hand : Cards[*]
+            + draw()
+
+        }
+
+        class Bot extends Player
+        {
+        }
+    }
+
+}
+
+package Controller
+{
+    package GameplayController
+    {
+        class GameController
+        {
+            + <<Create>> GameController()
+            + startGame()
+            + endTurn()
+            + draw()
+            + sacrifice()
+            + place()
+        }
+    }
+}
+
+GameController "1" o-> "1\n-m_game" Game : \t\t\t\t\t\t\t\t
+@enduml
