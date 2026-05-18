@@ -8,9 +8,9 @@ Les fonctionnalité sont codées dans une branche ``feature-<Nom>`` avant d'êtr
 
 # Inscryption
 
-On souhaite développer une application imitant **le jeu Inscryption**.
+## Architecture 
 
-_Vous vous retrouvez dans une cabane, perdu en pleine forêt. Dans l'obscurité, attablé face à vous se dresse un adversaire aux yeux inquiétants qui vous défie à un étrange jeu de cartes..._ 
+Utilisation de l'architecture [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller). 
 
 ## Le jeu de cartes (Phase 1)
 - A votre gauche, se trouve une balance symbolisant l'écart de score avec votre adversaire. Le premier joueur qui atteint un écart de 5 points en sa faveur remporte la partie. 
