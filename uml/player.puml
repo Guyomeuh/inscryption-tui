@@ -26,7 +26,7 @@ package models {
             +<<Create>> PlayerBoard()
 
             +isOccupied(position : Integer) : Boolean
-            +set(position : Integer)
+            +set(position : Integer, Card card)
             +remove(position : Integer)
 
             + toString(): String
