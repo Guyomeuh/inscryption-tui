@@ -1,3 +1,5 @@
+package models.cards;
+
 public abstract class BaseCard implements Card {
     private String m_name;
     private int m_hp;

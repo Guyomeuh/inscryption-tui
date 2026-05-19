@@ -1,3 +1,5 @@
+package models.cards;
+
 public interface AliveCard extends Card {
     public int getBlood();
     public int getBone();

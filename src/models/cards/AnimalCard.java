@@ -1,3 +1,5 @@
+package models.cards;
+
 public class AnimalCard extends BaseCard implements AliveCard {
     private int m_attack, m_blood, m_bone;
 
