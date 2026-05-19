@@ -10,12 +10,13 @@ package models {
         class Player {
             - {static} <<final>> BASE_CARD_NUMBER: Integer
 
-            + <<Creates>> Player(deck: AliveCard[*])
+            + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
 
             - initHand()
-            + draw(): Boolean
             + getDeckSize(): Integer
             + getHandSize(): Integer
+            + draw(): Boolean
+            + place(position: Integer, card: AliveCard): Boolean
 
             + toString(): String
         }
