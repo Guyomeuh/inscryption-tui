@@ -1,77 +1,56 @@
 package model.gameplay;
 
 public class Game {
-    private GameStrategy m_strategy;
-    private Board m_board;
-    private Player m_player;
-    private Player m_bot;
+    private MatchStrategy m_strategy;
+    private final Player m_player;
+    private Combat m_combat;
 
-    public Game(GameStrategy strategy, Player player)
+    public Game(MatchStrategy strategy, Player player)
     {
         m_strategy = strategy;
         m_player = player;
-        m_board = initBoard();
-        m_bot = initBot();
+        m_combat = new Combat(m_strategy.initBoard(), m_strategy.initBot(), m_player);
     }
 
-    public void setStrategy(GameStrategy strategy)
+    public void setStrategy(MatchStrategy strategy)
     {
         m_strategy = strategy;
-        m_board = initBoard();
-        m_bot = initBot();
+        m_combat = new Combat(m_strategy.initBoard(), m_strategy.initBot(), m_player);
     }
 
-    public void initBoard()
+    public void nextCombat()
     {
-        m_strategy.initBoard();
-    }
-
-    public void initBot()
-    {
-        m_strategy.initBot();
-    }
-
-    public void endTurn(Player target)
-    {
-        m_board.attack(target);
-        m_bot.play();
-    }
-
-    public void sacrifice(Integer position, Player player)
-    {
-        if (m_board.isOccupied(position, player))
+        if (m_strategy instanceof FirstMatch)
         {
-            m_board.remove(position, player);
+            m_strategy = new SecondMatch();
+        }
+        else if (m_strategy instanceof SecondMatch)
+        {
+            m_strategy = new ThirdMatch();
+        }
+        else
+        {
+            m_strategy = new FirstMatch();
         }
     }
 
-    public Boolean place(Integer position, Player player, Card card)
+    public void endTurn()
     {
-        if(m_board.isFull(Player player) || m_board.isOccupied(position, player))
-        {
-            return false;
-        }
-        m_board.set(position, player, card);
-        return true;
+        m_combat.endTurn();
+    }
+
+    public void sacrifice(Integer position)
+    {
+        m_combat.sacrifice(position);
+    }
+
+    public Boolean place(Integer position, Integer numCard)
+    {
+        m_combat.place(position, numCard);
     }
 
     public Boolean draw(Player player)
     {
-        if (player instanceof Bot)
-        {
-            if (!m_bot.handEmpty())
-            {
-                m_bot.draw();
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else if (!m_player.handEmpty) {
-            m_player.draw();
-            return true;
-        }
-        else { return false;}
+        m_combat.draw();
     }
 }

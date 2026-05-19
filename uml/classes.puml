@@ -56,33 +56,43 @@ package models {
     }
 
     package game {
-        interface Playable {
+        class Player {
+            - m_hand : Hand
+            - m_deck : Deck
+            - m_bloodScore : Integer
+            - m_boneScore : Integer
+            + draw() : Card
+            + play(card : Card) : Boolean
+            + endOfTurn() : Boolean
+            + sacrifice() : Integer
         }
 
         class Game
         {
-            - m_board
+            - m_board : Board
             - <<Create>> Game(player : Player)
             + <<Create>> Game1(player : Player)
             + <<Create>> Game2(player : Player)
         }
 
-        class Player implements Playable {
-            - m_hand: Hand
-            - m_deck : Deck
-            + draw() : Card
-        }
-
-        class Bot implements Playable {
-            - m_hand: Hand
-            - m_deck : Deck
-        }
-
         class Board {
             - <<static>> m_turnNumber: Integer
-            - m_players: Playable[*]
-            - m_deck: Deck
+            - m_player : Playable
+            - m_bot : Playable
+            - m_score : Integer
+            - m_playerBoard : Optional<Card>[4]
+            - m_botBoard : Optional<Card>[4]
+            - m_botNextBoard : Optional<Card>[4]
+            - m_gameController : GameController
+            + playerEndOfTurn() :
+            + botEndOfTurn() :
+            + remove() :
+            + add() :
         }
+
+        Player o--> Game
+        Player *--> Game
+        Board *--> Game
     }
 }
 
