@@ -5,4 +5,29 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+package models {
+    package gameplay {
+        class Player {
+            - {static} <<final>> BASE_CARD_NUMBER: Integer
+
+            + <<Creates>> Player(deck: AliveCard[*])
+
+            - initHand()
+            + draw()
+            + getDeckSize(): Integer
+            + getHandSize(): Integer
+
+            + toString(): String
+        }
+    }
+
+    package cards {
+        interface AliveCard <<interface>> {
+        }
+    }
+}
+
+models.gameplay.Player "*"*--U->"*\n-m_deck" models.cards.AliveCard: holds >
+models.gameplay.Player "*"*--U->"*\n-m_hand" models.cards.AliveCard: holds >
+
 @enduml
