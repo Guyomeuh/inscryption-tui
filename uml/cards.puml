@@ -57,4 +57,7 @@ abstract class AnimalDecorator <<abstract>> implements AliveCard {
     + toString(): String
 }
 
+ObjectDecorator "1"o-->"1\n-m_Card" Card: holds >
+AnimalDecorator "1"o-->"1\n-m_Card" AliveCard: holds >
+
 @enduml
