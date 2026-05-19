@@ -87,10 +87,19 @@ package Model
 
         class Player
         {
-            - m_deck : Card[*]
-            - m_hand : Card[*]
+            - {static} <<final>> BASE_CARD_NUMBER: Integer
+            - m_deck: AliveCard[*] 
+            - m_hand: AliveCard[*]
             - m_board : PlayerBoard
 
+            + <<Creates>> Player(deck: AliveCard[*], board: Playerboard)
+
+            - initHand()
+            + draw()
+            + getDeckSize(): Integer
+            + getHandSize(): Integer
+
+            + toString(): String
         }
 
         class Bot extends Player
@@ -118,4 +127,6 @@ package Controller
 }
 
 GameController "1" *.> "1\n-m_game" Game : > controls\t\t\t\t\t\t\t\t
+Player o--> PlayerBoard
+
 @enduml
