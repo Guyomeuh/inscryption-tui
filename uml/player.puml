@@ -13,7 +13,7 @@ package models {
             + <<Creates>> Player(deck: AliveCard[*])
 
             - initHand()
-            + draw()
+            + draw(): Boolean
             + getDeckSize(): Integer
             + getHandSize(): Integer
 

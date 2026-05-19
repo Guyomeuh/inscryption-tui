@@ -30,10 +30,15 @@ public class Player {
         return this.m_hand.size();
     }
 
-    public void draw(){
-        int rndIndex = new Random().nextInt(0, this.getDeckSize()); // generates random index in [0, deckSize - 1]
+    public boolean draw(){
+        if (this.getDeckSize() == 0){
+            return false;
+        }
 
+        int rndIndex = new Random().nextInt(0, this.getDeckSize()); // generates random index in [0, deckSize - 1]
         this.m_hand.add(this.m_deck.remove(rndIndex));
+
+        return true;
     }
 
     @Override
