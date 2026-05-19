@@ -17,24 +17,24 @@ public class PlayerBoard {
         }
     }
 
-    private void validPosition(int position){
+    private void validatePosition(int position){
         if (position < 0 || position >= SIZE){
             throw new IllegalArgumentException("Invalid position");
         }
     }
 
     public boolean isOccupied(int position){
-        validPosition(position);
+        validatePosition(position);
         return this.m_cards.get(position).isPresent();
     }
 
     public void set(int position, Card card){
-        validPosition(position);
+        validatePosition(position);
         this.m_cards.set(position, Optional.of(card));
     }
 
     public void remove(int position){
-        validPosition(position);
+        validatePosition(position);
         this.m_cards.set(position, Optional.empty());
     }
 

@@ -24,6 +24,18 @@ public class Player {
         }
     }
 
+    private void validateHandIndex(int index){
+        if (index < 0 || index >= this.getHandSize()){
+            throw new IllegalArgumentException("Invalid hand index");
+        }
+    }
+
+    private void validateDeckIndex(int index){
+        if (index < 0 || index >= this.getDeckSize()){
+            throw new IllegalArgumentException("Invalid deck index");
+        }
+    }
+
     public int getDeckSize(){
         return this.m_deck.size();
     }
@@ -43,11 +55,14 @@ public class Player {
         return true;
     }
 
-    public boolean place(int position, AliveCard card){
+    public boolean place(int position, int cardIndex){
+        validateHandIndex(cardIndex);
+
         if (this.m_board.isOccupied(position)){
             return false;
         }
-        this.m_board.set(position, card);
+
+        this.m_board.set(position, this.m_hand.get(cardIndex));
         return true;
     }
 

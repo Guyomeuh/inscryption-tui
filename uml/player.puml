@@ -13,10 +13,12 @@ package models {
             + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
 
             - initHand()
+            - validateHandIndex(int index)
+            - validateDeckIndex(int index)
             + getDeckSize(): Integer
             + getHandSize(): Integer
             + draw(): Boolean
-            + place(position: Integer, card: AliveCard): Boolean
+            + place(position: Integer, cardIndex: Integer): Boolean
 
             + toString(): String
         }
@@ -26,6 +28,7 @@ package models {
 
             +<<Create>> PlayerBoard()
 
+            - validatePosition(int position)
             +isOccupied(position : Integer) : Boolean
             +set(position : Integer, Card card)
             +remove(position : Integer)
