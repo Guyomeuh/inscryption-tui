@@ -54,6 +54,7 @@ public class Player implements Playable {
         return true;
     }
 
+    @Override
     public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);
 
@@ -65,6 +66,7 @@ public class Player implements Playable {
         return true;
     }
 
+    @Override
     public int[] endTurn(){
         int[] damages = new int[4];
 
@@ -75,6 +77,7 @@ public class Player implements Playable {
         return damages;
     }
 
+    @Override
     public boolean getDamaged(int position, int damages){
         return this.m_board.getDamaged(position, damages);
     }
