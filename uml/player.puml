@@ -7,9 +7,15 @@ hide empty members
 
 package models {
     package gameplay {
-        class Player {
-            - {static} <<final>> BASE_CARD_NUMBER: Integer
+        interface Playable {
+            + {static} <<final>> BASE_CARD_NUMBER: Integer
 
+            + endTurn(): Integer[4]
+            + place(position: Integer, cardIndex: Integer): Boolean
+            + getDamaged(position: Integer, damages: Integer): Boolean
+        }
+
+        class Player implements Playable {
             + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
 
             - initHand()
@@ -18,7 +24,12 @@ package models {
             + getDeckSize(): Integer
             + getHandSize(): Integer
             + draw(): Boolean
-            + place(position: Integer, cardIndex: Integer): Boolean
+
+            + toString(): String
+        }
+
+        class Bot implements Playable {
+            + <<Creates>> Bot(board: PlayerBoard, waitingBoard: PlayerBoard)
 
             + toString(): String
         }
@@ -32,6 +43,8 @@ package models {
             +isOccupied(position : Integer) : Boolean
             +set(position : Integer, Card card)
             +remove(position : Integer)
+            + getAttack(position: Integer): Integer
+            + getDamaged(position: Integer, damages: Integer): Boolean
 
             + toString(): String
         }
@@ -46,5 +59,7 @@ package models {
 models.gameplay.Player "*"*--U->"*\n-m_deck" models.cards.AliveCard: holds >
 models.gameplay.Player "*"*--U->"*\n-m_hand" models.cards.AliveCard: holds >
 models.gameplay.Player "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
+models.gameplay.Bot "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
+models.gameplay.Bot "1"o-->"1\n-m_waitingBoard" models.gameplay.PlayerBoard: holds >
 
 @enduml
