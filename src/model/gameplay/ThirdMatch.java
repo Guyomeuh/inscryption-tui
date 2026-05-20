@@ -6,7 +6,7 @@ public class ThirdMatch implements MatchStrategy{
 
     }
 
-    public void initBot()
+    public Bot initBot()
     {
         return new Bot();
     }

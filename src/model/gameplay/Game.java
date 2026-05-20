@@ -1,9 +1,12 @@
 package model.gameplay;
 
+import java.util.ArrayList;
+
 public class Game {
     private MatchStrategy m_strategy;
     private final Player m_player;
     private Combat m_combat;
+    private ArrayList<GameObserver> m_observer;
 
     public Game(MatchStrategy strategy, Player player)
     {
@@ -52,5 +55,10 @@ public class Game {
     public Boolean draw(Player player)
     {
         m_combat.draw();
+    }
+
+    public addObserver(GameObserver observer)
+    {
+        m_observer.add(observer);
     }
 }

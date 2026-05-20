@@ -28,15 +28,12 @@ public class Combat {
         m_currentPlayer.sacrifice(position);
     }
 
-    public void endTurn()
-    {
+    public void endTurn() {
         m_currentPlayer.attack();
-        if (m_currentPlayer.Equals(m_player))
-        {
+        if (m_currentPlayer.Equals(m_player)) {
+            m_bot.placeWaitingBoard();
             m_currentPlayer = m_bot;
-        }
-        else
-        {
+        } else{
             m_currentPlayer = m_player;
         }
         m_turn++;

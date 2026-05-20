@@ -13,8 +13,9 @@ class Inscryption
 
 package View
 {
+
 }
-package Model
+package Models
 {
     package Gameplay
     {
@@ -28,21 +29,23 @@ package Model
             +endTurn()
             +sacrifice(position : Integer)
             +place(position : Integer, numCarte : Integer)
-            +draw(player : Player)
+            +draw()
         }
 
         class Combat
         {
             - m_player : Player
             - m_bot : Bot
-            - m_currentPlayer : Player
+            - m_currentPlayer : Playeable
             - <<Static>> m_turn : Integer
+            - m_balance : Integer
             +<<Create>> Combat(bot : Player, player : Player)
             +draw()
             +place(position : Integer, numCarte : Integer)
             +sacrifice(position : Integer)
             +endTurn()
             +getTurn() : Integer
+            +getBalance()
         }
 
 
@@ -72,32 +75,17 @@ package Model
 
         Game "0..1" o--> "m_strategy" MatchStrategy  : > applies
         Game "0..1" *-l-> "m_combat" Combat :  \t\t\t
-        Combat o--> Player
-        Combat *-> Bot
-
-        class PlayerBoard
-        {
-            -m_cards : Optional<Card>[4]
-            +<<Create>> PlayerBoard()
-            +isOccupied(position : Integer) : Boolean
-            +set(position : Integer)
-            +remove(position : Integer)
-
-        }
-
-        class Player
-        {
-            - m_deck : Card[*]
-            - m_hand : Card[*]
-            - m_board : PlayerBoard
-
-        }
-
-        class Bot extends Player
-        {
-        }
     }
 
+    package Observer
+    {
+        interface GameObserver
+        {
+        }
+
+    }
+
+    Game "0..1" o..> "m_observer" GameObserver : < observes
 }
 
 package Controller
