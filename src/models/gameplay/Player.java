@@ -63,6 +63,7 @@ public class Player implements Playable {
         }
 
         this.m_board.set(position, this.m_hand.get(cardIndex));
+        this.m_hand.remove(cardIndex);
         return true;
     }
 
