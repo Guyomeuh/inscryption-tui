@@ -5,8 +5,7 @@ import java.util.Random;
 
 import models.cards.AliveCard;
 
-public class Player {
-    private static final int BASE_CARD_NUMBER = 4;
+public class Player implements Playable {
     private ArrayList<AliveCard> m_deck, m_hand;
     private PlayerBoard m_board;
 
@@ -64,6 +63,20 @@ public class Player {
 
         this.m_board.set(position, this.m_hand.get(cardIndex));
         return true;
+    }
+
+    public int[] endTurn(){
+        int[] damages = new int[4];
+
+        for (int i = 0; i < BASE_CARD_NUMBER; i++){
+            damages[i] = this.m_board.getAttack(i);
+        }
+
+        return damages;
+    }
+
+    public boolean getDamaged(int position, int damages){
+        return this.m_board.getDamaged(position, damages);
     }
 
     @Override

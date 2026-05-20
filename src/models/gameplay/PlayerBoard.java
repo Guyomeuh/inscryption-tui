@@ -3,6 +3,7 @@ package models.gameplay;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import models.cards.AliveCard;
 import models.cards.Card;
 
 public class PlayerBoard {
@@ -36,6 +37,28 @@ public class PlayerBoard {
     public void remove(int position){
         validatePosition(position);
         this.m_cards.set(position, Optional.empty());
+    }
+
+    public int getAttack(int position){
+        validatePosition(position);
+
+        // S'il n'y a aucune carte à cette position ou que ce n'est pas une AliveCard (peut pas attaquer)
+        if (this.m_cards.get(position).isEmpty() || !(this.m_cards.get(position).get() instanceof AliveCard)){
+            return 0;
+        }
+
+        return ((AliveCard)this.m_cards.get(position).get()).getAttack();
+    }
+
+    public boolean getDamaged(int position, int damages){
+        validatePosition(position);
+
+        if (this.m_cards.get(position).isEmpty()){
+            return false;
+        }
+
+        this.m_cards.get(position).get().getDamaged(damages);
+        return true;
     }
 
     @Override
