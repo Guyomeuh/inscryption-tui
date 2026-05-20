@@ -10,7 +10,7 @@ public class GameController {
         m_game = game;
     }
 
-    public startGame()
+    public void startGame()
     {
     }
 }

@@ -44,4 +44,24 @@ public class PlayerTextObserver implements PlayerObserver {
     {
         return "";
     }
+
+    public String getBoardCardName(Integer index)
+    {
+        return "Loup";
+    }
+
+    public String getBoardCardHp(Integer index)
+    {
+        return "Loup";
+    }
+
+    public String getBoardCardAtt(Integer index)
+    {
+        return "Loup";
+    }
+
+    public String getBoardCardModif(Integer index)
+    {
+        return "Loup";
+    }
 }

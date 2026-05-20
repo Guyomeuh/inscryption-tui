@@ -12,8 +12,8 @@ public class GeneralView {
     {
     }
 
-    public void show(GameTextObserver game, PlayerTextObserver player, BotTextObserver bot)
-    {
+    //public void show(GameTextObserver game, PlayerTextObserver player, BotTextObserver bot)
+    /*{
         System.out.println("Partie : " + game.getGameNumber() + "\n\n"
 
                 + game.getTurn() + " Tour\n\n" +
@@ -29,6 +29,50 @@ public class GeneralView {
                 "[fin] Terminer votre tour\n" +
                 "[piocher] Piocher une carte\n" +
                 "[placer <numero carte> <position>] Placer une carte sur le plateau\n");
+    }*/
+
+    public void printGameInfo()
+    {
+        System.out.println("Partie : " + m_gameObserver.getGameNumber() + "\n" + m_gameObserver.getTurn() + " Tour:\n\n");
     }
 
+    public static void printBotWaitingBoard()
+    {
+        String endString = "\t\t";
+
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "|" + m_playerObserver.getBoardCardName(i) + "|" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*PV: " + m_playerObserver.getBoardCardHp(i) +"------*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardAtt(i) +"-----*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardModif(i) +"--*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+    }
 }
