@@ -8,6 +8,7 @@ import models.cards.AliveCard;
 public class Player extends Playable {
     private ArrayList<AliveCard> m_deck, m_hand;
     private int m_blood, m_bone;
+
     public Player(ArrayList<AliveCard> deck, PlayerBoard board){
         super(board);
 
