@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import models.cards.AliveCard;
 
-public class Bot implements Playable {
-    private PlayerBoard m_board, m_waitingBoard;
+public class Bot extends Playable {
+    private PlayerBoard m_waitingBoard;
     private ArrayList<AliveCard> m_cards;
 
     public Bot(PlayerBoard board, PlayerBoard waitingBoard, ArrayList<AliveCard> cards){
-        this.m_board = board;
+        super(board);
         this.m_waitingBoard = waitingBoard;
         this.m_cards = cards;
     }
@@ -51,22 +51,6 @@ public class Bot implements Playable {
         this.m_waitingBoard.set(position, this.m_cards.get(cardIndex));
         this.m_cards.remove(cardIndex);
         return true;
-    }
-
-    @Override
-    public int[] endTurn(){
-        int[] damages = new int[4];
-
-        for (int i = 0; i < BASE_CARD_NUMBER; i++){
-            damages[i] = this.m_board.getAttack(i);
-        }
-
-        return damages;
-    }
-
-    @Override
-    public boolean getDamaged(int position, int damages){
-        return this.m_board.getDamaged(position, damages);
     }
 
     @Override

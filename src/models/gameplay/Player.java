@@ -5,13 +5,13 @@ import java.util.Random;
 
 import models.cards.AliveCard;
 
-public class Player implements Playable {
+public class Player extends Playable {
     private ArrayList<AliveCard> m_deck, m_hand;
-    private PlayerBoard m_board;
 
     public Player(ArrayList<AliveCard> deck, PlayerBoard board){
+        super(board);
+
         this.m_deck = deck;
-        this.m_board = board;
 
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();
@@ -65,22 +65,6 @@ public class Player implements Playable {
         this.m_board.set(position, this.m_hand.get(cardIndex));
         this.m_hand.remove(cardIndex);
         return true;
-    }
-
-    @Override
-    public int[] endTurn(){
-        int[] damages = new int[4];
-
-        for (int i = 0; i < BASE_CARD_NUMBER; i++){
-            damages[i] = this.m_board.getAttack(i);
-        }
-
-        return damages;
-    }
-
-    @Override
-    public boolean getDamaged(int position, int damages){
-        return this.m_board.getDamaged(position, damages);
     }
 
     @Override
