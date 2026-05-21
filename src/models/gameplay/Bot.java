@@ -14,6 +14,10 @@ public class Bot implements Playable {
         this.m_cards = cards;
     }
 
+    public int getCardsSize(){
+        return this.m_cards.size();
+    }
+
     /** 
      *  transfer all present cards from waitingBoard to board 
      */
