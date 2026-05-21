@@ -61,4 +61,34 @@ public class PlayerTest {
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, -1); });
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, p1.getHandSize()); });
     }
+
+    @Test 
+    public void endTurn(){
+        Player p1 = createPlayer();
+
+        // place card at every board location
+        for (int i = 0; i < 4; i++){
+            p1.place(i, i);
+        }
+
+        assertEquals(new int[]{0, 4, 0, 4}, p1.endTurn());
+        p1.getDamaged(0, 100); // to kill the card 
+
+        assertEquals(new int[]{-1, 4, 0, 4}, p1.endTurn());
+    }
+
+    @Test
+    public void getDamaged(){
+        Player p1 = createPlayer();
+        p1.place(0, 0);
+
+        assertEquals(true, p1.getDamaged(0, 1));
+        assertEquals(true, p1.getDamaged(0, 1));
+        assertEquals(true, p1.getDamaged(0, 5));
+        assertEquals(false, p1.getDamaged(0, 5));
+
+        assertThrows(IllegalArgumentException.class, ()->{ p1.getDamaged(-1, 1); });
+        assertThrows(IllegalArgumentException.class, ()->{ p1.getDamaged(4, 1); });
+        assertThrows(IllegalArgumentException.class, ()->{ p1.getDamaged(0, -1); });
+    }
 }
