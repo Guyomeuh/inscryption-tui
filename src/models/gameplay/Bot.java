@@ -14,6 +14,12 @@ public class Bot implements Playable {
         this.m_cards = cards;
     }
 
+    private void validateDeckIndex(int index){
+        if (index < 0 || index >= this.getCardsSize()){
+            throw new IllegalArgumentException("Invalid deck index");
+        }
+    }
+
     public int getCardsSize(){
         return this.m_cards.size();
     }
@@ -37,7 +43,8 @@ public class Bot implements Playable {
      */
     @Override
     public boolean place(int position, int cardIndex){
-        if (this.m_board.isOccupied(position)){
+        validateDeckIndex(cardIndex);
+        if (this.m_waitingBoard.isOccupied(position)){
             return false;
         }
 
