@@ -12,8 +12,7 @@ import models.cards.AliveCard;
 import models.cards.AnimalCard;
 
 public class PlayerTest {
-    @Test
-    public void getters(){
+    public Player createPlayer(){
         AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
         AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
 
@@ -24,26 +23,20 @@ public class PlayerTest {
             d.add(ac1);
         }
 
-        Player p1 = new Player(d, new PlayerBoard());
-        
+        return new Player(d, new PlayerBoard());
+    }
+
+    @Test
+    public void getters(){
+        Player p1 = createPlayer();
+       
         assertEquals(6, p1.getDeckSize());
         assertEquals(4, p1.getHandSize());
-        
     }
 
     @Test 
     public void draw(){
-        AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
-        AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
-
-        ArrayList<AliveCard> d = new ArrayList<AliveCard>();
-
-        for (int i = 0; i < 5; i++){
-            d.add(ac);
-            d.add(ac1);
-        }
-
-        Player p1 = new Player(d, new PlayerBoard());
+        Player p1 = createPlayer();
 
         p1.draw();
         assertEquals(5, p1.getDeckSize());
@@ -60,17 +53,8 @@ public class PlayerTest {
 
     @Test 
     public void place(){
-        AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
-        AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
+        Player p1 = createPlayer();
 
-        ArrayList<AliveCard> d = new ArrayList<AliveCard>();
-
-        for (int i = 0; i < 5; i++){
-            d.add(ac);
-            d.add(ac1);
-        }
-
-        Player p1 = new Player(d, new PlayerBoard());
         assertTrue(p1.place(0, 0));
         assertTrue(!p1.place(0, 0));
 

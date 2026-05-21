@@ -5,14 +5,13 @@ import java.util.Random;
 
 import models.cards.AliveCard;
 
-public class Player {
-    private static final int BASE_CARD_NUMBER = 4;
+public class Player extends Playable {
     private ArrayList<AliveCard> m_deck, m_hand;
-    private PlayerBoard m_board;
 
     public Player(ArrayList<AliveCard> deck, PlayerBoard board){
+        super(board);
+
         this.m_deck = deck;
-        this.m_board = board;
 
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();
@@ -55,6 +54,7 @@ public class Player {
         return true;
     }
 
+    @Override
     public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);
 
@@ -63,6 +63,7 @@ public class Player {
         }
 
         this.m_board.set(position, this.m_hand.get(cardIndex));
+        this.m_hand.remove(cardIndex);
         return true;
     }
 

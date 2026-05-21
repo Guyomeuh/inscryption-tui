@@ -3,10 +3,11 @@ package models.gameplay;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import models.cards.AliveCard;
 import models.cards.Card;
 
 public class PlayerBoard {
-    private static final int SIZE = 4;
+    protected static final int SIZE = 4;
     private ArrayList<Optional<Card>> m_cards;
 
     public PlayerBoard(){
@@ -33,9 +34,50 @@ public class PlayerBoard {
         this.m_cards.set(position, Optional.of(card));
     }
 
-    public void remove(int position){
+    public Optional<Card> remove(int position){
         validatePosition(position);
+
+        Optional<Card> c = this.m_cards.get(position);
         this.m_cards.set(position, Optional.empty());
+
+        return c;
+    }
+
+    public int getAttack(int position){
+        validatePosition(position);
+
+        // returns -1 if position is empty
+        if (this.m_cards.get(position).isEmpty()){
+            return -1;
+        }
+
+        // returns 0 if it's not an AliveCard (no attack)
+        if (!(this.m_cards.get(position).get() instanceof AliveCard)){
+            return 0;
+        }
+
+        return ((AliveCard)this.m_cards.get(position).get()).getAttack();
+    }
+
+    public boolean getDamaged(int position, int damages){
+        validatePosition(position);
+
+        if (damages < 0){
+            throw new IllegalArgumentException("damages must be superior than 0");
+        }
+
+        if (this.m_cards.get(position).isEmpty()){
+            return false;
+        }
+
+        this.m_cards.get(position).get().getDamaged(damages);
+
+        // deletes the card if it's at 0Hp
+        if (this.m_cards.get(position).get().getHp() == 0){
+            this.m_cards.set(position, Optional.empty());
+        }
+
+        return true;
     }
 
     @Override
