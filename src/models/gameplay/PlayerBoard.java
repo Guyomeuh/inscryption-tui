@@ -43,6 +43,22 @@ public class PlayerBoard {
         return c;
     }
 
+    public int sacrifice(int position){
+        validatePosition(position);
+        if (this.m_cards.get(position).isEmpty()){
+            return -1;
+        }
+
+        if (!(this.m_cards.get(position).get() instanceof AliveCard)){
+            return -1;
+        }
+
+        int cardBlood = ((AliveCard)this.m_cards.get(position).get()).getBlood();
+        this.remove(position);
+
+        return cardBlood;
+    }
+
     public int getAttack(int position){
         validatePosition(position);
 
