@@ -58,6 +58,12 @@ public class PlayerBoard {
         }
 
         this.m_cards.get(position).get().getDamaged(damages);
+
+        // deletes the card if it's at 0Hp
+        if (this.m_cards.get(position).get().getHp() == 0){
+            this.m_cards.set(position, Optional.empty());
+        }
+
         return true;
     }
 
