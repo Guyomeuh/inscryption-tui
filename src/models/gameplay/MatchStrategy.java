@@ -1,4 +1,4 @@
-package model.gameplay;
+package models.gameplay;
 
 public interface MatchStrategy {
     public Bot initBot();

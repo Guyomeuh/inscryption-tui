@@ -1,4 +1,4 @@
-package model.gameplay;
+package models.gameplay;
 
 public class Combat {
     private final Player m_player;

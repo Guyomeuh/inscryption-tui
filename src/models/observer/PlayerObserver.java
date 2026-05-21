@@ -1,4 +1,4 @@
-package model.observer;
+package models.observer;
 
 import java.util.ArrayList;
 

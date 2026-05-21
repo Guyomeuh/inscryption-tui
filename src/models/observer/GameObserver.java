@@ -1,4 +1,4 @@
-package model.observer;
+package models.observer;
 
 public interface GameObserver {
     void updateTurn(Integer turnNumber);

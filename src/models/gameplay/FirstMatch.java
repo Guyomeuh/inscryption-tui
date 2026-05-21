@@ -1,4 +1,4 @@
-package model.gameplay;
+package models.gameplay;
 
 public class FirstMatch implements MatchStrategy {
     public FirstMatch()

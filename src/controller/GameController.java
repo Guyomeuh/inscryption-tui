@@ -1,6 +1,6 @@
 package controller;
 
-import model.gameplay.Game;
+import models.gameplay.Game;
 
 public class GameController {
     private Game m_game;

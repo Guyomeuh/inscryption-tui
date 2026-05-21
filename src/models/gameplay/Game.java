@@ -1,4 +1,4 @@
-package model.gameplay;
+package models.gameplay;
 
 import model.observer.GameObserver;
 
