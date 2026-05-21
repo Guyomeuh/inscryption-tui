@@ -7,7 +7,7 @@ import models.cards.AliveCard;
 
 public class Player extends Playable {
     private ArrayList<AliveCard> m_deck, m_hand;
-
+    private int m_blood, m_bone;
     public Player(ArrayList<AliveCard> deck, PlayerBoard board){
         super(board);
 
@@ -15,6 +15,9 @@ public class Player extends Playable {
 
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();
+
+        this.m_blood = 0;
+        this.m_bone = 0;
     }
 
     private void initHand(){
@@ -33,6 +36,25 @@ public class Player extends Playable {
         if (index < 0 || index >= this.getDeckSize()){
             throw new IllegalArgumentException("Invalid deck index");
         }
+    }
+
+    public int getBlood(){
+        return this.m_blood;
+    }
+
+    public int getBone(){
+        return this.m_bone;
+    }
+
+    public boolean sacrifice(int position){
+        int blood = this.m_board.sacrifice(position);
+
+        if (blood == -1){
+            return false;
+        }
+        this.m_blood += blood;
+
+        return true;
     }
 
     public int getDeckSize(){
@@ -58,13 +80,25 @@ public class Player extends Playable {
     public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);
 
+        if (this.m_hand.get(cardIndex).getBlood() > this.m_blood){
+            return false;
+        }
+
         if (this.m_board.isOccupied(position)){
             return false;
         }
 
+        this.m_blood -= this.m_hand.get(cardIndex).getBlood();
         this.m_board.set(position, this.m_hand.get(cardIndex));
         this.m_hand.remove(cardIndex);
         return true;
+    }
+
+    @Override
+    public int[] endTurn(){
+        this.m_blood = 0;
+
+        return super.endTurn();
     }
 
     @Override

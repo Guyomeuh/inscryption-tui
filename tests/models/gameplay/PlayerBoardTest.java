@@ -1,10 +1,13 @@
 package models.gameplay;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import models.cards.AliveCard;
+import models.cards.AnimalCard;
 import models.cards.ObjectCard;
 
 public class PlayerBoardTest {
@@ -29,5 +32,19 @@ public class PlayerBoardTest {
 
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(-1); });
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(4); });
+    }
+
+    @Test
+    public void sacrifice(){
+        PlayerBoard pb = new PlayerBoard();
+        pb.set(0, new ObjectCard("rock", 6));
+        pb.set (1, new AnimalCard("cat", 1, 0, 1, 0));
+
+        assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(-1); });
+        assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(4); });
+
+        assertEquals(-1, pb.sacrifice(0));
+        assertEquals(1, pb.sacrifice(1));
+        assertEquals(-1, pb.sacrifice(2));
     }
 }

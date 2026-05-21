@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
+import models.cards.ObjectCard;
 
 public class PlayerTest {
     public Player createPlayer(){
@@ -18,12 +19,20 @@ public class PlayerTest {
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
+
         for (int i = 0; i < 5; i++){
             d.add(ac);
             d.add(ac1);
         }
 
-        return new Player(d, new PlayerBoard());
+        PlayerBoard pb = new PlayerBoard();
+        pb.set(3, new ObjectCard("rock", 6));
+        pb.set(0, new AnimalCard("", 0, 0, 10, 0));
+
+        Player p = new Player(d, pb);
+        p.sacrifice(0);
+
+        return p;
     }
 
     @Test
@@ -60,5 +69,18 @@ public class PlayerTest {
 
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, -1); });
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, p1.getHandSize()); });
+    }
+
+    @Test
+    public void sacrifice(){
+        Player p1 = createPlayer();
+
+        assertThrows(IllegalArgumentException.class, ()->{ p1.sacrifice(-1); });
+        assertThrows(IllegalArgumentException.class, ()->{ p1.sacrifice(4); });
+        assertTrue(!p1.sacrifice(0));
+
+        p1.place(0, 0);
+        assertTrue(p1.sacrifice(0));
+        assertTrue(!p1.sacrifice(3));
     }
 }
