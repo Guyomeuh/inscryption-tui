@@ -1,0 +1,109 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+class Inscryption
+{
+    +Main (args : String[*])
+}
+
+package View
+{
+
+}
+package Models
+{
+    package Gameplay
+    {
+        class Game
+        {
+            - m_player : Player
+            +<<Create>> Game(strategy : MatchStrategy, player : Player)
+            +setStrategy()
+            +nextCombat()
+            +beginCombat()
+            +endTurn()
+            +sacrifice(position : Integer)
+            +place(position : Integer, numCarte : Integer)
+            +draw()
+        }
+
+        class Combat
+        {
+            - m_player : Player
+            - m_bot : Bot
+            - m_currentPlayer : Playeable
+            - <<Static>> m_turn : Integer
+            - m_balance : Integer
+            +<<Create>> Combat(bot : Player, player : Player)
+            +draw()
+            +place(position : Integer, numCarte : Integer)
+            +sacrifice(position : Integer)
+            +endTurn()
+            +getTurn() : Integer
+            +getBalance()
+        }
+
+
+
+        interface MatchStrategy
+        {
+            +initBot()
+        }
+
+        class FirstMatch implements MatchStrategy
+        {
+            +<<Create>> FirstMatch()
+            +initBot()
+        }
+
+        class SecondMatch implements MatchStrategy
+        {
+            +<<Create>> SecondMatch()
+            +initBot()
+        }
+
+        class ThirdMatch implements MatchStrategy
+        {
+            +<<Create>> ThirdMatch()
+            +initBot()
+        }
+
+        Game "0..1" o--> "m_strategy" MatchStrategy  : > applies
+        Game "0..1" *-l-> "m_combat" Combat :  \t\t\t
+    }
+
+    package Observer
+    {
+        interface GameObserver
+        {
+        }
+
+    }
+
+    Game "0..1" o..> "m_observer" GameObserver : < observes
+}
+
+package Controller
+{
+    package GameplayController
+    {
+        class GameController
+        {
+            + <<Create>> GameController(game : Game)
+            + startGame()
+            + endTurn()
+            + draw()
+            + sacrifice()
+            + place()
+            + quit()
+        }
+    }
+}
+
+GameController "1" *.> "1\n-m_game" Game : > controls\t\t\t\t\t\t\t\t
+@enduml
