@@ -1,7 +1,7 @@
 # To-Do list 
 
-- [ ] transformer interface Playable en classe abstraite 
-- [ ] mettre à jout uml
+- [x] transformer interface Playable en classe abstraite 
+- [x] mettre à jour uml
 - [x] ajouter tests Player 
 - [x] terminer classe Bot 
 - [x] ajouter tests Bot 

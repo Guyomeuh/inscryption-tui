@@ -7,15 +7,20 @@ hide empty members
 
 package models {
     package gameplay {
-        interface Playable {
+        abstract class Playable <<abstract>> {
             + {static} <<final>> BASE_CARD_NUMBER: Integer
+            ~ m_board: PlayerBoard
+
+            + <<Creates>> Playable(board: PlayerBoard)
 
             + endTurn(): Integer[4]
-            + place(position: Integer, cardIndex: Integer): Boolean
             + getDamaged(position: Integer, damages: Integer): Boolean
+            + {abstract} <<abstract>> place(position: Integer, cardIndex: Integer): Boolean
+
+            - toString(): String
         }
 
-        class Player implements Playable {
+        class Player extends Playable {
             + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
 
             - initHand()
@@ -28,8 +33,15 @@ package models {
             + toString(): String
         }
 
-        class Bot implements Playable {
+        class Bot extends Playable {
+            - m_waitingBoard: PlayerBoard
+            - m_cards: AliveCard[*]
+
             + <<Creates>> Bot(board: PlayerBoard, waitingBoard: PlayerBoard)
+
+            + validateDeckIndex(index: Integer) 
+            + getCardsSize(): Integer
+            + transferCards()
 
             + toString(): String
         }
