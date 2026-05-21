@@ -42,8 +42,11 @@ public class PlayerBoard {
     public int getAttack(int position){
         validatePosition(position);
 
-        // S'il n'y a aucune carte à cette position ou que ce n'est pas une AliveCard (peut pas attaquer)
-        if (this.m_cards.get(position).isEmpty() || !(this.m_cards.get(position).get() instanceof AliveCard)){
+        if (this.m_cards.get(position).isEmpty()){
+            return -1;
+        }
+
+        if (!(this.m_cards.get(position).get() instanceof AliveCard)){
             return 0;
         }
 
