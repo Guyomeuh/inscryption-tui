@@ -15,7 +15,7 @@ public abstract class Playable {
     public int[] endTurn(){
         int[] damages = new int[4];
 
-        for (int i = 0; i < BASE_CARD_NUMBER; i++){
+        for (int i = 0; i < PlayerBoard.SIZE; i++){
             damages[i] = this.m_board.getAttack(i);
         }
 
