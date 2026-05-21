@@ -1,0 +1,50 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+package models {
+    package gameplay {
+        class Player {
+            - {static} <<final>> BASE_CARD_NUMBER: Integer
+
+            + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
+
+            - initHand()
+            - validateHandIndex(int index)
+            - validateDeckIndex(int index)
+            + getDeckSize(): Integer
+            + getHandSize(): Integer
+            + draw(): Boolean
+            + place(position: Integer, cardIndex: Integer): Boolean
+
+            + toString(): String
+        }
+
+        class PlayerBoard {
+            -m_cards : Optional<Card>[4]
+
+            +<<Create>> PlayerBoard()
+
+            - validatePosition(int position)
+            +isOccupied(position : Integer) : Boolean
+            +set(position : Integer, Card card)
+            +remove(position : Integer)
+
+            + toString(): String
+        }
+    }
+
+    package cards {
+        interface AliveCard <<interface>> {
+        }
+    }
+}
+
+models.gameplay.Player "*"*--U->"*\n-m_deck" models.cards.AliveCard: holds >
+models.gameplay.Player "*"*--U->"*\n-m_hand" models.cards.AliveCard: holds >
+models.gameplay.Player "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
+
+@enduml
