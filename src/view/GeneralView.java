@@ -42,37 +42,120 @@ public class GeneralView {
 
         for (Integer i = 0; i < 4; i++)
         {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "|" + m_botObserver.getWaitingBoardCardName(i) + "|" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*PV: " + m_botObserver.getWaitingBoardCardHp(i) +"------*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*Att: " + m_botObserver.getWaitingBoardCardAtt(i) +"-----*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*Att: " + m_botObserver.getWaitingBoardCardModif(i) +"--*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        System.out.println(endString);
+    }
+
+    public static void printBotBoard()
+    {
+        String endString = "\t\t";
+
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "|" + m_botObserver.getWaitingBoardCardName(i) + "|" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "*PV: " + m_botObserver.getBoardCardHp(i) +"------*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "*Att: " + m_botObserver.getBoardCardAtt(i) +"-----*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_botObserver.getBoardStatus(i)) ? "*Att: " + m_botObserver.getBoardCardModif(i) +"--*\t" : "*           *\t";
+        }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
             endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
         }
-        endString+="\n";
+        System.out.println(endString);
+    }
+
+    public static void printPlayerBoard()
+    {
+        String endString = "\t\t";
+
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "|" + m_playerObserver.getBoardCardName(i) + "|" : "*           *\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "*-----------*\t" : "*************\t";
         }
         endString+="\n";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "|" + m_playerObserver.getWaitingBoardCardName(i) + "|" : "*           *\t";
         }
         endString+="\n";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "*PV: " + m_playerObserver.getBoardCardHp(i) +"------*\t" : "*           *\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "*-----------*\t" : "*************\t";
         }
         endString+="\n";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardAtt(i) +"-----*\t" : "*           *\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "*PV: " + m_playerObserver.getBoardCardHp(i) +"------*\t" : "*           *\t";
         }
         endString+="\n";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardModif(i) +"--*\t" : "*           *\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardAtt(i) +"-----*\t" : "*           *\t";
         }
         endString+="\n";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_playerObserver.getBoardStatus(i)) ? "*Att: " + m_playerObserver.getBoardCardModif(i) +"--*\t" : "*           *\t";
         }
+        endString+="\n";
+        for (Integer i = 0; i < 4; i++)
+        {
+            endString += (m_playerObserver.getBordStatus(i)) ? "*-----------*\t" : "*************\t";
+        }
+        System.out.println(endString);
     }
 }

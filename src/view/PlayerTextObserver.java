@@ -6,62 +6,80 @@ import java.util.ArrayList;
 
 public class PlayerTextObserver implements PlayerObserver {
     private Integer m_deckCardAmount;
-    private String m_playerHand;
-    private String m_playerBoard;
-    private Boolean[] m_playerBoardState;
+    private ArrayList<String> m_playerHand;
+    private Boolean[] m_playerBoardStatus;
+    private Integer[] m_playerBoardHp;
+    private Integer[] m_playerBoardAtt;
+    private String[] m_playerBoardModif;
 
     public PlayerTextObserver()
     {
-        m_deckCardAmount = 15;
-        m_playerHand = "Votre main :\n"
-                    +   "\t";
-        m_playerBoard =
-                "          *************   *************   *************   *************\n"
-               +"          *           *   *           *   *           *   *           *\n"
-               +"          *           *   *           *   *           *   *           *\n"
-               +"          *     B1    *   *     B2    *   *    B3     *   *     B4    *\n"
-               +"          *           *   *           *   *           *   *           *\n"
-               +"          *           *   *           *   *           *   *           *\n"
-               +"          *************   *************   *************   *************\n";
-        m_playerBoardState = new Boolean[4];
-    }
-    @Override
-    public void updatePlayerDeck(Integer cardAmount) {
-        m_deckCardAmount = cardAmount;
-    }
-
-    @Override
-    public void updatePlayerHand(String hand) {
+        m_deckCardAmount = 0;
+        m_playerHand = new ArrayList<String>();
+        m_playerBoardStatus = new Boolean[4];
+        m_playerBoardHp = new Integer[4];
+        m_playerBoardAtt = new Integer[4];
+        m_playerBoardModif = new String[4];
 
     }
 
     @Override
-    public void updatePlayerBoard(PlayerBoard board) {
-
+    public void updateDeckCount(Integer cardsAmount) {
+        m_deckCardAmount = cardsAmount;
     }
 
-    public String getDeck()
-    {
-        return "";
+    @Override
+    public void updateHand(ArrayList<String> hand) {
+        m_playerHand = hand;
     }
 
-    public String getBoardCardName(Integer index)
-    {
-        return "Loup";
+    @Override
+    public void updatePlayerBoardStatus(Boolean[] boardStatus) {
+        m_playerBoardStatus = boardStatus;
     }
 
-    public String getBoardCardHp(Integer index)
-    {
-        return "Loup";
+    @Override
+    public void updatePlayerBoardHp(Integer[] boardHp) {
+        m_playerBoardHp = boardHp;
     }
 
-    public String getBoardCardAtt(Integer index)
-    {
-        return "Loup";
+    @Override
+    public void updatePlayerBoardAtt(Integer[] boardAtt) {
+        m_playerBoardAtt = boardAtt;
     }
 
-    public String getBoardCardModif(Integer index)
-    {
-        return "Loup";
+    @Override
+    public void updatePlayerBoardModif(String[] boardModif) {
+        m_playerBoardModif = boardModif;
+    }
+
+    @Override
+    public Boolean getPlayerBoardStatus(Integer index) {
+        return m_playerBoardStatus[index];
+    }
+
+    @Override
+    public Integer getPlayerBoardHp(Integer index) {
+        return m_playerBoardHp[index];
+    }
+
+    @Override
+    public Integer getPlayerBoardAtt(Integer index) {
+        return m_playerBoardAtt[index];
+    }
+
+    @Override
+    public String getPlayerBoardModif(Integer index) {
+        return m_playerBoardModif[index];
+    }
+
+    @Override
+    public String getHandCard(Integer index) {
+        return m_playerHand.get(index);
+    }
+
+    @Override
+    public Integer getDeckCount() {
+        return m_deckCardAmount;
     }
 }
