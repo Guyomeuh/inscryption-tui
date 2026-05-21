@@ -1,7 +1,3 @@
-package models.cards.decorators;
-
-import models.cards.Card;
-
 public abstract class ObjectDecorator implements Card {
     private Card m_card;
 

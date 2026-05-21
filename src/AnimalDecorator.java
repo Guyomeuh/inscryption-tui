@@ -1,7 +1,3 @@
-package models.cards.decorators;
-
-import models.cards.AliveCard;
-
 public abstract class AnimalDecorator implements AliveCard {
     private AliveCard m_card;
 
