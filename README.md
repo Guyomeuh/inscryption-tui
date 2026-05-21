@@ -2,9 +2,9 @@
 
 - [ ] transformer interface Playable en classe abstraite 
 - [ ] mettre à jout uml
-- [ ] ajouter tests Player 
+- [x] ajouter tests Player 
 - [x] terminer classe Bot 
-- [ ] ajouter tests Bot 
+- [x] ajouter tests Bot 
 - [ ] écrire la doc de tout le package Gameplay
 
 # Methode de travail
