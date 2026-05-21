@@ -58,6 +58,10 @@ public class PlayerBoard {
     public boolean getDamaged(int position, int damages){
         validatePosition(position);
 
+        if (damages < 0){
+            throw new IllegalArgumentException("damages must be superior than 0");
+        }
+
         if (this.m_cards.get(position).isEmpty()){
             return false;
         }
