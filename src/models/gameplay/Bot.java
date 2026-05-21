@@ -14,6 +14,17 @@ public class Bot implements Playable {
         this.m_cards = cards;
     }
 
+    /** 
+     *  transfer all present cards from waitingBoard to board 
+     */
+    public void transferCards(){
+        for (int i = 0; i < PlayerBoard.SIZE; i++){
+            if (this.m_waitingBoard.isOccupied(i)){
+                this.m_board.set(i, this.m_waitingBoard.remove(i).get());
+            }
+        }
+    }
+
     /**
      * Place a card in waitingBoard
      * @param position Card's position in waitingBoard

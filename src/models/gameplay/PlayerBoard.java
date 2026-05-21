@@ -7,7 +7,7 @@ import models.cards.AliveCard;
 import models.cards.Card;
 
 public class PlayerBoard {
-    private static final int SIZE = 4;
+    protected static final int SIZE = 4;
     private ArrayList<Optional<Card>> m_cards;
 
     public PlayerBoard(){
@@ -34,9 +34,13 @@ public class PlayerBoard {
         this.m_cards.set(position, Optional.of(card));
     }
 
-    public void remove(int position){
+    public Optional<Card> remove(int position){
         validatePosition(position);
+
+        Optional<Card> c = this.m_cards.get(position);
         this.m_cards.set(position, Optional.empty());
+
+        return c;
     }
 
     public int getAttack(int position){
