@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Game {
     private MatchStrategy m_strategy;
-    //private final Player m_player;
+    private final Player m_player;
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
 
@@ -59,7 +59,7 @@ public class Game {
         m_combat.draw();
     }
 
-    public addObserver(GameObserver observer)
+    public void addObserver(GameObserver observer)
     {
         m_observer.add(observer);
     }
