@@ -1,12 +1,3 @@
-# To-Do list 
-
-- [x] transformer interface Playable en classe abstraite 
-- [x] mettre à jour uml
-- [x] ajouter tests Player 
-- [x] terminer classe Bot 
-- [x] ajouter tests Bot 
-- [ ] écrire la doc de tout le package Gameplay
-
 # Methode de travail
 
 La branche ``main`` est la branche "production".
