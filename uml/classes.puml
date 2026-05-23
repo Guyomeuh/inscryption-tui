@@ -5,6 +5,10 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+skinparam nodesep 30
+skinparam ranksep 40
+skinparam padding 2
+
 class Inscryption
 {
     +Main (args : String[*])
@@ -135,8 +139,8 @@ package models {
         }
 
         class Player extends Playable {
-            + m_bone: Integer
-            + m_blood: Integer
+            - m_bone: Integer
+            - m_blood: Integer
 
             + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
 
@@ -166,7 +170,7 @@ package models {
         }
 
         class PlayerBoard {
-            ~ {static} <<final>> SIZE: Integer
+            # {static} <<final>> SIZE: Integer
             -m_cards : Optional<Card>[4]
 
             +<<Create>> PlayerBoard()
