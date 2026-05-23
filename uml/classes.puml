@@ -71,6 +71,7 @@ package models {
             + getName(): String
             + getHp(): Integer
             + getDamaged(damages: Integer)
+            + getModif(): String
         }
 
         interface AliveCard <<interface>> implements Card {
@@ -108,16 +109,22 @@ package models {
         package decorators {
             abstract class ObjectDecorator <<abstract>> implements models.cards.Card {
                 - m_card: Card 
+                - m_modif: String
 
-                + <<Creates>> ObjectDecorator(card: Card)
+                + <<Creates>> ObjectDecorator(card: Card, modif: String)
+
+                + getName(): String
 
                 + toString(): String
             }
 
             abstract class AnimalDecorator <<abstract>> implements models.cards.AliveCard {
                 - m_card: AliveCard 
+                - m_modif: String
 
-                + <<Creates>> AnimalDecorator(card: AliveCard)
+                + <<Creates>> AnimalDecorator(card: AliveCard: modif: String)
+
+                + getName(): String
 
                 + toString(): String
             }
@@ -142,7 +149,7 @@ package models {
             - m_bone: Integer
             - m_blood: Integer
 
-            + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
+            + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard, observer: PlayerObserver)
 
             - initHand()
             - validateHandIndex(int index)
@@ -154,17 +161,38 @@ package models {
             + getHandSize(): Integer
             + draw(): Boolean
 
+            + addObserver(observer: PlayerObserver)
+            + updatePlayerDeckCount()
+            + updatePlayerHand()
+            + updatePlayerBoardStatus()
+            + updatePlayerBoardHp()
+            + updatePlayerBoardAtt()
+            + updatePlayerBoardModif()
+            + updatePlayerBoardName()
+
             + toString(): String
         }
 
         class Bot extends Playable {
             - m_waitingBoard: PlayerBoard
 
-            + <<Creates>> Bot(board: PlayerBoard, waitingBoard: PlayerBoard)
+            + <<Creates>> Bot(board: PlayerBoard, waitingBoard: PlayerBoard, observer: BotObserver)
 
             + validateDeckIndex(index: Integer) 
             + getCardsSize(): Integer
             + transferCards()
+
+            + addObserver(observer: BotObserver)
+            + updateBotWaitingBoardStatus()
+            + updateBotWaitingBoardHp()
+            + updateBotWaintingBoardAtt()
+            + updateBotWaitingBoardName()
+            + updateBotWaitingBoardModif()
+            + updateBotBoardStatus()
+            + updateBotBoardHp()
+            + updateBotBoardAtt()
+            + updateBotBoardModif()
+            + updateBotBoardName()
 
             + toString(): String
         }
@@ -181,6 +209,9 @@ package models {
             + remove(position : Integer): Optional<Card>
             + sacrifice(position: Integer): Integer
             + getAttack(position: Integer): Integer
+            + getHp(position: Integer): Integer
+            + getModif(position: Integer): String
+            + getName(position: Integer): String
             + getDamaged(position: Integer, damages: Integer): Boolean
 
             + toString(): String
@@ -188,7 +219,9 @@ package models {
 
         class Game
         {
-            +<<Create>> Game(strategy : MatchStrategy, player : Player)
+            - m_gameNumber: Integer
+
+            +<<Create>> Game(strategy : MatchStrategy, player : Player, observer: GameObserver)
 
             +setStrategy()
             +nextCombat()
@@ -198,33 +231,41 @@ package models {
             +place(position : Integer, numCarte : Integer)
             +draw(player : Player)
 
+            + addObserver(observer: GameObserver)
+            + updateTurn()
+            + updateBalance()
+            + updateGameNumber()
+
             + toString(): String
         }
 
         class Combat
         {
             - {static} <<static>> m_turn : Integer
+            - m_balance: Integer
 
             +<<Create>> Combat(bot : Player, player : Player)
 
-            +draw()
-            +place(position : Integer, numCarte : Integer)
+            +draw(): Boolean
+            +place(position : Integer, numCard : Integer): Boolean 
             +sacrifice(position : Integer)
-            +endTurn()
+            +endTurn(): Integer
             +getTurn() : Integer
+            + checkVictory(): Integer
+            + getBalance(): Integer
 
             + toString(): String
         }
 
         interface MatchStrategy <<interface>> {
-            +initBot()
+            +initBot(): Bot
         }
 
         class FirstMatch implements MatchStrategy
         {
             +<<Create>> FirstMatch()
 
-            +initBot()
+            +initBot(): Bot
 
             + toString(): String
         }
@@ -233,7 +274,7 @@ package models {
         {
             +<<Create>> SecondMatch()
 
-            +initBot()
+            +initBot(): Bot
 
             + toString(): String
         }
@@ -242,7 +283,7 @@ package models {
         {
             +<<Create>> ThirdMatch()
 
-            +initBot()
+            +initBot(): Bot
 
             + toString(): String
         }
@@ -336,17 +377,20 @@ models.cards.decorators.ObjectDecorator "1"o-U->"1\n-m_Card" models.cards.Card: 
 models.cards.decorators.AnimalDecorator "1"o-->"1\n-m_Card" models.cards.AliveCard: holds >
 
 
-models.gameplay.Player "1"o-->"*\n-m_deck" models.cards.AliveCard: holds >
-models.gameplay.Player "1"*-->"*\n-m_hand" models.cards.AliveCard: holds >
+models.gameplay.Player "1"o-->"\t\t\t*\n-m_deck" models.cards.AliveCard: holds >
+models.gameplay.Player "1"*-->"\t*\n-m_hand" models.cards.AliveCard: holds >
 models.gameplay.Player "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
+models.gameplay.Player "1"*-->"*\n-m_observer" models.observer.PlayerObserver
 
 models.gameplay.Bot "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
 models.gameplay.Bot "1"o-->"1\n-m_waitingBoard" models.gameplay.PlayerBoard: holds >
 models.gameplay.Bot "1"o-->"*\n-m_cards" models.cards.AliveCard: holds >
+models.gameplay.Bot "1"*-->"*\n-m_observer" models.observer.BotObserver
 
 models.gameplay.Game "1" o--> "1\n-m_strategy" models.gameplay.MatchStrategy  : > applies
 models.gameplay.Game "1" *-l--> "1\n-m_combat" models.gameplay.Combat  
 models.gameplay.Game "1" o--> "1\n-m_player" models.gameplay.Player  
+models.gameplay.Game "1"*-->"*\n-m_observer" models.observer.GameObserver
 
 models.gameplay.Combat "1"o-->"1\n-m_player" models.gameplay.Player
 models.gameplay.Combat "1"o-->"1\n-m_bot" models.gameplay.Bot
