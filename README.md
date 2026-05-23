@@ -1,3 +1,7 @@
+# To-Do 
+
+- [ ] Intégrer les observers (méthodes + attributs) dans les modèles 
+
 # Methode de travail
 
 La branche ``main`` est la branche "production".

@@ -246,6 +246,68 @@ package models {
 } 
 
 package view {
+    class BotTextObserver implements models.observer.BotObserver {
+        - m_waitingBoardStatus: Boolean[4]
+        - m_waitingBoardHp: Integer[4]
+        - m_waitingBoardAtt: Integer[4]
+        - m_waitingBoardModif: String[4]
+        - m_waitingBoardName: String[4]
+        - m_boardStatus: Boolean[4]
+        - m_boardHp: Integer[4]
+        - m_boardAtt: Integer[4]
+        - m_boardModif: String[4]
+        - m_boardName: String[4]
+
+        + <<Creates>> BotTextObserver()
+
+        +toString(): String
+    }
+
+    class GameTextObserver implements models.observer.GameObserver {
+        - m_turn: Integer
+        - m_balance: Integer
+        - m_gameNumber: Integer
+
+        + <<Creates>> GameTextObserver()
+
+        + getGameNumber(): String 
+        + getBalance(): String
+        + getTurn(): String
+
+        + toString(): String 
+    }
+
+    class PlayerTextObserver implements models.observer.PlayerObserver {
+        - m_deckCardAmount: Integer
+        - m_playerHand: String[*];
+        - m_playerBoardStatus: Boolean[4]
+        - m_playerBoardHp: Integer[4]
+        - m_playerBoardAtt: Integer[4]
+        - m_playerBoardModif: String[4]
+        - m_playerBoardName: String[4]
+
+        + <<Creates>> PlayerTextObserver()
+
+        + toString(): String
+    }
+
+    class GeneralView {
+        - {final} m_gameObserver: GameTextObserver
+        - {final} m_playerObserver: PlayerTextObserver;
+        - {final} m_botObserver: BotTextObserver;
+
+        + <<Creates>> GeneralView(game: GameTextObserver, player: PlayerTextObserver, bot: BotTextObserver)
+        
+        + show()
+        + printGameInfo()
+        + printBotWaitingBoard()
+        + printBotBoard()
+        + printPlayerBoard()
+        + printPlayerHand()
+        + printAction()
+
+        + toString(): String
+    }
 }
 
 package controller {
@@ -285,6 +347,12 @@ models.gameplay.Game "1" o--> "1\n-m_player" models.gameplay.Player
 models.gameplay.Combat "1"o-->"1\n-m_player" models.gameplay.Player
 models.gameplay.Combat "1"o-->"1\n-m_bot" models.gameplay.Bot
 models.gameplay.Combat "1"*-->"1\n-m_currentPlayer" models.gameplay.Playable
+
+
+view.GeneralView "1"o-->"1\n-{final}-m_playerObserver" view.PlayerTextObserver
+view.GeneralView "1"o-->"1\n-{final}-m_botObserver" view.BotTextObserver
+view.GeneralView "1"o-->"1\n-{final}-m_gameObserver" view.GameTextObserver
+
 
 controller.gameplay.GameController "1" *.> "1\n-m_game" models.gameplay.Game : > controls\t\t\t\t\t\t\t\t
 
