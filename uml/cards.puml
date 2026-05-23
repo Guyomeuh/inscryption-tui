@@ -1,0 +1,67 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+package models.cards {
+    interface Card <<interface>> {
+        + getName(): String
+        + getHp(): Integer
+        + getDamaged(damages: Integer)
+    }
+
+    interface AliveCard <<interface>> implements Card {
+        + getBlood(): Integer
+        + getBone(): Integer
+        + getAttack(): Integer
+        + attack(opponent: Card)
+    }
+
+    abstract class BaseCard <<abstract>> implements Card {
+        - m_name: String 
+        - m_hp: Integer 
+
+        + <<Creates>> BaseCard(name: String, hp: Integer)
+
+        + toString(): String
+    }
+
+    class ObjectCard extends BaseCard {
+        + <<Creates>> ObjectCard(name: String, hp: Integer)
+    }
+
+    class AnimalCard extends BaseCard implements AliveCard {
+        - m_attack: Integer 
+        - m_blood: Integer
+        - m_bone: Integer
+
+        + <<Creates>> AnimalCard(name: String, hp: Integer, attack: Integer, blood: Integer, bone: Integer)
+
+        + toString(): String
+    }
+
+    package decorators {
+        abstract class ObjectDecorator <<abstract>> implements models.cards.Card {
+            - m_card: Card 
+
+            + <<Creates>> ObjectDecorator(card: Card)
+
+            + toString(): String
+        }
+
+        abstract class AnimalDecorator <<abstract>> implements models.cards.AliveCard {
+            - m_card: AliveCard 
+
+            + <<Creates>> AnimalDecorator(card: AliveCard)
+
+            + toString(): String
+        }
+    }
+} 
+
+models.cards.decorators.ObjectDecorator "1"o-->"1\n-m_Card" models.cards.Card: holds >
+models.cards.decorators.AnimalDecorator "1"o-->"1\n-m_Card" models.cards.AliveCard: holds >
+
+@enduml
