@@ -11,6 +11,57 @@ class Inscryption
 }
 
 package models {
+    package observer {
+        interface BotObserver <<interface>> {
+            updateBotWaitingBoardStatus(nextBoardStatus: Boolean[4])
+            updateBotWaitingBoardHp(nextBoardHp: Integer[4])
+            updateBotWaitingBoardAtt(nextBoardAtt: Integer[4])
+            updateBotWaitingBoardModif(nextBoardModif: String[4])
+            updateBotWaitingBoardName(nextBoardName: String[4])
+            updateBotBoardStatus(boardStatus: Boolean[4])
+            updateBotBoardHp(boardHp: Integer[4])
+            updateBotBoardAtt(boardAtt: Integer[4])
+            updateBotBoardModif(boardModif: String[4])
+            updateBotBoardName(boardName: String[4])
+
+            getBotWaitingBoardStatus(index: Integer): Boolean 
+            getBotWaitingBoardHp(index: Integer): Integer 
+            getBotWaitingBoardAtt(index: Integer): Integer 
+            getBotWaitingBoardModif(index: Integer): String 
+            getBotWaitingBoardName(index: Integer): String 
+            getBotBoardStatus(index: Integer): Boolean 
+            getBotBoardHp(index: Integer): Integer 
+            getBotBoardAtt(index: Integer): Integer 
+            getBotBoardModif(index: Integer): String 
+            getBotBoardName(index: Integer): String 
+        }
+
+        interface GameObserver <<interface>> {
+            updateTurn(turnNumber: Integer)
+            updateBalance(balance: Integer)
+            updateGameNumber(gameNumber: Integer)
+        }
+
+        interface PlayerObserver <<interface>> {
+            updatePlayerDeckCount(cardsAmount: Integer)
+            updatePlayerHand(hand: String[4])
+            updatePlayerBoardStatus(boardStatus: Boolean[4])
+            updatePlayerBoardHp(boardHp: Integer[4])
+            updatePlayerBoardAtt(boardAtt: Integer[4])
+            updatePlayerBoardModif(boardModif: String[4])
+            updatePlayerBoardName(boardName: String[4])
+
+            getPlayerBoardStatus(index: Integer): Boolean 
+            getPlayerBoardHp(index: Integer): Integer 
+            getPlayerBoardAtt(index: Integer): Integer 
+            getPlayerBoardModif(index: Integer): String 
+            getPlayerHandCard(index: Integer): String 
+            getPlayerDeckCount(): Integer 
+            getPlayerBoardName(index: Integer): String 
+            getPlayerHandSize(): Integer 
+        }
+    }
+
     package cards {
         interface Card <<interface>> {
             + getName(): String
@@ -160,8 +211,6 @@ package models {
 
             + toString(): String
         }
-
-
 
         interface MatchStrategy <<interface>> {
             +initBot()
