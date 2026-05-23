@@ -1,0 +1,121 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+package models {
+    package cards {
+        abstract class CardContainer {
+            - m_cards: Card[*]
+            # <<Create>> CardContainer()
+            # add(card : Card) : Boolean
+            # remove(card : Card) : Boolean
+            # contains(card : Card) : Boolean
+            # getIndex(card : Card) : Integer
+            # getSize(card : Card) : Integer
+            # toString() : String
+        }
+
+        class Deck extends CardContainer {
+            + <<Create>> Deck()
+            + draw(numCarte : Integer) : Card
+
+        }
+
+        class Hand extends CardContainer {
+        }
+
+        Interface Card {
+
+        }
+
+        class AnimalCard implements Card {
+            - m_name: String
+            - m_hp: Integer
+            - m_attack: Integer
+            - m_blood: Integer
+            - m_bone: Integer
+        }
+
+        class ObstacleCard implements Card {
+            - m_name: String
+            - m_hp: Integer
+        }
+
+        package modifiers {
+            abstract class Decorator implements models.cards.Card {
+                - m_card: Card
+            } 
+
+            class Airborne extends Decorator {
+
+            }
+        }
+    }
+
+    package game {
+        interface Playable {
+        }
+
+        class Game
+        {
+            - m_board
+            - <<Create>> Game(player : Player)
+            + <<Create>> Game1(player : Player)
+            + <<Create>> Game2(player : Player)
+        }
+
+        class Player implements Playable {
+            - m_hand: Hand
+            - m_deck : Deck
+            + draw() : Card
+        }
+
+        class Bot implements Playable {
+            - m_hand: Hand
+            - m_deck : Deck
+        }
+
+        class Board {
+            - <<static>> m_turnNumber: Integer
+            - m_players: Playable[*]
+            - m_deck: Deck
+        }
+    }
+}
+
+package views {
+}
+
+package controllers {
+    package cards {
+        class FlyingAnimal implements models.cards.modifiers.Airborne {
+        }
+
+        FlyingAnimal o-U-> models.cards.AnimalCard
+    }
+
+    package game {
+        class PlayerController {
+            - m_player: Player
+        }
+
+        class BotController {
+            - m_bot: Bot 
+        }
+
+        class BoardController {
+            - m_board: Board
+        }
+    }
+
+    class GameController {
+        - m_board: BoardController 
+        - m_player: PlayerController
+        - m_bot: BotController 
+    }
+}
+
+@enduml
