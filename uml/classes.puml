@@ -5,117 +5,238 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+class Inscryption
+{
+    +Main (args : String[*])
+}
+
 package models {
     package cards {
-        abstract class CardContainer {
-            - m_cards: Card[*]
-            # <<Create>> CardContainer()
-            # add(card : Card) : Boolean
-            # remove(card : Card) : Boolean
-            # contains(card : Card) : Boolean
-            # getIndex(card : Card) : Integer
-            # getSize(card : Card) : Integer
-            # toString() : String
+        interface Card <<interface>> {
+            + getName(): String
+            + getHp(): Integer
+            + getDamaged(damages: Integer)
         }
 
-        class Deck extends CardContainer {
-            + <<Create>> Deck()
-            + draw(numCarte : Integer) : Card
-
+        interface AliveCard <<interface>> implements Card {
+            + getBlood(): Integer
+            + getBone(): Integer
+            + getAttack(): Integer
+            + attack(opponent: Card)
         }
 
-        class Hand extends CardContainer {
+        abstract class BaseCard <<abstract>> implements Card {
+            - m_name: String 
+            - m_hp: Integer 
+
+            + <<Creates>> BaseCard(name: String, hp: Integer)
+
+            + toString(): String
         }
 
-        Interface Card {
+        class ObjectCard extends BaseCard {
+            + <<Creates>> ObjectCard(name: String, hp: Integer)
 
+            + toString(): String
         }
 
-        class AnimalCard implements Card {
-            - m_name: String
-            - m_hp: Integer
-            - m_attack: Integer
+        class AnimalCard extends BaseCard implements AliveCard {
+            - m_attack: Integer 
             - m_blood: Integer
             - m_bone: Integer
+
+            + <<Creates>> AnimalCard(name: String, hp: Integer, attack: Integer, blood: Integer, bone: Integer)
+
+            + toString(): String
         }
 
-        class ObstacleCard implements Card {
-            - m_name: String
-            - m_hp: Integer
-        }
+        package decorators {
+            abstract class ObjectDecorator <<abstract>> implements models.cards.Card {
+                - m_card: Card 
 
-        package modifiers {
-            abstract class Decorator implements models.cards.Card {
-                - m_card: Card
-            } 
+                + <<Creates>> ObjectDecorator(card: Card)
 
-            class Airborne extends Decorator {
+                + toString(): String
+            }
 
+            abstract class AnimalDecorator <<abstract>> implements models.cards.AliveCard {
+                - m_card: AliveCard 
+
+                + <<Creates>> AnimalDecorator(card: AliveCard)
+
+                + toString(): String
             }
         }
     }
 
-    package game {
-        interface Playable {
+    package gameplay {
+        abstract class Playable <<abstract>> {
+            + {static} <<final>> BASE_CARD_NUMBER: Integer
+            ~ m_board: PlayerBoard
+
+            + <<Creates>> Playable(board: PlayerBoard)
+
+            + endTurn(): Integer[4]
+            + getDamaged(position: Integer, damages: Integer): Boolean
+            + {abstract} <<abstract>> place(position: Integer, cardIndex: Integer): Boolean
+
+            - toString(): String
+        }
+
+        class Player extends Playable {
+            + m_bone: Integer
+            + m_blood: Integer
+
+            + <<Creates>> Player(deck: AliveCard[*], board: PlayerBoard)
+
+            - initHand()
+            - validateHandIndex(int index)
+            - validateDeckIndex(int index)
+            + getBlood(): Integer
+            + getBone(): Integer
+            + sacrifice(position: Integer): Boolean
+            + getDeckSize(): Integer
+            + getHandSize(): Integer
+            + draw(): Boolean
+
+            + toString(): String
+        }
+
+        class Bot extends Playable {
+            - m_waitingBoard: PlayerBoard
+
+            + <<Creates>> Bot(board: PlayerBoard, waitingBoard: PlayerBoard)
+
+            + validateDeckIndex(index: Integer) 
+            + getCardsSize(): Integer
+            + transferCards()
+
+            + toString(): String
+        }
+
+        class PlayerBoard {
+            ~ {static} <<final>> SIZE: Integer
+            -m_cards : Optional<Card>[4]
+
+            +<<Create>> PlayerBoard()
+
+            - validatePosition(int position)
+            + isOccupied(position : Integer) : Boolean
+            + set(position : Integer, Card card)
+            + remove(position : Integer): Optional<Card>
+            + sacrifice(position: Integer): Integer
+            + getAttack(position: Integer): Integer
+            + getDamaged(position: Integer, damages: Integer): Boolean
+
+            + toString(): String
         }
 
         class Game
         {
-            - m_board
-            - <<Create>> Game(player : Player)
-            + <<Create>> Game1(player : Player)
-            + <<Create>> Game2(player : Player)
+            +<<Create>> Game(strategy : MatchStrategy, player : Player)
+
+            +setStrategy()
+            +nextCombat()
+            +beginCombat()
+            +endTurn()
+            +sacrifice(position : Integer)
+            +place(position : Integer, numCarte : Integer)
+            +draw(player : Player)
+
+            + toString(): String
         }
 
-        class Player implements Playable {
-            - m_hand: Hand
-            - m_deck : Deck
-            + draw() : Card
+        class Combat
+        {
+            - {static} <<static>> m_turn : Integer
+
+            +<<Create>> Combat(bot : Player, player : Player)
+
+            +draw()
+            +place(position : Integer, numCarte : Integer)
+            +sacrifice(position : Integer)
+            +endTurn()
+            +getTurn() : Integer
+
+            + toString(): String
         }
 
-        class Bot implements Playable {
-            - m_hand: Hand
-            - m_deck : Deck
+
+
+        interface MatchStrategy <<interface>> {
+            +initBot()
         }
 
-        class Board {
-            - <<static>> m_turnNumber: Integer
-            - m_players: Playable[*]
-            - m_deck: Deck
+        class FirstMatch implements MatchStrategy
+        {
+            +<<Create>> FirstMatch()
+
+            +initBot()
+
+            + toString(): String
+        }
+
+        class SecondMatch implements MatchStrategy
+        {
+            +<<Create>> SecondMatch()
+
+            +initBot()
+
+            + toString(): String
+        }
+
+        class ThirdMatch implements MatchStrategy
+        {
+            +<<Create>> ThirdMatch()
+
+            +initBot()
+
+            + toString(): String
         }
     }
+} 
+
+package view {
 }
 
-package views {
+package controller {
+    package gameplay
+    {
+        class GameController
+        {
+            + <<Create>> GameController(game : Game)
+            + startGame()
+            + endTurn()
+            + draw()
+            + sacrifice()
+            + place()
+            + quit()
+        }
+    }
+
 }
 
-package controllers {
-    package cards {
-        class FlyingAnimal implements models.cards.modifiers.Airborne {
-        }
+models.cards.decorators.ObjectDecorator "1"o-U->"1\n-m_Card" models.cards.Card: holds >
 
-        FlyingAnimal o-U-> models.cards.AnimalCard
-    }
+models.cards.decorators.AnimalDecorator "1"o-->"1\n-m_Card" models.cards.AliveCard: holds >
 
-    package game {
-        class PlayerController {
-            - m_player: Player
-        }
 
-        class BotController {
-            - m_bot: Bot 
-        }
+models.gameplay.Player "1"o-->"*\n-m_deck" models.cards.AliveCard: holds >
+models.gameplay.Player "1"*-->"*\n-m_hand" models.cards.AliveCard: holds >
+models.gameplay.Player "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
 
-        class BoardController {
-            - m_board: Board
-        }
-    }
+models.gameplay.Bot "1"o-->"1\n-m_board" models.gameplay.PlayerBoard: holds >
+models.gameplay.Bot "1"o-->"1\n-m_waitingBoard" models.gameplay.PlayerBoard: holds >
+models.gameplay.Bot "1"o-->"*\n-m_cards" models.cards.AliveCard: holds >
 
-    class GameController {
-        - m_board: BoardController 
-        - m_player: PlayerController
-        - m_bot: BotController 
-    }
-}
+models.gameplay.Game "1" o--> "1\n-m_strategy" models.gameplay.MatchStrategy  : > applies
+models.gameplay.Game "1" *-l--> "1\n-m_combat" models.gameplay.Combat  
+models.gameplay.Game "1" o--> "1\n-m_player" models.gameplay.Player  
+
+models.gameplay.Combat "1"o-->"1\n-m_player" models.gameplay.Player
+models.gameplay.Combat "1"o-->"1\n-m_bot" models.gameplay.Bot
+models.gameplay.Combat "1"*-->"1\n-m_currentPlayer" models.gameplay.Playable
+
+controller.gameplay.GameController "1" *.> "1\n-m_game" models.gameplay.Game : > controls\t\t\t\t\t\t\t\t
 
 @enduml
