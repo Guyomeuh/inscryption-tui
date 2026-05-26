@@ -33,6 +33,6 @@ public class AnimalCard extends BaseCard implements AliveCard {
 
     @Override
     public String toString(){
-        return super.toString() + ", " + this.getAttack() + "atk, " + this.getBlood() + "blood, " + this.getBone() + "bones";
+        return super.toString() + ", " + this.getAttack() + " atk, " + this.getBlood() + " blood, " + this.getBone() + " bones";
     }
 }

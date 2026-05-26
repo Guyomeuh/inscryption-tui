@@ -31,7 +31,13 @@ public abstract class BaseCard implements Card {
     }
 
     @Override
+    public String getModif()
+    {
+        return "";
+    }
+
+    @Override
     public String toString(){
-        return this.getName() + ": " + this.getHp() + "hp";
+        return this.getName() + ": " + this.getHp() + " hp";
     }
 }

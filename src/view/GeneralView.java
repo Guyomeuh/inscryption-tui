@@ -1,28 +1,58 @@
 package view;
 
 import java.sql.SQLOutput;
+import java.util.Scanner;
 
 public class GeneralView {
 
     private GameTextObserver m_gameObserver;
     private PlayerTextObserver m_playerObserver;
     private BotTextObserver m_botObserver;
+    private Scanner m_scanner;
 
     public GeneralView(GameTextObserver game, PlayerTextObserver player, BotTextObserver bot)
     {
         m_gameObserver = game;
         m_playerObserver = player;
         m_botObserver = bot;
+        m_scanner = new Scanner(System.in);
     }
 
     public void show()
     {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         printGameInfo();
         printBotWaitingBoard();
         printBotBoard();
         printPlayerBoard();
         printPlayerHand();
         printAction();
+    }
+
+    public boolean gameStart()
+    {
+        boolean valid = false;
+
+        while (!valid)
+        {
+            System.out.println("Lancer la partie ? (y/n)");
+            String input = m_scanner.nextLine();
+            switch (input)
+            {
+                case "y" -> {
+                    return true;
+                }
+                case "n" -> System.exit(0);
+                default -> System.out.println("Saisissez une réponse valide");
+            }
+        }
+        return false;
+    }
+
+    public String promptUser()
+    {
+        return m_scanner.nextLine();
     }
 
     public void printGameInfo()
@@ -32,6 +62,7 @@ public class GeneralView {
 
     public void printBotWaitingBoard()
     {
+
         String endString = "\t\t";
 
         for (Integer i = 0; i < 4; i++)
@@ -119,7 +150,7 @@ public class GeneralView {
 
     public void printPlayerBoard()
     {
-        String endString = "\t\t";
+        String endString = "\n" + m_gameObserver.getBalance() + "\n\t\t";
 
         for (Integer i = 0; i < 4; i++)
         {
@@ -163,23 +194,39 @@ public class GeneralView {
     public void printPlayerHand()
     {
         String res = "Votre main: \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t *------------*\n";
-        for (int i = 0; i < m_playerObserver.getPlayerHandSize(); i++)
+        for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 5; i++)
         {
-            if (i < 5 && i != 2)
+            if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize())
             {
                 res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t |            |\n";
             }
-            else if (i == 2)
+//            else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize())
+//            {
+//                res += "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t |            |\n";
+//            }
+            else if (i == 2 && i < m_playerObserver.getPlayerHandSize())
             {
                 res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
             }
-            else if (i == 5)
+//            else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
+//            {
+//                res+= "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
+//            }
+            else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
                 res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + "*------------*\n";
             }
+//            else if (i == 5 && i >= m_playerObserver.getPlayerHandSize())
+//            {
+//                res+= "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  " + "*------------*\n";
+//            }
+//            else if (i < m_playerObserver.getPlayerHandSize())
+//            {
+//                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\n";
+//            }
             else
             {
-                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\n";
+                res+= "\n";
             }
         }
         System.out.println(res);
@@ -189,6 +236,6 @@ public class GeneralView {
     {
         System.out.println("Action possibles :\n\t[fin] Terminer votre tour\n" +
                 "\t[piocher] Piocher une carte\n" +
-                "\t[placer <numero carte> <position>] Placer une carte sur le plateau\n");
+                "\t[placer <position> <numero de carte>] Placer une carte sur le plateau\n");
     }
 }

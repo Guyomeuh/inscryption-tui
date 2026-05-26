@@ -34,6 +34,36 @@ public class PlayerBoard {
         this.m_cards.set(position, Optional.of(card));
     }
 
+    public String getName(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getName();
+        }
+        return "";
+    }
+
+    public int getHp(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getHp();
+        }
+        return 0;
+    }
+
+    public String getModif(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getModif();
+        }
+        return "";
+    }
+
     public Optional<Card> remove(int position){
         validatePosition(position);
 
@@ -64,7 +94,7 @@ public class PlayerBoard {
 
         // returns -1 if position is empty
         if (this.m_cards.get(position).isEmpty()){
-            return -1;
+            return 0;
         }
 
         // returns 0 if it's not an AliveCard (no attack)

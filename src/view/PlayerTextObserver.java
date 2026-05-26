@@ -1,6 +1,7 @@
 package view;
 
-import model.observer.PlayerObserver;
+import models.cards.AnimalCard;
+import models.observer.PlayerObserver;
 
 import java.util.ArrayList;
 
@@ -21,18 +22,7 @@ public class PlayerTextObserver implements PlayerObserver {
         m_playerBoardHp = new Integer[4];
         m_playerBoardAtt = new Integer[4];
         m_playerBoardModif = new String[4];
-//        m_deckCardAmount = 15;
-//        m_playerHand = new ArrayList<String>();
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerBoardStatus = new Boolean[]{false,false,false,false};
-//        m_playerBoardHp = new Integer[]{-1,-1,-1,-1};
-//        m_playerBoardAtt = new Integer[]{-1,-1,-1,-1};
-//        m_playerBoardModif = new String[]{"","","",""};
+        m_deckCardAmount = 15;
 
 
     }
