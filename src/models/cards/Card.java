@@ -5,4 +5,5 @@ public interface Card {
     public int getHp();
     public void getDamaged(int damages);
     public String getModif();
+    public boolean isSacrifiable();
 }

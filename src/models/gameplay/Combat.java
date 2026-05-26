@@ -20,14 +20,24 @@ public class Combat {
         return m_player.draw();
     }
 
-    public boolean place(int position, int numCard)
+    public int place(int position, int numCard)
     {
         return m_currentPlayer.place(position, numCard);
     }
 
-    public void sacrifice(Integer position)
+    public int availableBlood()
     {
-        m_player.sacrifice(position);
+        return m_player.availableBlood();
+    }
+
+    public int getBloodCost(int cardIndex)
+    {
+        return m_player.getBloodCost(cardIndex);
+    }
+
+    public int sacrifice(Integer position)
+    {
+        return m_player.sacrifice(position);
     }
 
     public boolean endTurn() {

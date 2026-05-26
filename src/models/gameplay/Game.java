@@ -56,14 +56,28 @@ public class Game {
         return res;
     }
 
-    public void sacrifice(Integer position)
+    public int getBloodCost(int cardIndex)
     {
-        m_combat.sacrifice(position);
+        return m_combat.getBloodCost(cardIndex);
+    }
+    public int sacrifice(Integer position)
+    {
+        return m_combat.sacrifice(position);
     }
 
-    public boolean place(Integer position, Integer numCard)
+    public int place(Integer position, Integer numCard)
     {
         return m_combat.place(position, numCard);
+    }
+
+    public int getHandSize()
+    {
+        return m_player.getHandSize();
+    }
+
+    public int availableBlood()
+    {
+        return m_combat.availableBlood();
     }
 
     public boolean draw()

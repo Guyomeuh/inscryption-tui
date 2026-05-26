@@ -2,6 +2,7 @@ package models.gameplay;
 
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
+import models.cards.ObjectCard;
 import models.observer.BotObserver;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class FirstMatch implements MatchStrategy {
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
         PlayerBoard board = new PlayerBoard();
-        board.set(1, new AnimalCard("Z" , 10, 10, 0, 0));
+        board.set(1, new ObjectCard("Caillou", 10));
         PlayerBoard waitingBoard = new PlayerBoard();
         return new Bot(board, waitingBoard, deck, observer);
     }

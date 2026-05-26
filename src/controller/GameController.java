@@ -3,6 +3,8 @@ package controller;
 import models.gameplay.Game;
 import view.GeneralView;
 
+import java.util.Objects;
+
 public class GameController {
     private Game m_game;
     private GeneralView m_view;
@@ -29,7 +31,6 @@ public class GameController {
                     System.out.println(input);
                     switch (input.split(" ")[0])
                     {
-                        case "Test" -> valid = m_game.place(1,1);
                         case "fin" ->
                                 {
                                     valid = m_game.endTurn();
@@ -49,9 +50,38 @@ public class GameController {
                                 }
                         case "placer" ->
                                 {
-                                    if ((Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4 && (Integer.parseInt(input.split(" ")[2]) - 1) >= 0)
+                                    if ((Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4 && (Integer.parseInt(input.split(" ")[2]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[2]) - 1) < m_game.getHandSize())
                                     {
-                                        valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1,Integer.parseInt(input.split(" ")[2]) - 1);
+                                        if (m_game.availableBlood() >= m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) && m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) !=0)
+                                        {
+                                            int remainingSacrifice = m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
+                                            boolean validSacrifice = false;
+                                            while (remainingSacrifice != 0 || !validSacrifice)
+                                            {
+                                                validSacrifice = false;
+                                                m_view.askForBlood(remainingSacrifice);
+                                                String sacrificeInput = m_view.promptUser();
+                                                if (Objects.equals(sacrificeInput.split(" ")[0], "sacrifier") && (Integer.parseInt(sacrificeInput.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(sacrificeInput.split(" ")[1]) - 1) <= 4)
+                                                {
+                                                    remainingSacrifice-=m_game.sacrifice(Integer.parseInt(sacrificeInput.split(" ")[1]) - 1);
+                                                    validSacrifice = true;
+                                                }
+                                                else
+                                                {
+                                                    System.out.println("Veuillez saisir une commande valide");
+                                                }
+                                            }
+                                            System.out.println("Où voulez vous poser la carte ?\n[placer] <numero de la case>");
+                                            String sacrificePosition = m_view.promptUser();
+                                            if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && (Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4)
+                                            {
+                                                valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1) == 0;
+                                            }
+                                        }
+                                        else if (m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) == 0){
+                                            valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1) == 0;
+                                        }
+
                                     }
                                     else
                                     {

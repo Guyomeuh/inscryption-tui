@@ -50,6 +50,11 @@ public class GeneralView {
         return false;
     }
 
+    public void askForBlood(int remainingSacrifice)
+    {
+        System.out.println("Vous devez sacrifier " + remainingSacrifice + " créatures\n[sacrifier] <position>");
+    }
+
     public String promptUser()
     {
         return m_scanner.nextLine();

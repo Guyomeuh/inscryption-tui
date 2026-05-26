@@ -65,10 +65,10 @@ public class Bot extends Playable {
      * @return true if placed, else false
      */
     @Override
-    public boolean place(int position, int cardIndex){
+    public int place(int position, int cardIndex){
         validateDeckIndex(cardIndex);
         if (this.m_waitingBoard.isOccupied(position)){
-            return false;
+            return 0;
         }
 
         this.m_waitingBoard.set(position, this.m_cards.get(cardIndex));
@@ -78,7 +78,7 @@ public class Bot extends Playable {
         updateBotWaitingBoardName();
         updateBotWaitingBoardAtt();
         updateBotWaitingBoardModif();
-        return true;
+        return 1;
     }
 
     public void updateBotWaitingBoardStatus()

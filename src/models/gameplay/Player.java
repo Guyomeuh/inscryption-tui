@@ -22,7 +22,8 @@ public class Player extends Playable {
         this.m_deck = deck;
         for (int i = 0 ; i < 15 ; i++)
         {
-            m_deck.add(new AnimalCard("Loup", 2, 3, 0, 0));
+            m_deck.add(new AnimalCard("Loup", 2, 3, 2, 0));
+            m_deck.add(new AnimalCard("Ecureuil", 2, 0, 0, 0));
         }
 
         this.m_hand = new ArrayList<AliveCard>();
@@ -169,15 +170,13 @@ public class Player extends Playable {
         return this.m_bone;
     }
 
-    public boolean sacrifice(int position){
+    public int sacrifice(int position){
         int blood = this.m_board.sacrifice(position);
 
-        if (blood == -1){
-            return false;
-        }
         this.m_blood += blood;
 
-        return true;
+        updateAll();
+        return blood;
     }
 
     public int getDeckSize(){
@@ -193,27 +192,43 @@ public class Player extends Playable {
             return false;
         }
 
-        int rndIndex = new Random().nextInt(0, this.getDeckSize()); // generates random index in [0, deckSize - 1]
+        int rndIndex = new Random().nextInt(this.getDeckSize()); // generates random index in [0, deckSize - 1]
         this.m_hand.add(this.m_deck.remove(rndIndex));
         updatePlayerDeckCount();
         updatePlayerHand();
         return true;
     }
 
-    @Override
-    public boolean place(int position, int cardIndex){
+    public int availableBlood()
+    {
+        int availableBlood = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (m_board.isSacrifiable(i))
+            {
+                availableBlood+=m_board.getBlood(i);
+            }
+        }
+        return availableBlood;
+    }
+
+    public int getBloodCost(int cardIndex)
+    {
         validateHandIndex(cardIndex);
 
-        if (this.m_hand.get(cardIndex).getBlood() > this.m_blood){
-            return false;
-        }
+        return m_hand.get(cardIndex).getBloodCost();
+    }
+
+    @Override
+    public int place(int position, int cardIndex){
+        validateHandIndex(cardIndex);
 
         if (this.m_board.isOccupied(position)){
             System.out.println("Emplacement déjà occupé");
-            return false;
+            return -1;
         }
 
-        this.m_blood -= this.m_hand.get(cardIndex).getBlood();
+        this.m_blood -= this.m_hand.get(cardIndex).getBloodCost();
         this.m_board.set(position, this.m_hand.get(cardIndex));
         this.m_hand.remove(cardIndex);
         updatePlayerBoardStatus();
@@ -222,7 +237,7 @@ public class Player extends Playable {
         updatePlayerBoardAtt();
         updatePlayerBoardModif();
         updatePlayerHand();
-        return true;
+        return 0;
     }
 
     @Override

@@ -75,18 +75,36 @@ public class PlayerBoard {
 
     public int sacrifice(int position){
         validatePosition(position);
+        int cardBlood = getBlood(position);
+        this.m_cards.set(position, Optional.empty());
+
+        return cardBlood;
+    }
+
+    public int getBlood(int position)
+    {
+        validatePosition(position);
         if (this.m_cards.get(position).isEmpty()){
-            return -1;
+            return 0;
         }
 
         if (!(this.m_cards.get(position).get() instanceof AliveCard)){
-            return -1;
+            return 0;
+        };
+        return 1;
+    }
+
+    public boolean isSacrifiable(int position)
+    {
+        validatePosition(position);
+        if (this.m_cards.get(position).isEmpty())
+        {
+            return false;
         }
 
-        int cardBlood = ((AliveCard)this.m_cards.get(position).get()).getBlood();
-        this.remove(position);
+        return this.m_cards.get(position).get().isSacrifiable();
 
-        return cardBlood;
+
     }
 
     public int getAttack(int position){
