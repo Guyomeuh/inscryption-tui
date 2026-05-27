@@ -4,5 +4,5 @@ import models.observer.BotObserver;
 
 public interface MatchStrategy {
     public Bot initBot();
-    public void botAction(int turnNumber, Bot bot);
+    public void botAction(int turnNumber, Bot bot );
 }

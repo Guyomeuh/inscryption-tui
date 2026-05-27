@@ -21,9 +21,10 @@ public class Combat {
         m_bot.updateAll();
     }
 
-    public void BotTurn(Bot bot)
+    public void botTurn()
     {
         m_strategy.botAction(m_turn,m_bot);
+        endTurn();
     }
 
     public boolean draw()

@@ -100,7 +100,7 @@ public class GameController {
                     }
                     m_view.show();
                 }
-                m_game.endTurn();
+                m_game.botTurn();
             }
             if (m_game.checkVictory() >= 1)
             {

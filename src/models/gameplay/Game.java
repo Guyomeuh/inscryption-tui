@@ -22,6 +22,11 @@ public class Game {
         MatchStrategy strategy = new FirstMatch();
         m_combat = new Combat(m_player, strategy, m_botObserver);
     }
+    public void botTurn()
+    {
+        m_combat.botTurn();
+        updateTurn();
+    }
 
     public void setStrategy(MatchStrategy strategy)
     {
