@@ -14,5 +14,5 @@ public class StinkyAnimal extends AnimalDecorator {
     public String getModif(){ return "Puant"; }
 
     @Override
-    public String toString(){ return super.toString() + " Puant"; }
+    public String toString(){ return super.toString() + " " + this.getModif(); }
 }

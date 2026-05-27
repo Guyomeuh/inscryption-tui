@@ -14,5 +14,5 @@ public class TouchOfDeathAnimal extends AnimalDecorator {
     public int getAttack(){ return Integer.MAX_VALUE; }
 
     @Override
-    public String toString(){ return super.toString() + this.getModif(); }
+    public String toString(){ return super.toString() + " " + this.getModif(); }
 }
