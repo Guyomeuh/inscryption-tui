@@ -7,7 +7,6 @@ import view.BotTextObserver;
 import view.GameTextObserver;
 import view.GeneralView;
 import view.PlayerTextObserver;
-
 import java.util.ArrayList;
 
 public class Main

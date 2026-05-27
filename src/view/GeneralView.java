@@ -197,36 +197,36 @@ public class GeneralView {
     public void printPlayerHand()
     {
         String res = "Votre main: \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t *------------*\n";
-        for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 5; i++)
+        for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 6; i++)
         {
-            if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize())
+            if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "|            |\n";
+                res += String.format("%1s %2$40s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
             }
-//            else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize())
-//            {
-//                res += "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t |            |\n";
-//            }
-            else if (i == 2 && i < m_playerObserver.getPlayerHandSize())
+            else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
+                res += String.format("%1$124s","|            |\n");
             }
-//            else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
-//            {
-//                res+= "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
-//            }
+            else if (i == 2 && i < m_playerObserver.getPlayerHandSize()) //Works
+            {
+                res+= String.format("%1$s %2$40s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
+            }
+            else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
+            {
+                res+= String.format("%1$109s|     %2$-7s","",m_playerObserver.getPlayerDeckCount()) + "|\n";
+            }
             else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + "*------------*\n";
+                res+=   String.format("%1s %2$40s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
             }
-//            else if (i == 5 && i >= m_playerObserver.getPlayerHandSize())
-//            {
-//                res+= "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  " + "*------------*\n";
-//            }
-//            else if (i < m_playerObserver.getPlayerHandSize())
-//            {
-//                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\n";
-//            }
+            else if (i == 5 && i >= m_playerObserver.getPlayerHandSize()) //Works
+            {
+                res+= String.format("%1$124s","*------------*\n");
+            }
+            else if (i < m_playerObserver.getPlayerHandSize())
+            {
+                res+= String.format("%1$s %2$40s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
+            }
             else
             {
                 res+= "\n";

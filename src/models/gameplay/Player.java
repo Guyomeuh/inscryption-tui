@@ -22,7 +22,6 @@ public class Player extends Playable {
         this.m_deck = deck;
         for (int i = 0 ; i < 15 ; i++)
         {
-            m_deck.add(new AnimalCard("Loup", 2, 3, 2, 0));
             m_deck.add(new AnimalCard("Ecureuil", 2, 0, 0, 0));
         }
 

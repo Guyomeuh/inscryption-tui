@@ -38,15 +38,15 @@ public class GameController {
                                 }
                         case "piocher" ->
                                 {
-                                    if (!pioche)
-                                    {
+                                    //if (!pioche)
+                                    //{
                                         valid = m_game.draw();
                                         pioche = true;
-                                    }
-                                    else
-                                    {
+                                    //}
+                                    //else
+                                    //{
                                         System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même");
-                                    }
+                                    //}
                                 }
                         case "placer" ->
                                 {
@@ -98,16 +98,17 @@ public class GameController {
                             }
                         }
                     }
-                    m_view.show();
                 }
                 m_game.botTurn();
             }
             if (m_game.checkVictory() >= 1)
             {
+                m_view.show();
                 System.out.println("Félication vous avez gagné !");
             }
-            else
+            else if (m_game.checkVictory() <= -1)
             {
+                m_view.show();
                 System.out.println("Bouh le nul");
             }
         }

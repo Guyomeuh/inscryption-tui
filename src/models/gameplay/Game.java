@@ -25,6 +25,7 @@ public class Game {
     public void botTurn()
     {
         m_combat.botTurn();
+        updateBalance();
         updateTurn();
     }
 
