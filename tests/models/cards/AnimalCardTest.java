@@ -11,8 +11,8 @@ public class AnimalCardTest {
         AnimalCard ac = new AnimalCard("crow", 3, 2, 2, 0);
 
         assertTrue(ac.getAttack() == 2);
-        assertTrue(ac.getBlood() == 2);
-        assertTrue(ac.getBone() == 0);
+        assertTrue(ac.getBloodCost() == 2);
+        assertTrue(ac.getBoneCost() == 0);
     }
 
     @Test
@@ -35,6 +35,6 @@ public class AnimalCardTest {
     public void tostring(){
         AnimalCard ac = new AnimalCard("crow", 3, 2, 2, 0);
 
-        assertEquals(ac.toString(), "crow: 3hp, 2atk, 2blood, 0bones");
+        assertEquals(ac.toString(), "crow: 3 hp, 2 atk, 2 blood, 0 bones");
     }
 }
