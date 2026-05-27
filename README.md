@@ -1,9 +1,10 @@
 # TO-DO 
 
 - [ ] Ajouter decorators: 
+    - [ ] Volant
     - [ ] Nombreuses vies 
     - [ ] Croissance 
-    - [ ] Puant
+    - [x] Puant
     - [ ] Coureur
     - [x] Contact Mortel
     - [ ] Piques pointues

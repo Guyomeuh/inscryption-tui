@@ -14,4 +14,13 @@ public class AnimalDecoratorsTest {
         assertEquals("Contact mortel", viper.getModif());
         assertEquals(Integer.MAX_VALUE, viper.getAttack());
     }
+
+    @Test 
+    public void Stinky(){
+        StinkyAnimal bedbug = new StinkyAnimal(new AnimalCard("Bedbug", 2, 1, 0, 2));
+
+        assertEquals("Puant", bedbug.getModif());
+        bedbug.getDamaged(2);
+        assertEquals(1, bedbug.getHp());
+    }
 }
