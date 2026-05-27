@@ -144,6 +144,8 @@ public class PlayerBoard {
         return true;
     }
 
+    public PlayerBoard clone()
+
     @Override
     public String toString(){
         return "PlayerBoard";

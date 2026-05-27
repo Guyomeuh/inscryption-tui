@@ -22,7 +22,7 @@ public class Player extends Playable {
         this.m_deck = deck;
         for (int i = 0 ; i < 15 ; i++)
         {
-            m_deck.add(new AnimalCard("Ecureuil", 2, 0, 0, 0));
+            m_deck.add(new AnimalCard("Ecureuil", 2, 110, 0, 0));
         }
 
         this.m_hand = new ArrayList<AliveCard>();
@@ -43,7 +43,6 @@ public class Player extends Playable {
         updatePlayerBoardName();
         updatePlayerDeckCount();
     }
-
 
     public void updatePlayerDeckCount()
     {
@@ -216,6 +215,11 @@ public class Player extends Playable {
         validateHandIndex(cardIndex);
 
         return m_hand.get(cardIndex).getBloodCost();
+    }
+
+    public Player clone()
+    {
+        return new Player(m_deck.clone(), new PlayerBoard(), m_observer.get(1));
     }
 
     @Override

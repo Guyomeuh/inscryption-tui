@@ -105,6 +105,8 @@ public class GameController {
             {
                 m_view.show();
                 System.out.println("Félication vous avez gagné !");
+                m_game.nextCombat();
+                startGame();
             }
             else if (m_game.checkVictory() <= -1)
             {

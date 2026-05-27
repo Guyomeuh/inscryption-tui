@@ -36,14 +36,14 @@ public class FirstMatch implements MatchStrategy {
                 bot.transferCards();
                 bot.place(0, 0);
             }
-            case 2 -> {
-                bot.place(1,0);
-                bot.place(2, 0);
-            }
-            case 3 -> {
-                bot.place(3, 0);
-            }
-            default -> {}
+//            case 2 -> {
+//                bot.place(1,0);
+//                bot.place(2, 0);
+//            }
+//            case 3 -> {
+//                bot.place(3, 0);
+//            }
+//            default -> {}
         }
 
     }
