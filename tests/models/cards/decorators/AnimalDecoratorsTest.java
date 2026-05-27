@@ -23,4 +23,14 @@ public class AnimalDecoratorsTest {
         bedbug.getDamaged(2);
         assertEquals(1, bedbug.getHp());
     }
+
+    @Test
+    public void SharpQuills(){
+        SharpQuillsAnimal porcupine = new SharpQuillsAnimal(new AnimalCard("Porcupine", 2, 1, 1, 0));
+        AnimalCard grizzly = new AnimalCard("grizzly", 6, 4, 3, 0);
+
+        assertEquals("Piques pointues", porcupine.getModif());
+        grizzly.attack(porcupine);
+        assertEquals(5, grizzly.getHp());
+    }
 }

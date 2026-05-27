@@ -7,7 +7,7 @@
     - [x] Puant
     - [ ] Coureur
     - [x] Contact Mortel
-    - [ ] Piques pointues
+    - [x] Piques pointues
 - [ ] Ajouter tests 
 - [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 

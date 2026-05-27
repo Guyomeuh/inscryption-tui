@@ -1,5 +1,7 @@
 package models.cards;
 
+import models.cards.decorators.SharpQuillsAnimal;
+
 public class AnimalCard extends BaseCard implements AliveCard {
     private int m_attack, m_bloodCost, m_boneCost;
 
@@ -29,6 +31,10 @@ public class AnimalCard extends BaseCard implements AliveCard {
     @Override
     public void attack(Card opponent){
         opponent.getDamaged(this.m_attack);
+
+        if (opponent.getModif().equals("Piques pointues")){
+            this.getDamaged(SharpQuillsAnimal.COUNTER_ATTACK);
+        }
     }
 
     @Override
