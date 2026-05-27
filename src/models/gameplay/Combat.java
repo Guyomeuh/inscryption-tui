@@ -1,18 +1,29 @@
 package models.gameplay;
 
+import models.observer.BotObserver;
+
 public class Combat {
     private final Player m_player;
     private final Bot m_bot;
     private Playable m_currentPlayer;
+    private MatchStrategy m_strategy;
     private static Integer m_turn = 1;
     private int m_balance;
 
-    public Combat(Bot bot, Player player)
+    public Combat(Player player, MatchStrategy strategy, BotObserver botObserver)
     {
         m_player = player;
-        m_bot = bot;
+        m_strategy = strategy;
+        m_bot = m_strategy.initBot();
+        m_bot.addObserver(botObserver);
         m_currentPlayer = player;
         m_balance = 0;
+        m_bot.updateAll();
+    }
+
+    public void BotTurn(Bot bot)
+    {
+        m_strategy.botAction(m_turn,m_bot);
     }
 
     public boolean draw()
@@ -51,7 +62,6 @@ public class Combat {
                 }
             }
             m_bot.updateAll();
-            m_bot.transferCards();
             m_currentPlayer = m_bot;
         } else{
             for (int i = 0; i < 4; i++)

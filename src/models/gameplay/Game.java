@@ -6,45 +6,48 @@ import models.observer.GameObserver;
 import java.util.ArrayList;
 
 public class Game {
-    private MatchStrategy m_strategy;
     private int m_gameNumber;
     private final Player m_player;
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
+    private BotObserver m_botObserver;
 
-    public Game(MatchStrategy strategy, Player player, GameObserver gameObs, BotObserver observer)
+    public Game(Player player, GameObserver gameObs, BotObserver botObs)
     {
-        m_strategy = strategy;
         m_player = player;
-        m_combat = new Combat(m_strategy.initBot(observer), m_player);
         m_observer = new ArrayList<>();
         m_observer.add(gameObs);
+        m_botObserver = botObs;
         m_gameNumber = 1;
-
+        MatchStrategy strategy = new FirstMatch();
+        m_combat = new Combat(m_player, strategy, m_botObserver);
     }
 
-    public void setStrategy(MatchStrategy strategy, BotObserver observer)
+    public void setStrategy(MatchStrategy strategy)
     {
-        m_strategy = strategy;
-        m_combat = new Combat(m_strategy.initBot(observer), m_player);
+        MatchStrategy newStrategy = strategy;
+        m_combat = new Combat(m_player, newStrategy, m_botObserver);
     }
 
     public void nextCombat()
     {
-        if (m_strategy instanceof FirstMatch)
+        if (m_gameNumber == 1)
         {
-            m_strategy = new SecondMatch();
-            //m_combat = new Combat(m_strategy.initBot(observer), m_player);
+            MatchStrategy strategy = new SecondMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber++;
         }
-        else if (m_strategy instanceof SecondMatch)
+        else if (m_gameNumber == 2)
         {
-            m_strategy = new ThirdMatch();
-            //m_combat = new Combat(m_strategy.initBot(observer), m_player);
-
+            MatchStrategy strategy = new ThirdMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber++;
         }
         else
         {
-            m_strategy = new FirstMatch();
+            MatchStrategy strategy = new FirstMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber = 1;
         }
     }
 

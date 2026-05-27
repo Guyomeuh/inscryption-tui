@@ -3,6 +3,7 @@ package models.gameplay;
 import java.util.ArrayList;
 
 import models.cards.AliveCard;
+import models.cards.AnimalCard;
 import models.observer.BotObserver;
 
 public class Bot extends Playable {
@@ -16,16 +17,22 @@ public class Bot extends Playable {
         this.m_cards = cards;
         m_observer = new ArrayList<>();
         m_observer.add(observer);
+    }
 
-        updateAll();
+    public Bot(PlayerBoard board, PlayerBoard waitingBoard, ArrayList<AliveCard> cards)
+    {
+        super(board);
+        this.m_waitingBoard = waitingBoard;
+        this.m_cards = cards;
+        m_observer = new ArrayList<>();
     }
 
     public void updateAll()
     {
+        updateBotWaitingBoardStatus();
         updateBotWaitingBoardModif();
         updateBotWaitingBoardAtt();
         updateBotWaitingBoardName();
-        updateBotWaitingBoardStatus();
         updateBotWaitingBoardHp();
 
         updateBotBoardModif();
@@ -73,17 +80,13 @@ public class Bot extends Playable {
 
         this.m_waitingBoard.set(position, this.m_cards.get(cardIndex));
         this.m_cards.remove(cardIndex);
-        updateBotWaitingBoardHp();
-        updateBotWaitingBoardStatus();
-        updateBotWaitingBoardName();
-        updateBotWaitingBoardAtt();
-        updateBotWaitingBoardModif();
+        updateAll();
         return 1;
     }
 
     public void updateBotWaitingBoardStatus()
     {
-        Boolean[] botBoard = new Boolean[4];
+        boolean[] botBoard = new boolean[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -98,7 +101,7 @@ public class Bot extends Playable {
 
     public void updateBotWaitingBoardHp()
     {
-        Integer[] botBoard = new Integer[4];
+        int[] botBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -113,11 +116,11 @@ public class Bot extends Playable {
 
     public void updateBotWaitingBoardAtt()
     {
-        Integer[] botBoard = new Integer[4];
+        int[] botBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
-            botBoard[i] = m_board.getAttack(i);
+            botBoard[i] = m_waitingBoard.getAttack(i);
         }
 
         for (BotObserver i : m_observer)
@@ -132,7 +135,7 @@ public class Bot extends Playable {
 
         for (int i =0 ; i < 4; i++)
         {
-            botBoard[i] = m_board.getName(i);
+            botBoard[i] = m_waitingBoard.getName(i);
         }
 
         for (BotObserver i : m_observer)
@@ -158,7 +161,7 @@ public class Bot extends Playable {
 
     public void updateBotBoardStatus()
     {
-        Boolean[] botBoard = new Boolean[4];
+        boolean[] botBoard = new boolean[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -173,7 +176,7 @@ public class Bot extends Playable {
 
     public void updateBotBoardHp()
     {
-        Integer[] botBoard = new Integer[4];
+        int[] botBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -188,7 +191,7 @@ public class Bot extends Playable {
 
     public void updateBotBoardAtt()
     {
-        Integer[] botBoard = new Integer[4];
+        int[] botBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -228,6 +231,11 @@ public class Bot extends Playable {
         {
             i.updateBotBoardName(botBoard);
         }
+    }
+
+    public void addObserver(BotObserver observer)
+    {
+        m_observer.add(observer);
     }
 
 

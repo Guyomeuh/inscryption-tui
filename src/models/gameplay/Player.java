@@ -71,7 +71,7 @@ public class Player extends Playable {
 
     public void updatePlayerBoardStatus()
     {
-        Boolean[] playerBoard = new Boolean[4];
+        boolean[] playerBoard = new boolean[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -86,7 +86,7 @@ public class Player extends Playable {
 
     public void updatePlayerBoardHp()
     {
-        Integer[] playerBoard = new Integer[4];
+        int[] playerBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -101,7 +101,7 @@ public class Player extends Playable {
 
     public void updatePlayerBoardAtt()
     {
-        Integer[] playerBoard = new Integer[4];
+        int[] playerBoard = new int[4];
 
         for (int i = 0; i < 4; i++)
         {

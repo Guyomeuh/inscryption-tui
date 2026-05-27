@@ -6,6 +6,7 @@ import models.cards.ObjectCard;
 import models.observer.BotObserver;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class FirstMatch implements MatchStrategy {
     public FirstMatch()
@@ -13,12 +14,18 @@ public class FirstMatch implements MatchStrategy {
 
     }
 
-    public Bot initBot(BotObserver observer)
+    @Override
+    public Bot initBot()
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
         PlayerBoard board = new PlayerBoard();
-        board.set(1, new ObjectCard("Caillou", 10));
         PlayerBoard waitingBoard = new PlayerBoard();
-        return new Bot(board, waitingBoard, deck, observer);
+        waitingBoard.set(0, new AnimalCard("ZZZZZZZ", 5, 5, 0, 0));
+        return new Bot(board, waitingBoard, deck);
+    }
+
+    @Override
+    public void botAction(int turnNumber, Bot bot) {
+
     }
 }

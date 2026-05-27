@@ -20,8 +20,6 @@ public class GeneralView {
 
     public void show()
     {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         printGameInfo();
         printBotWaitingBoard();
         printBotBoard();
@@ -70,37 +68,37 @@ public class GeneralView {
 
         String endString = "\t\t";
 
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "|" + String.format("%1$-11s",m_botObserver.getBotWaitingBoardName(i)) + "|\t" : "*           *\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*           *\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|PV: %1$-7s",m_botObserver.getBotWaitingBoardHp(i)) +"|\t" : "*           *\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|Att: %1$-6s",m_botObserver.getBotWaitingBoardAtt(i)) +"|\t" : "*           *\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|%1$-11s",m_botObserver.getBotWaitingBoardModif(i)) +"|\t" : "*           *\t";
         }
         endString+="\n\t\t";
-        for (Integer i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
         }
@@ -203,7 +201,7 @@ public class GeneralView {
         {
             if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t |            |\n";
+                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "|            |\n";
             }
 //            else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize())
 //            {
@@ -211,7 +209,7 @@ public class GeneralView {
 //            }
             else if (i == 2 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
+                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount()) + "|\n";
             }
 //            else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
 //            {
@@ -219,7 +217,7 @@ public class GeneralView {
 //            }
             else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+= i+1 + "." + m_playerObserver.getPlayerHandCard(i) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + "*------------*\n";
+                res+= i+1 + "." + String.format("%1$-30s",m_playerObserver.getPlayerHandCard(i)) + "\t\t\t\t\t\t\t\t\t\t\t\t\t " + "*------------*\n";
             }
 //            else if (i == 5 && i >= m_playerObserver.getPlayerHandSize())
 //            {

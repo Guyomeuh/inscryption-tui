@@ -21,12 +21,11 @@ public class Main
         GameTextObserver gameObs = new GameTextObserver();
         GeneralView gen = new GeneralView(gameObs, playerObs, botObs);
 
-        MatchStrategy firstMatch = new FirstMatch();
         PlayerBoard board = new PlayerBoard();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
 
         Player user = new Player(deck, board, playerObs);
-        Game game = new Game(firstMatch, user, gameObs, botObs);
+        Game game = new Game(user, gameObs, botObs);
         GameController gameControl = new GameController(game, gen);
         gameControl.startGame();
 

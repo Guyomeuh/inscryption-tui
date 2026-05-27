@@ -10,12 +10,17 @@ public class ThirdMatch implements MatchStrategy{
     {
 
     }
-
-    public Bot initBot(BotObserver observer)
+    @Override
+    public Bot initBot()
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
         PlayerBoard board = new PlayerBoard();
         PlayerBoard waitingBoard = new PlayerBoard();
-        return new Bot(board, waitingBoard, deck, observer);
+        return new Bot(board, waitingBoard, deck);
+    }
+
+    @Override
+    public void botAction(int turnNumber, Bot bot) {
+
     }
 }

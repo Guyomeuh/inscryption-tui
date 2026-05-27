@@ -50,7 +50,7 @@ public class GameController {
                                 }
                         case "placer" ->
                                 {
-                                    if ((Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4 && (Integer.parseInt(input.split(" ")[2]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[2]) - 1) < m_game.getHandSize())
+                                    if (input.split(" ").length == 3 && (Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4 && (Integer.parseInt(input.split(" ")[2]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[2]) - 1) < m_game.getHandSize())
                                     {
                                         if (m_game.availableBlood() >= m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) && m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) !=0)
                                         {

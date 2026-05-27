@@ -2,56 +2,47 @@ package view;
 
 import models.observer.BotObserver;
 
+import java.util.Arrays;
+
 public class BotTextObserver implements BotObserver {
-    private Boolean[] m_waitingBoardStatus;
-    private Integer[] m_waitingBoardHp;
-    private Integer[] m_waitingBoardAtt;
+    private boolean[] m_waitingBoardStatus;
+    private int[] m_waitingBoardHp;
+    private int[] m_waitingBoardAtt;
     private String[] m_waitingBoardModif;
     private String[] m_waitingBoardName;
-    private Boolean[] m_boardStatus;
-    private Integer[] m_boardHp;
-    private Integer[] m_boardAtt;
+
+    private boolean[] m_boardStatus;
+    private int[] m_boardHp;
+    private int[] m_boardAtt;
     private String[] m_boardModif;
     private String[] m_boardName;
 
     public BotTextObserver()
     {
-//        m_waitingBoardStatus = new Boolean[4];
-//        m_waitingBoardHp = new Integer[4];
-//        m_waitingBoardAtt = new Integer[4];
-//        m_waitingBoardModif = new String[4];
-//        m_waitingBoardName = new String[4];
-//        m_boardStatus = new Boolean[4];
-//        m_boardHp = new Integer[4];
-//        m_boardAtt = new Integer[4];
-//        m_boardModif = new String[4];
-//        m_boardName = new String[4];
-
-        m_waitingBoardStatus = new Boolean[]{true, false, false, false};
-        m_waitingBoardHp = new Integer[] {500,0,0,0};
-        m_waitingBoardAtt = new Integer[] {2,0,0,0};
-        m_waitingBoardModif = new String[] {"","","",""};
-        m_waitingBoardName = new String[] {"Loup","","",""};
-        m_boardStatus = new Boolean[]{false, false, false, false};
-        m_boardHp = new Integer[] {0,0,0,0};
-        m_boardAtt = new Integer[] {0,0,0,0};
-        m_boardModif = new String[] {"","","",""};
-        m_boardName = new String[] {"","","",""};
-
+        m_waitingBoardStatus = new boolean[4];
+        m_waitingBoardHp = new int[4];
+        m_waitingBoardAtt = new int[4];
+        m_waitingBoardModif = new String[4];
+        m_waitingBoardName = new String[4];
+        m_boardStatus = new boolean[4];
+        m_boardHp = new int[4];
+        m_boardAtt = new int[4];
+        m_boardModif = new String[4];
+        m_boardName = new String[4];
     }
 
     @Override
-    public void updateBotWaitingBoardStatus(Boolean[] nextBoardStatus) {
+    public void updateBotWaitingBoardStatus(boolean[] nextBoardStatus) {
         m_waitingBoardStatus = nextBoardStatus;
     }
 
     @Override
-    public void updateBotWaitingBoardHp(Integer[] nextBoardHp) {
+    public void updateBotWaitingBoardHp(int[] nextBoardHp) {
         m_waitingBoardHp = nextBoardHp;
     }
 
     @Override
-    public void updateBotWaitingBoardAtt(Integer[] nextBoardAtt) {
+    public void updateBotWaitingBoardAtt(int[] nextBoardAtt) {
         m_waitingBoardAtt = nextBoardAtt;
     }
 
@@ -62,21 +53,21 @@ public class BotTextObserver implements BotObserver {
 
     @Override
     public void updateBotWaitingBoardName(String[] nextBoardName) {
-        m_waitingBoardName = nextBoardName;
+        m_waitingBoardName = Arrays.copyOf(nextBoardName, nextBoardName.length);
     }
 
     @Override
-    public void updateBotBoardStatus(Boolean[] boardStatus) {
+    public void updateBotBoardStatus(boolean[] boardStatus) {
         m_boardStatus = boardStatus;
     }
 
     @Override
-    public void updateBotBoardHp(Integer[] boardHp) {
+    public void updateBotBoardHp(int[] boardHp) {
         m_boardHp = boardHp;
     }
 
     @Override
-    public void updateBotBoardAtt(Integer[] boardAtt) {
+    public void updateBotBoardAtt(int[] boardAtt) {
         m_boardAtt = boardAtt;
     }
 
@@ -91,52 +82,52 @@ public class BotTextObserver implements BotObserver {
     }
 
     @Override
-    public Boolean getBotWaitingBoardStatus(Integer index) {
+    public boolean getBotWaitingBoardStatus(int index) {
         return m_waitingBoardStatus[index];
     }
 
     @Override
-    public Integer getBotWaitingBoardHp(Integer index) {
+    public int getBotWaitingBoardHp(int index) {
         return m_waitingBoardHp[index];
     }
 
     @Override
-    public Integer getBotWaitingBoardAtt(Integer index) {
+    public int getBotWaitingBoardAtt(int index) {
         return m_waitingBoardAtt[index];
     }
 
     @Override
-    public String getBotWaitingBoardModif(Integer index) {
+    public String getBotWaitingBoardModif(int index) {
         return m_waitingBoardModif[index];
     }
 
     @Override
-    public String getBotWaitingBoardName(Integer index) {
+    public String getBotWaitingBoardName(int index) {
         return m_waitingBoardName[index];
     }
 
     @Override
-    public Boolean getBotBoardStatus(Integer index) {
+    public boolean getBotBoardStatus(int index) {
         return m_boardStatus[index];
     }
 
     @Override
-    public Integer getBotBoardHp(Integer index) {
+    public int getBotBoardHp(int index) {
         return m_boardHp[index];
     }
 
     @Override
-    public Integer getBotBoardAtt(Integer index) {
+    public int getBotBoardAtt(int index) {
         return m_boardAtt[index];
     }
 
     @Override
-    public String getBotBoardModif(Integer index) {
+    public String getBotBoardModif(int index) {
         return m_boardModif[index];
     }
 
     @Override
-    public String getBotBoardName(Integer index) {
+    public String getBotBoardName(int index) {
         return m_boardName[index];
     }
 }
