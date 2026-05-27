@@ -1,3 +1,12 @@
+# TO-DO 
+
+- [ ] Ajouter decorators 
+- [ ] Ajouter tests 
+- [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
+- [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
+- [ ] Mettre à jour uml 
+- [ ] Ajouter de la doc 
+
 # Methode de travail
 
 La branche ``main`` est la branche "production".
