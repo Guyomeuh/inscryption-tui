@@ -196,36 +196,36 @@ public class GeneralView {
 
     public void printPlayerHand()
     {
-        String res = "Votre main: \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t *------------*\n";
+        String res = String.format("Votre main: %1$121s","*------------*") + "\n";
         for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 6; i++)
         {
             if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res += String.format("%1s %2$40s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
+                res += String.format("%1s %2$50s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
             }
             else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
-                res += String.format("%1$124s","|            |\n");
+                res += String.format("%1$134s","|            |\n");
             }
             else if (i == 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= String.format("%1$s %2$40s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
+                res+= String.format("%1$s %2$50s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
             }
             else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
             {
-                res+= String.format("%1$109s|     %2$-7s","",m_playerObserver.getPlayerDeckCount()) + "|\n";
+                res+= String.format("%1$119s|     %2$-7s","",m_playerObserver.getPlayerDeckCount()) + "|\n";
             }
             else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+=   String.format("%1s %2$40s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
+                res+=   String.format("%1s %2$50s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
             }
             else if (i == 5 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= String.format("%1$124s","*------------*\n");
+                res+= String.format("%1$134s","*------------*\n");
             }
             else if (i < m_playerObserver.getPlayerHandSize())
             {
-                res+= String.format("%1$s %2$40s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
+                res+= String.format("%1$s %2$50s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
             }
             else
             {
@@ -240,5 +240,10 @@ public class GeneralView {
         System.out.println("Action possibles :\n\t[fin] Terminer votre tour\n" +
                 "\t[piocher] Piocher une carte\n" +
                 "\t[placer <position> <numero de carte>] Placer une carte sur le plateau\n");
+    }
+
+    public void askNextGame()
+    {
+        System.out.println("Prêt pour une autre partie ? (y/n)");
     }
 }
