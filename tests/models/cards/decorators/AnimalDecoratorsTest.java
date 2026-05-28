@@ -47,4 +47,20 @@ public class AnimalDecoratorsTest {
         assertEquals(1, pb.sacrifice(0));
         assertTrue(pb.isOccupied(0));
     }
+
+    @Test 
+    public void Airborne(){
+        AirborneAnimal raven = new AirborneAnimal(new AnimalCard("raven", 3, 2, 2, 0));
+        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
+        assertEquals("Volant", raven.getModif());
+
+
+        PlayerBoard pb = new PlayerBoard();
+        pb.set(0, raven);
+        pb.set(2, cat);
+
+        assertTrue(pb.isAirborne(0));
+        assertTrue(!pb.isAirborne(1));
+        assertTrue(!pb.isAirborne(2));
+    }
 }

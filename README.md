@@ -9,7 +9,7 @@
     - [x] Contact Mortel
     - [x] Piques pointues
 - [ ] Ajouter tests 
-    - [ ] Volant
+    - [x] Volant
     - [x] Nombreuses vies 
     - [ ] Croissance 
     - [x] Puant
