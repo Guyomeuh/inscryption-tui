@@ -3,6 +3,7 @@ package models.gameplay;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.ArrayList;
 
@@ -33,8 +34,8 @@ public class BotTest {
     public void place(){
         Bot b = createBot();
 
-        assertTrue(b.place(0, 0));
-        assertTrue(!b.place(0, 0));
+        assertEquals(b.place(0, 0),1);
+        assertEquals(b.place(0, 0), 0);
 
         assertThrows(IllegalArgumentException.class, ()->{ b.place(0, -1); });
         assertThrows(IllegalArgumentException.class, ()->{ b.place(0, b.getCardsSize()); });

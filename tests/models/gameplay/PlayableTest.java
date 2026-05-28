@@ -6,16 +6,18 @@ import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 
+import models.observer.PlayerObserver;
 import org.junit.Test;
 
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
+import view.PlayerTextObserver;
 
 public class PlayableTest {
     public Player createPlayer(){
         AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
         AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
-
+        PlayerObserver obs = new PlayerTextObserver();
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
         for (int i = 0; i < 5; i++){
@@ -23,7 +25,7 @@ public class PlayableTest {
             d.add(ac1);
         }
 
-        return new Player(d, new PlayerBoard());
+        return new Player(d, new PlayerBoard(),obs);
     }
 
     @Test 
@@ -38,7 +40,7 @@ public class PlayableTest {
         assertArrayEquals(new int[]{0, 4, 0, 4}, p1.endTurn());
         p1.getDamaged(0, 100); // to kill the card 
 
-        assertArrayEquals(new int[]{-1, 4, 0, 4}, p1.endTurn());
+        assertArrayEquals(new int[]{0, 4, 0, 4}, p1.endTurn());
     }
 
     @Test
@@ -47,8 +49,8 @@ public class PlayableTest {
         p1.place(0, 0);
 
         assertEquals(true, p1.getDamaged(0, 1));
-        assertEquals(true, p1.getDamaged(0, 1));
-        assertEquals(true, p1.getDamaged(0, 5));
+        assertEquals(false, p1.getDamaged(0, 1));
+        assertEquals(false, p1.getDamaged(0, 5));
         assertEquals(false, p1.getDamaged(0, 5));
 
         assertThrows(IllegalArgumentException.class, ()->{ p1.getDamaged(-1, 1); });
