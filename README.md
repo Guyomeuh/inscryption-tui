@@ -1,7 +1,7 @@
 # TO-DO 
 
 - [ ] Ajouter decorators: 
-    - [ ] Volant
+    - [x] Volant
     - [ ] Nombreuses vies 
     - [ ] Croissance 
     - [x] Puant

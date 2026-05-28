@@ -22,6 +22,10 @@ public abstract class Playable {
         return damages;
     }
 
+    public boolean isAirborne(int position){
+        return this.m_board.isAirborne(position);
+    }
+
     public abstract int place(int position, int cardIndex);
 
     @Override
