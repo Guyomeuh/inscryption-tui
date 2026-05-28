@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import models.cards.AliveCard;
 import models.cards.AnimalCard;
 import models.cards.ObjectCard;
+import models.cards.decorators.AirborneAnimal;
 
 public class PlayerBoardTest {
     @Test
@@ -32,6 +32,13 @@ public class PlayerBoardTest {
 
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(-1); });
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(4); });
+
+        pb.set(0, new ObjectCard("rock", 6));
+        pb.set(1, new AirborneAnimal(new AnimalCard("cat", 1, 1, 1, 1)));
+        assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(-1); });
+        assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(4); });
+        assertTrue(!pb.isAirborne(0));
+        assertTrue(pb.isAirborne(1));
     }
 
     @Test

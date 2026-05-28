@@ -144,6 +144,18 @@ public class PlayerBoard {
         return true;
     }
 
+    public boolean isAirborne(int position){
+        validatePosition(position);
+        
+        if (this.m_cards.get(position).isEmpty()){
+            return false;
+        }
+
+        Card card = this.m_cards.get(position).get();
+
+        return card.getModif().equals("Volant");
+    }
+
     @Override
     public String toString(){
         return "PlayerBoard";
