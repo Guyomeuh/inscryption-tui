@@ -34,6 +34,36 @@ public class PlayerBoard {
         this.m_cards.set(position, Optional.of(card));
     }
 
+    public String getName(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getName();
+        }
+        return "";
+    }
+
+    public int getHp(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getHp();
+        }
+        return 0;
+    }
+
+    public String getModif(int position)
+    {
+        validatePosition(position);
+        if (m_cards.get(position).isPresent())
+        {
+            return m_cards.get(position).get().getModif();
+        }
+        return "";
+    }
+
     public Optional<Card> remove(int position){
         validatePosition(position);
 
@@ -45,18 +75,36 @@ public class PlayerBoard {
 
     public int sacrifice(int position){
         validatePosition(position);
+        int cardBlood = getBlood(position);
+        this.m_cards.set(position, Optional.empty());
+
+        return cardBlood;
+    }
+
+    public int getBlood(int position)
+    {
+        validatePosition(position);
         if (this.m_cards.get(position).isEmpty()){
-            return -1;
+            return 0;
         }
 
         if (!(this.m_cards.get(position).get() instanceof AliveCard)){
-            return -1;
+            return 0;
+        };
+        return 1;
+    }
+
+    public boolean isSacrifiable(int position)
+    {
+        validatePosition(position);
+        if (this.m_cards.get(position).isEmpty())
+        {
+            return false;
         }
 
-        int cardBlood = ((AliveCard)this.m_cards.get(position).get()).getBlood();
-        this.remove(position);
+        return this.m_cards.get(position).get().isSacrifiable();
 
-        return cardBlood;
+
     }
 
     public int getAttack(int position){
@@ -64,7 +112,7 @@ public class PlayerBoard {
 
         // returns -1 if position is empty
         if (this.m_cards.get(position).isEmpty()){
-            return -1;
+            return 0;
         }
 
         // returns 0 if it's not an AliveCard (no attack)

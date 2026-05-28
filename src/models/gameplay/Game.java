@@ -1,66 +1,139 @@
 package models.gameplay;
 
-import model.observer.GameObserver;
+import models.observer.BotObserver;
+import models.observer.GameObserver;
 
 import java.util.ArrayList;
 
 public class Game {
-    private MatchStrategy m_strategy;
+    private int m_gameNumber;
     private final Player m_player;
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
+    private BotObserver m_botObserver;
 
-    public Game(MatchStrategy strategy, Player player)
+    public Game(Player player, GameObserver gameObs, BotObserver botObs)
     {
-        m_strategy = strategy;
         m_player = player;
-        m_combat = new Combat(m_strategy.initBoard(), m_strategy.initBot(), m_player);
+        m_observer = new ArrayList<>();
+        m_observer.add(gameObs);
+        m_botObserver = botObs;
+        m_gameNumber = 1;
+        MatchStrategy strategy = new FirstMatch();
+        m_combat = new Combat(m_player, strategy, m_botObserver);
+    }
+    public void botTurn()
+    {
+        m_combat.botTurn();
+        updateBalance();
+        updateTurn();
     }
 
     public void setStrategy(MatchStrategy strategy)
     {
-        m_strategy = strategy;
-        m_combat = new Combat(m_strategy.initBoard(), m_strategy.initBot(), m_player);
+        MatchStrategy newStrategy = strategy;
+        m_combat = new Combat(m_player, newStrategy, m_botObserver);
     }
 
+    public void updateAll()
+    {
+        updateTurn();
+        updateBalance();
+        updateGameNumber();
+    }
     public void nextCombat()
     {
-        if (m_strategy instanceof FirstMatch)
+        if (m_gameNumber == 1)
         {
-            m_strategy = new SecondMatch();
+            MatchStrategy strategy = new SecondMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber++;
+            updateAll();
         }
-        else if (m_strategy instanceof SecondMatch)
+        else if (m_gameNumber == 2)
         {
-            m_strategy = new ThirdMatch();
+            MatchStrategy strategy = new ThirdMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber++;
+            updateAll();
         }
         else
         {
-            m_strategy = new FirstMatch();
+            MatchStrategy strategy = new FirstMatch();
+            m_combat = new Combat(m_player, strategy, m_botObserver);
+            m_gameNumber = 1;
+            updateAll();
         }
     }
 
-    public void endTurn()
+    public boolean endTurn()
     {
-        m_combat.endTurn();
+        boolean res = m_combat.endTurn();
+        updateBalance();
+        updateTurn();
+        return res;
     }
 
-    public void sacrifice(Integer position)
+    public int getBloodCost(int cardIndex)
     {
-        m_combat.sacrifice(position);
+        return m_combat.getBloodCost(cardIndex);
+    }
+    public int sacrifice(Integer position)
+    {
+        return m_combat.sacrifice(position);
     }
 
-    public Boolean place(Integer position, Integer numCard)
+    public int place(Integer position, Integer numCard)
     {
-        m_combat.place(position, numCard);
+        return m_combat.place(position, numCard);
     }
 
-    public Boolean draw(Player player)
+    public int getHandSize()
     {
-        m_combat.draw();
+        return m_player.getHandSize();
+    }
+
+    public int availableBlood()
+    {
+        return m_combat.availableBlood();
+    }
+
+    public boolean draw()
+    {
+        return m_combat.draw();
     }
 
     public void addObserver(GameObserver observer)
     {
         m_observer.add(observer);
+    }
+
+    public void updateTurn()
+    {
+        for (GameObserver i : m_observer)
+        {
+            i.updateTurn(m_combat.getTurn());
+        }
+    }
+
+    public void updateBalance()
+    {
+        for (GameObserver i : m_observer)
+        {
+            i.updateBalance(m_combat.getBalance());
+        }
+    }
+
+    public void updateGameNumber()
+    {
+        for (GameObserver i : m_observer)
+        {
+            i.updateGameNumber(m_gameNumber);
+        }
+    }
+
+    public int checkVictory()
+    {
+        return m_combat.checkVictory();
     }
 }

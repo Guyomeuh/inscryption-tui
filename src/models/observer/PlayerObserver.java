@@ -3,20 +3,20 @@ package models.observer;
 import java.util.ArrayList;
 
 public interface PlayerObserver {
-    void updatePlayerDeckCount(Integer cardsAmount);
+    void updatePlayerDeckCount(int cardsAmount);
     void updatePlayerHand(ArrayList<String> hand);
-    void updatePlayerBoardStatus(Boolean[] boardStatus);
-    void updatePlayerBoardHp(Integer[] boardHp);
-    void updatePlayerBoardAtt(Integer[] boardAtt);
+    void updatePlayerBoardStatus(boolean[] boardStatus);
+    void updatePlayerBoardHp(int[] boardHp);
+    void updatePlayerBoardAtt(int[] boardAtt);
     void updatePlayerBoardModif(String[] boardModif);
     void updatePlayerBoardName(String[] boardName);
 
-    Boolean getPlayerBoardStatus(Integer index);
-    Integer getPlayerBoardHp(Integer index);
-    Integer getPlayerBoardAtt(Integer index);
-    String getPlayerBoardModif(Integer index);
-    String getPlayerHandCard(Integer index);
+    Boolean getPlayerBoardStatus(int index);
+    Integer getPlayerBoardHp(int index);
+    Integer getPlayerBoardAtt(int index);
+    String getPlayerBoardModif(int index);
+    String getPlayerHandCard(int index);
     Integer getPlayerDeckCount();
-    String getPlayerBoardName(Integer index);
+    String getPlayerBoardName(int index);
     Integer getPlayerHandSize();
 }

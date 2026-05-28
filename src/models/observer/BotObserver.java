@@ -1,25 +1,25 @@
 package models.observer;
 
 public interface BotObserver {
-    void updateBotWaitingBoardStatus(Boolean[] nextBoardStatus);
-    void updateBotWaitingBoardHp(Integer[] nextBoardHp);
-    void updateBotWaitingBoardAtt(Integer[] nextBoardAtt);
+    void updateBotWaitingBoardStatus(boolean[] nextBoardStatus);
+    void updateBotWaitingBoardHp(int[] nextBoardHp);
+    void updateBotWaitingBoardAtt(int[] nextBoardAtt);
     void updateBotWaitingBoardModif(String[] nextBoardModif);
     void updateBotWaitingBoardName(String[] nextBoardName);
-    void updateBotBoardStatus(Boolean[] boardStatus);
-    void updateBotBoardHp(Integer[] boardHp);
-    void updateBotBoardAtt(Integer[] boardAtt);
+    void updateBotBoardStatus(boolean[] boardStatus);
+    void updateBotBoardHp(int[] boardHp);
+    void updateBotBoardAtt(int[] boardAtt);
     void updateBotBoardModif(String[] boardModif);
     void updateBotBoardName(String[] boardName);
 
-    Boolean getBotWaitingBoardStatus(Integer index);
-    Integer getBotWaitingBoardHp(Integer index);
-    Integer getBotWaitingBoardAtt(Integer index);
-    String getBotWaitingBoardModif(Integer index);
-    String getBotWaitingBoardName(Integer index);
-    Boolean getBotBoardStatus(Integer index);
-    Integer getBotBoardHp(Integer index);
-    Integer getBotBoardAtt(Integer index);
-    String getBotBoardModif(Integer index);
-    String getBotBoardName(Integer index);
+    boolean getBotWaitingBoardStatus(int index);
+    int getBotWaitingBoardHp(int index);
+    int getBotWaitingBoardAtt(int index);
+    String getBotWaitingBoardModif(int index);
+    String getBotWaitingBoardName(int index);
+    boolean getBotBoardStatus(int index);
+    int getBotBoardHp(int index);
+    int getBotBoardAtt(int index);
+    String getBotBoardModif(int index);
+    String getBotBoardName(int index);
 }

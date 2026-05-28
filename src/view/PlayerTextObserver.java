@@ -1,15 +1,15 @@
 package view;
 
-import model.observer.PlayerObserver;
+import models.observer.PlayerObserver;
 
 import java.util.ArrayList;
 
 public class PlayerTextObserver implements PlayerObserver {
-    private Integer m_deckCardAmount;
+    private int m_deckCardAmount;
     private ArrayList<String> m_playerHand;
-    private Boolean[] m_playerBoardStatus;
-    private Integer[] m_playerBoardHp;
-    private Integer[] m_playerBoardAtt;
+    private boolean[] m_playerBoardStatus;
+    private int[] m_playerBoardHp;
+    private int[] m_playerBoardAtt;
     private String[] m_playerBoardModif;
     private String[] m_playerBoardName;
 
@@ -17,28 +17,17 @@ public class PlayerTextObserver implements PlayerObserver {
     {
         m_deckCardAmount = 0;
         m_playerHand = new ArrayList<String>();
-        m_playerBoardStatus = new Boolean[4];
-        m_playerBoardHp = new Integer[4];
-        m_playerBoardAtt = new Integer[4];
+        m_playerBoardStatus = new boolean[4];
+        m_playerBoardHp = new int[4];
+        m_playerBoardAtt = new int[4];
         m_playerBoardModif = new String[4];
-//        m_deckCardAmount = 15;
-//        m_playerHand = new ArrayList<String>();
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerHand.add("\tEcureuil\tPV: 1\tATT: 0\tGoutte de Sang: 0\t0s : 0");
-//        m_playerBoardStatus = new Boolean[]{false,false,false,false};
-//        m_playerBoardHp = new Integer[]{-1,-1,-1,-1};
-//        m_playerBoardAtt = new Integer[]{-1,-1,-1,-1};
-//        m_playerBoardModif = new String[]{"","","",""};
+        m_deckCardAmount = 15;
 
 
     }
 
     @Override
-    public void updatePlayerDeckCount(Integer cardsAmount) {
+    public void updatePlayerDeckCount(int cardsAmount) {
         m_deckCardAmount = cardsAmount;
     }
 
@@ -48,17 +37,17 @@ public class PlayerTextObserver implements PlayerObserver {
     }
 
     @Override
-    public void updatePlayerBoardStatus(Boolean[] boardStatus) {
+    public void updatePlayerBoardStatus(boolean[] boardStatus) {
         m_playerBoardStatus = boardStatus;
     }
 
     @Override
-    public void updatePlayerBoardHp(Integer[] boardHp) {
+    public void updatePlayerBoardHp(int[] boardHp) {
         m_playerBoardHp = boardHp;
     }
 
     @Override
-    public void updatePlayerBoardAtt(Integer[] boardAtt) {
+    public void updatePlayerBoardAtt(int[] boardAtt) {
         m_playerBoardAtt = boardAtt;
     }
 
@@ -73,27 +62,27 @@ public class PlayerTextObserver implements PlayerObserver {
     }
 
     @Override
-    public Boolean getPlayerBoardStatus(Integer index) {
+    public Boolean getPlayerBoardStatus(int index) {
         return m_playerBoardStatus[index];
     }
 
     @Override
-    public Integer getPlayerBoardHp(Integer index) {
+    public Integer getPlayerBoardHp(int index) {
         return m_playerBoardHp[index];
     }
 
     @Override
-    public Integer getPlayerBoardAtt(Integer index) {
+    public Integer getPlayerBoardAtt(int index) {
         return m_playerBoardAtt[index];
     }
 
     @Override
-    public String getPlayerBoardModif(Integer index) {
+    public String getPlayerBoardModif(int index) {
         return m_playerBoardModif[index];
     }
 
     @Override
-    public String getPlayerHandCard(Integer index) {
+    public String getPlayerHandCard(int index) {
         return m_playerHand.get(index);
     }
 
@@ -109,7 +98,7 @@ public class PlayerTextObserver implements PlayerObserver {
     }
 
     @Override
-    public String getPlayerBoardName(Integer index) {
+    public String getPlayerBoardName(int index) {
         return m_playerBoardName[index];
     }
 }

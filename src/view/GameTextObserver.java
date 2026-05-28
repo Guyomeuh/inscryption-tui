@@ -1,6 +1,6 @@
 package view;
 
-import model.observer.GameObserver;
+import models.observer.GameObserver;
 
 public class GameTextObserver implements GameObserver {
     private Integer m_turn;
