@@ -16,6 +16,7 @@
     - [ ] Coureur
     - [x] Contact Mortel
     - [x] Piques pointues
+- [ ] Fixer test playerboard.sacrifice
 - [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Mettre à jour uml 
