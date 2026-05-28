@@ -76,7 +76,15 @@ public class PlayerBoard {
     public int sacrifice(int position){
         validatePosition(position);
         int cardBlood = getBlood(position);
-        this.m_cards.set(position, Optional.empty());
+
+        // if the card doesn't have the 'Many lives' modifier it gets removed
+        if (!this.m_cards.get(position).isEmpty()){
+            Card card = this.m_cards.get(position).get();
+
+            if (!card.getModif().equals("Nombreuses vies")){
+                this.m_cards.set(position, Optional.empty());
+            }
+        }
 
         return cardBlood;
     }

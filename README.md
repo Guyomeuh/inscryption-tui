@@ -2,7 +2,7 @@
 
 - [ ] Ajouter decorators: 
     - [x] Volant
-    - [ ] Nombreuses vies 
+    - [x] Nombreuses vies 
     - [ ] Croissance 
     - [x] Puant
     - [ ] Coureur
