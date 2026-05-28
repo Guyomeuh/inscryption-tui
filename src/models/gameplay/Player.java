@@ -20,11 +20,6 @@ public class Player extends Playable {
         m_observer.add(observer);
 
         this.m_deck = deck;
-        for (int i = 0 ; i < 15 ; i++)
-        {
-            m_deck.add(AnimalCard.Ecureuil());
-            m_deck.add(AnimalCard.Grizzly());
-        }
 
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();

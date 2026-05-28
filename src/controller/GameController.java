@@ -91,7 +91,7 @@ public class GameController {
 
     public boolean verifPlacementIndex(String input)
     {
-        return ((Integer.parseInt(input.split(" ")[1]) - 1) >= 0) && ((Integer.parseInt(input.split(" ")[1]) - 1) <= 4);
+        return (((Integer.parseInt(input) -1) >= 0) && ((Integer.parseInt(input) - 1) <= 4));
     }
 
     public boolean verifBlood(String input)
@@ -101,7 +101,7 @@ public class GameController {
 
     public boolean verifCardIndex(String input)
     {
-        return ((Integer.parseInt(input.split(" ")[2]) - 1) >= 0) && ((Integer.parseInt(input.split(" ")[2]) - 1) < m_game.getHandSize());
+        return ((Integer.parseInt(input) - 1) >= 0) && ((Integer.parseInt(input) - 1) < m_game.getHandSize());
     }
 
     public boolean verifInputSize(String input, int wordCount)
@@ -112,7 +112,7 @@ public class GameController {
     public boolean placer(boolean valid, String input)
     {
         int error = 0;
-        if (!verifPlacementIndex(input) || !verifCardIndex(input) || !verifInputSize(input,3)) {
+        if (!verifPlacementIndex(input.split(" ")[1]) || !verifCardIndex(input.split(" ")[2]) || !verifInputSize(input,3)) {
             System.out.println("Position ou numero de carte incorrect");
             error++;
         } else
@@ -137,7 +137,7 @@ public class GameController {
                     validSacrifice = false;
                     m_view.askForBlood(remainingSacrifice);
                     String sacrificeInput = m_view.promptUser();
-                    if (Objects.equals(sacrificeInput.split(" ")[0], "sacrifier") && verifPlacementIndex(sacrificeInput) && verifInputSize(sacrificeInput,2))
+                    if (Objects.equals(sacrificeInput.split(" ")[0], "sacrifier") && verifPlacementIndex(sacrificeInput.split(" ")[1]) && verifInputSize(sacrificeInput,2))
                     {
                         remainingSacrifice-=m_game.sacrifice(Integer.parseInt(sacrificeInput.split(" ")[1]) - 1);
                         validSacrifice = true;
@@ -153,7 +153,7 @@ public class GameController {
                     String sacrificePosition = m_view.promptUser();
 
 
-                    if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && verifPlacementIndex(sacrificePosition.split(" ")[1])) {
+                    if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && verifPlacementIndex(input.split(" ")[1])) {
                         valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                         if (valid = false) {
                             System.out.println("Emplacement déjà occupé");
