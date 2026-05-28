@@ -34,6 +34,30 @@ public class PlayerBoard {
         this.m_cards.set(position, Optional.of(card));
     }
 
+    public boolean moveRight(int position){
+        validatePosition(position);
+
+        if (position + 1 >= PlayerBoard.SIZE || this.m_cards.get(position + 1).isPresent()){
+            return false;
+        }
+
+        this.m_cards.set(position + 1, this.m_cards.remove(position));
+
+        return true;
+    }
+
+    public boolean moveLeft(int position){
+        validatePosition(position);
+
+        if (position - 1 < 0 || this.m_cards.get(position - 1).isPresent()){
+            return false;
+        }
+
+        this.m_cards.set(position - 1, this.m_cards.remove(position));
+
+        return true;
+    }
+
     public String getName(int position)
     {
         validatePosition(position);
@@ -162,6 +186,18 @@ public class PlayerBoard {
         Card card = this.m_cards.get(position).get();
 
         return card.getModif().equals("Volant");
+    }
+
+    public boolean isSprinter(int position){
+        validatePosition(position);
+        
+        if (this.m_cards.get(position).isEmpty()){
+            return false;
+        }
+
+        Card card = this.m_cards.get(position).get();
+
+        return card.getModif().equals("Coureur");
     }
 
     @Override

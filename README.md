@@ -5,7 +5,7 @@
     - [x] Nombreuses vies 
     - [ ] Croissance (Attendre les Factory)
     - [x] Puant
-    - [ ] Coureur
+    - [x] Coureur
     - [x] Contact Mortel
     - [x] Piques pointues
 - [ ] Ajouter tests 

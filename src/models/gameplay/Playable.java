@@ -17,6 +17,10 @@ public abstract class Playable {
 
         for (int i = 0; i < PlayerBoard.SIZE; i++){
             damages[i] = this.m_board.getAttack(i);
+
+            if (this.m_board.isSprinter(i) && !this.m_board.moveRight(i)){
+                this.m_board.moveLeft(i);
+            }
         }
 
         return damages;
