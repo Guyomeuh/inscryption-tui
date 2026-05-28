@@ -1,10 +1,12 @@
 package models.cards.decorators;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import models.cards.AnimalCard;
+import models.gameplay.PlayerBoard;
 
 public class AnimalDecoratorsTest {
     @Test
@@ -32,5 +34,17 @@ public class AnimalDecoratorsTest {
         assertEquals("Piques pointues", porcupine.getModif());
         grizzly.attack(porcupine);
         assertEquals(5, grizzly.getHp());
+    }
+
+    @Test
+    public void ManyLives(){
+        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
+        assertEquals("Nombreuses vies", cat.getModif());
+
+        PlayerBoard pb = new PlayerBoard();
+
+        pb.set(0, cat);
+        assertEquals(1, pb.sacrifice(0));
+        assertTrue(pb.isOccupied(0));
     }
 }
