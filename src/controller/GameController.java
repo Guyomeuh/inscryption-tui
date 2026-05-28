@@ -82,11 +82,11 @@ public class GameController {
                                                 String sacrificePosition = m_view.promptUser();
                                                 if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && (Integer.parseInt(input.split(" ")[1]) - 1) >= 0 && (Integer.parseInt(input.split(" ")[1]) - 1) <= 4)
                                                 {
-                                                    valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1) == 0;
+                                                    valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                                                 }
                                             }
                                             else if (m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) == 0){
-                                                valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1) == 0;
+                                                valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                                             }
 
                                         }

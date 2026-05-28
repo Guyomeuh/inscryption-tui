@@ -22,7 +22,7 @@ public class Player extends Playable {
         this.m_deck = deck;
         for (int i = 0 ; i < 15 ; i++)
         {
-            m_deck.add(new AnimalCard("Ecureuil", 2, 110, 0, 0));
+            m_deck.add(AnimalCard.Chat());
         }
 
         this.m_hand = new ArrayList<AliveCard>();
@@ -218,12 +218,12 @@ public class Player extends Playable {
     }
 
     @Override
-    public int place(int position, int cardIndex){
+    public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);
 
         if (this.m_board.isOccupied(position)){
             System.out.println("Emplacement déjà occupé");
-            return -1;
+            return false;
         }
 
         this.m_blood -= this.m_hand.get(cardIndex).getBloodCost();
@@ -235,7 +235,7 @@ public class Player extends Playable {
         updatePlayerBoardAtt();
         updatePlayerBoardModif();
         updatePlayerHand();
-        return 0;
+        return true;
     }
 
     @Override

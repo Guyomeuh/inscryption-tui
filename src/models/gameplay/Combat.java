@@ -33,7 +33,7 @@ public class Combat {
         return m_player.draw();
     }
 
-    public int place(int position, int numCard)
+    public boolean place(int position, int numCard)
     {
         return m_currentPlayer.place(position, numCard);
     }
