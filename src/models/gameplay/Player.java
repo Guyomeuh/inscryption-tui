@@ -22,7 +22,8 @@ public class Player extends Playable {
         this.m_deck = deck;
         for (int i = 0 ; i < 15 ; i++)
         {
-            m_deck.add(AnimalCard.Chat());
+            m_deck.add(AnimalCard.Ecureuil());
+            m_deck.add(AnimalCard.Grizzly());
         }
 
         this.m_hand = new ArrayList<AliveCard>();
@@ -222,7 +223,6 @@ public class Player extends Playable {
         validateHandIndex(cardIndex);
 
         if (this.m_board.isOccupied(position)){
-            System.out.println("Emplacement déjà occupé");
             return false;
         }
 
