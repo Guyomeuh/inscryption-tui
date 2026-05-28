@@ -3,7 +3,7 @@
 - [ ] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 
-    - [ ] Croissance 
+    - [ ] Croissance (Attendre les Factory)
     - [x] Puant
     - [ ] Coureur
     - [x] Contact Mortel
