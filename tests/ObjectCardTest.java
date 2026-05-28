@@ -28,6 +28,6 @@ public class ObjectCardTest {
     public void tostring(){
         ObjectCard oc = new ObjectCard("rock", 3);
 
-        assertEquals(oc.toString(), "rock: 3hp");
+        assertEquals(oc.toString(), "rock: 3 hp");
     }
 }

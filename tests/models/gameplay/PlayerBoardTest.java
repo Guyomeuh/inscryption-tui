@@ -38,13 +38,13 @@ public class PlayerBoardTest {
     public void sacrifice(){
         PlayerBoard pb = new PlayerBoard();
         pb.set(0, new ObjectCard("rock", 6));
-        pb.set (1, new AnimalCard("cat", 1, 0, 1, 0));
+        pb.set (1, AnimalCard.Chat());
 
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(-1); });
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(4); });
 
-        assertEquals(-1, pb.sacrifice(0));
+        assertEquals(0, pb.sacrifice(0));
         assertEquals(1, pb.sacrifice(1));
-        assertEquals(-1, pb.sacrifice(2));
+        assertEquals(0, pb.sacrifice(2));
     }
 }

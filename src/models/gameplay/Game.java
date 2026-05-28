@@ -69,8 +69,7 @@ public class Game {
     public boolean endTurn()
     {
         boolean res = m_combat.endTurn();
-        updateBalance();
-        updateTurn();
+        updateAll();
         return res;
     }
 
@@ -83,7 +82,7 @@ public class Game {
         return m_combat.sacrifice(position);
     }
 
-    public int place(Integer position, Integer numCard)
+    public boolean place(Integer position, Integer numCard)
     {
         return m_combat.place(position, numCard);
     }

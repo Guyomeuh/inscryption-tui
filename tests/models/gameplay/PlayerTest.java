@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import models.observer.PlayerObserver;
 import org.junit.Test;
 
 import models.cards.AliveCard;
@@ -16,9 +15,8 @@ import view.PlayerTextObserver;
 
 public class PlayerTest {
     public Player createPlayer(){
-        AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
-        AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
-        PlayerObserver obs = new PlayerTextObserver();
+        AnimalCard ac = AnimalCard.Chat();
+        AnimalCard ac1 = AnimalCard.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -30,9 +28,9 @@ public class PlayerTest {
 
         PlayerBoard pb = new PlayerBoard();
         pb.set(3, new ObjectCard("rock", 6));
-        pb.set(0, new AnimalCard("", 0, 0, 10, 0));
-
-        Player p = new Player(d, pb, obs);
+        pb.set(0, AnimalCard.Corbeau());
+        PlayerTextObserver pt = new PlayerTextObserver();
+        Player p = new Player(d, pb,pt);
         p.sacrifice(0);
 
         return p;
@@ -67,8 +65,8 @@ public class PlayerTest {
     public void place(){
         Player p1 = createPlayer();
 
-        assertEquals(p1.place(0, 0),1);
-        assertEquals(p1.place(0, 0),0);
+        assertTrue(p1.place(0, 0));
+        assertTrue(!p1.place(0, 0));
 
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, -1); });
         assertThrows(IllegalArgumentException.class, ()->{ p1.place(0, p1.getHandSize()); });

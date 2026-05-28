@@ -18,13 +18,13 @@ public class FirstMatch implements MatchStrategy {
     public Bot initBot()
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
-        deck.add(new AnimalCard("Coyote",1,2,0,4));
-        deck.add(new AnimalCard("Loup", 2,3,2,0));
-        deck.add(new AnimalCard("Loup", 2,3,2,0));
-        deck.add(new AnimalCard("Ecureuil", 1,0,0,0));
+        deck.add(AnimalCard.Coyote());
+        deck.add(AnimalCard.Loup());
+        deck.add(AnimalCard.Loup());
+        deck.add(AnimalCard.Ecureuil());
         PlayerBoard board = new PlayerBoard();
         PlayerBoard waitingBoard = new PlayerBoard();
-        waitingBoard.set(3, new AnimalCard("Coyote",1,2,0,4));
+        waitingBoard.set(3, AnimalCard.Coyote());
         return new Bot(board, waitingBoard, deck);
     }
 
@@ -36,14 +36,14 @@ public class FirstMatch implements MatchStrategy {
                 bot.transferCards();
                 bot.place(0, 0);
             }
-//            case 2 -> {
-//                bot.place(1,0);
-//                bot.place(2, 0);
-//            }
-//            case 3 -> {
-//                bot.place(3, 0);
-//            }
-//            default -> {}
+            case 2 -> {
+                bot.place(1,0);
+                bot.place(2, 0);
+            }
+            case 3 -> {
+                bot.place(3, 0);
+            }
+            default -> {}
         }
 
     }

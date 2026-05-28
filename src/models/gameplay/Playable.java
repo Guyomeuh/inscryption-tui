@@ -22,7 +22,7 @@ public abstract class Playable {
         return damages;
     }
 
-    public abstract int place(int position, int cardIndex);
+    public abstract boolean place(int position, int cardIndex);
 
     @Override
     public String toString(){

@@ -14,8 +14,8 @@ import models.cards.AnimalCard;
 
 public class BotTest {
     public Bot createBot(){
-        AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
-        AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
+        AnimalCard ac = AnimalCard.Chat();
+        AnimalCard ac1 = AnimalCard.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -50,6 +50,6 @@ public class BotTest {
         }
         b.transferCards();
 
-        assertArrayEquals(new int[]{0, 4, 0, 4}, b.endTurn());
+        assertArrayEquals(new int[]{1, 4, 1, 4}, b.endTurn());
     }
 }
