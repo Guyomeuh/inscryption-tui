@@ -9,6 +9,13 @@
     - [x] Contact Mortel
     - [x] Piques pointues
 - [ ] Ajouter tests 
+    - [ ] Volant
+    - [ ] Nombreuses vies 
+    - [ ] Croissance 
+    - [x] Puant
+    - [ ] Coureur
+    - [x] Contact Mortel
+    - [x] Piques pointues
 - [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Mettre à jour uml 
