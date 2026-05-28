@@ -217,11 +217,6 @@ public class Player extends Playable {
         return m_hand.get(cardIndex).getBloodCost();
     }
 
-    public Player clone()
-    {
-        return new Player(m_deck.clone(), new PlayerBoard(), m_observer.get(1));
-    }
-
     @Override
     public int place(int position, int cardIndex){
         validateHandIndex(cardIndex);

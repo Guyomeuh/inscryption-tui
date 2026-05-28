@@ -7,7 +7,7 @@ public class Combat {
     private final Bot m_bot;
     private Playable m_currentPlayer;
     private MatchStrategy m_strategy;
-    private static Integer m_turn = 1;
+    private Integer m_turn;
     private int m_balance;
 
     public Combat(Player player, MatchStrategy strategy, BotObserver botObserver)
@@ -18,6 +18,7 @@ public class Combat {
         m_bot.addObserver(botObserver);
         m_currentPlayer = player;
         m_balance = 0;
+        m_turn = 1;
         m_bot.updateAll();
     }
 

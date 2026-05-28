@@ -35,6 +35,12 @@ public class Game {
         m_combat = new Combat(m_player, newStrategy, m_botObserver);
     }
 
+    public void updateAll()
+    {
+        updateTurn();
+        updateBalance();
+        updateGameNumber();
+    }
     public void nextCombat()
     {
         if (m_gameNumber == 1)
@@ -42,18 +48,21 @@ public class Game {
             MatchStrategy strategy = new SecondMatch();
             m_combat = new Combat(m_player, strategy, m_botObserver);
             m_gameNumber++;
+            updateAll();
         }
         else if (m_gameNumber == 2)
         {
             MatchStrategy strategy = new ThirdMatch();
             m_combat = new Combat(m_player, strategy, m_botObserver);
             m_gameNumber++;
+            updateAll();
         }
         else
         {
             MatchStrategy strategy = new FirstMatch();
             m_combat = new Combat(m_player, strategy, m_botObserver);
             m_gameNumber = 1;
+            updateAll();
         }
     }
 
