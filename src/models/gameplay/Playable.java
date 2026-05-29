@@ -30,7 +30,7 @@ public abstract class Playable {
         return this.m_board.isAirborne(position);
     }
 
-    public abstract int place(int position, int cardIndex);
+    public abstract boolean place(int position, int cardIndex);
 
     @Override
     public String toString(){

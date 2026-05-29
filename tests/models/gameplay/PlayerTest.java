@@ -11,11 +11,12 @@ import org.junit.Test;
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
 import models.cards.ObjectCard;
+import view.PlayerTextObserver;
 
 public class PlayerTest {
     public Player createPlayer(){
-        AnimalCard ac = new AnimalCard("cat", 1, 0, 1, 0);
-        AnimalCard ac1 = new AnimalCard("grizzly", 6, 4, 3, 0);
+        AnimalCard ac = AnimalCard.Chat();
+        AnimalCard ac1 = AnimalCard.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -27,9 +28,9 @@ public class PlayerTest {
 
         PlayerBoard pb = new PlayerBoard();
         pb.set(3, new ObjectCard("rock", 6));
-        pb.set(0, new AnimalCard("", 0, 0, 10, 0));
-
-        Player p = new Player(d, pb);
+        pb.set(0, AnimalCard.Corbeau());
+        PlayerTextObserver pt = new PlayerTextObserver();
+        Player p = new Player(d, pb,pt);
         p.sacrifice(0);
 
         return p;
@@ -77,10 +78,10 @@ public class PlayerTest {
 
         assertThrows(IllegalArgumentException.class, ()->{ p1.sacrifice(-1); });
         assertThrows(IllegalArgumentException.class, ()->{ p1.sacrifice(4); });
-        assertTrue(!p1.sacrifice(0));
+        assertEquals(p1.sacrifice(0),0);
 
         p1.place(0, 0);
-        assertTrue(p1.sacrifice(0));
-        assertTrue(!p1.sacrifice(3));
+        assertEquals(p1.sacrifice(0),1);
+        assertEquals(p1.sacrifice(3),0);
     }
 }

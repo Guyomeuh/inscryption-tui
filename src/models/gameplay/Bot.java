@@ -72,16 +72,16 @@ public class Bot extends Playable {
      * @return true if placed, else false
      */
     @Override
-    public int place(int position, int cardIndex){
+    public boolean place(int position, int cardIndex){
         validateDeckIndex(cardIndex);
         if (this.m_waitingBoard.isOccupied(position)){
-            return 0;
+            return false;
         }
 
         this.m_waitingBoard.set(position, this.m_cards.get(cardIndex));
         this.m_cards.remove(cardIndex);
         updateAll();
-        return 1;
+        return true;
     }
 
     public void updateBotWaitingBoardStatus()
