@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import models.cards.AnimalCard;
 import models.cards.ObjectCard;
-import models.cards.decorators.AirborneAnimal;
 
 public class PlayerBoardTest {
     @Test

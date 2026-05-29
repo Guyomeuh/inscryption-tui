@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import models.cards.AnimalCard;
-import models.gameplay.Player;
 import models.gameplay.PlayerBoard;
 
 public class AnimalDecoratorsTest {

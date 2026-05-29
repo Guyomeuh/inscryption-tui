@@ -3,8 +3,6 @@ package models.cards;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import models.cards.AnimalCard;
-import models.cards.ObjectCard;
 import org.junit.Test;
 
 public class AnimalCardTest {
