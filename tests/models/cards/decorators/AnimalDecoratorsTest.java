@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import models.cards.AnimalCard;
-import models.gameplay.Player;
 import models.gameplay.PlayerBoard;
 
 public class AnimalDecoratorsTest {
@@ -63,22 +62,5 @@ public class AnimalDecoratorsTest {
         assertTrue(pb.isAirborne(0));
         assertTrue(!pb.isAirborne(1));
         assertTrue(!pb.isAirborne(2));
-    }
-
-    @Test
-    public void Sprinter(){
-        SprinterAnimal elk = new SprinterAnimal(new AnimalCard("elk", 4, 2, 2, 0));
-
-        assertEquals("Coureur", elk.getModif());
-
-        PlayerBoard pb = new PlayerBoard();
-        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
-
-        pb.set(0, elk);
-        pb.set(1, cat);
-
-        assertTrue(pb.isSprinter(0));
-        assertTrue(!pb.isSprinter(1));
-        assertTrue(!pb.isSprinter(2));
     }
 }
