@@ -13,7 +13,7 @@
     - [x] Nombreuses vies 
     - [ ] Croissance 
     - [x] Puant
-    - [ ] Coureur
+    - [x] Coureur
     - [x] Contact Mortel
     - [x] Piques pointues
 - [ ] Fixer test playerboard.sacrifice
