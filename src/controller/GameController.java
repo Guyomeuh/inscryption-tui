@@ -23,9 +23,10 @@ public class GameController {
                 m_view.show();
                 boolean valid = false;
                 boolean endTurn = false;
-                boolean pioche = false;
+                boolean pioche = m_game.getDeckSize() == 0;
                 int errorNb = 0;
-                while (!valid || !endTurn) {
+                while (!valid || !endTurn)
+                {
                     String input = m_view.promptUser();
                     System.out.println(input);
                 if (input.split(" ").length >= 1 || input.split(" ").length <= 3) {
