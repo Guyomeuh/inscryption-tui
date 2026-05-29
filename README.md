@@ -1,7 +1,7 @@
 # TO-DO 
 
-- [x] Ajouter classe `AliveCardFactory` et y mettre les méthodes factory de `AnimalCard` 
-- [x] Modifier types des variables `AnimalCard` en `AliveCard` pour accepter les modifiers
+- [ ] Fix contact mortel (ne one shot pas les obstacle)
+- [ ] Fix puant dans le cas où celui qui attaque à 0 atk ne lui rajoute pas d'hp
 - [ ] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 
