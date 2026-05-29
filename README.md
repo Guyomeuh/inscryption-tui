@@ -1,5 +1,7 @@
 # TO-DO 
 
+- [ ] Ajouter classe `AliveCardFactory` et y mettre les méthodes factory de `AnimalCard` 
+- [ ] Modifier types des variables `AnimalCard` en `AliveCard` pour accepter les modifiers
 - [ ] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 
@@ -16,7 +18,6 @@
     - [x] Coureur
     - [x] Contact Mortel
     - [x] Piques pointues
-- [ ] Fixer test playerboard.sacrifice
 - [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Mettre à jour uml 
