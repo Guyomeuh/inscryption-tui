@@ -25,43 +25,46 @@ public class GameController {
                 boolean endTurn = false;
                 boolean pioche = m_game.getDeckSize() == 0;
                 int errorNb = 0;
-                while (!valid || !endTurn)
-                {
+                while (!valid || !endTurn) {
                     String input = m_view.promptUser();
                     System.out.println(input);
-                if (input.split(" ").length >= 1 || input.split(" ").length <= 3) {
-                    switch (input.split(" ")[0]) {
-                        case "fin" -> {
-                            valid = m_game.endTurn();
-                            endTurn = true;
-                        }
-                        case "piocher" -> {
-                            if (!pioche) {
-                                valid = m_game.draw();
-                                pioche = true;
-                                m_view.show();
-                            } else {
-                                System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même");
+                    if (input.split(" ").length >= 1 || input.split(" ").length <= 3) {
+                        switch (input.split(" ")[0]) {
+                            case "fin" -> {
+                                valid = m_game.endTurn();
+                                endTurn = true;
                             }
-                        }
-                        case "placer" -> {
-                            if (!pioche) {
-                                System.out.println("Vous devenez d'abord piocher non mais oh");
-                            } else {
-                                valid = placer(valid, input);
+                            case "piocher" -> {
+                                if (!pioche) {
+                                    valid = m_game.draw();
+                                    pioche = true;
+                                    m_view.show();
+                                } else {
+                                    if (m_game.getDeckSize() == 0) {
+                                        System.out.println("Tu es à court de cartes");
+                                    } else {
+                                        System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même");
+                                    }
+                                }
                             }
-                        }
+                            case "placer" -> {
+                                if (!pioche) {
+                                    System.out.println("Vous devenez d'abord piocher non mais oh");
+                                } else {
+                                    valid = placer(valid, input);
+                                }
+                            }
 
-                        default -> {
-                            System.out.println("Choisissez une action valide");
-                            errorNb++;
-                            if (errorNb >= 5) {
-                                m_view.show();
-                                errorNb = 0;
+                            default -> {
+                                System.out.println("Choisissez une action valide");
+                                errorNb++;
+                                if (errorNb >= 5) {
+                                    m_view.show();
+                                    errorNb = 0;
+                                }
                             }
                         }
                     }
-                }
                 }
                 if (m_game.checkVictory() == 0)
                 {
