@@ -3,13 +3,17 @@ package models.cards.decorators;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
 import models.cards.Card;
 import models.cards.ObjectCardFactory;
+import models.gameplay.Player;
 import models.gameplay.PlayerBoard;
+import view.PlayerTextObserver;
 
 public class AnimalDecoratorsTest {
     @Test
@@ -97,5 +101,20 @@ public class AnimalDecoratorsTest {
         assertTrue(pb.isSprinter(0));
         assertTrue(!pb.isSprinter(1));
         assertTrue(!pb.isSprinter(2));
+    }
+
+    @Test
+    public void Fledgling(){
+        AliveCard wolfCub = AliveCardFactory.Louveteau();
+
+        assertEquals("Croissance", wolfCub.getModif());
+
+        PlayerBoard pb = new PlayerBoard();
+        pb.set(0, wolfCub);
+        Player p = new Player(new ArrayList<>(), pb, new PlayerTextObserver());
+        p.endTurn();
+
+        assertEquals("", pb.getModif(0));
+        assertEquals("Loup", pb.getName(0));
     }
 }

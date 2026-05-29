@@ -1,21 +1,21 @@
 # TO-DO 
 
-- [ ] Fix contact mortel (ne one shot pas les obstacle)
+- [x] Fix contact mortel (ne one shot pas les obstacle)
 > Est-ce qu'un animal ayant 'piques pointues' contre attaque avant de mourir ? Oui
 - [x] Fix puant dans le cas où celui qui attaque à 0 atk ne lui rajoute pas d'hp
-- [ ] Faire une classe `ObjectCardFactory` 
-- [ ] Ajouter decorators: 
+- [x] Faire une classe `ObjectCardFactory` 
+- [x] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 
-    - [ ] Croissance (Attendre les Factory)
+    - [x] Croissance (Attendre les Factory)
     - [x] Puant
     - [x] Coureur
     - [x] Contact Mortel
     - [x] Piques pointues
-- [ ] Ajouter tests 
+- [x] Ajouter tests 
     - [x] Volant
     - [x] Nombreuses vies 
-    - [ ] Croissance 
+    - [x] Croissance 
     - [x] Puant
     - [x] Coureur
     - [x] Contact Mortel
@@ -23,7 +23,6 @@
 - [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Mettre à jour uml 
-- [ ] Ajouter de la doc 
 
 # Methode de travail
 
