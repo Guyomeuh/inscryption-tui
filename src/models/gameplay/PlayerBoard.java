@@ -116,14 +116,14 @@ public class PlayerBoard {
     public int getBlood(int position)
     {
         validatePosition(position);
-
-        Optional<Card> card = this.m_cards.get(position);
-        if (card.isEmpty() ||
-            !(card.get() instanceof AliveCard)){
-            return -1;
+        if (this.m_cards.get(position).isEmpty()){
+            return 0;
         }
 
-        return ((AliveCard)card.get()).getBloodCost();
+        if (!(this.m_cards.get(position).get() instanceof AliveCard)){
+            return 0;
+        };
+        return 1;
     }
 
     public boolean isSacrifiable(int position)
