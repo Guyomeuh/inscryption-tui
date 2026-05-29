@@ -1,7 +1,9 @@
 # TO-DO 
 
 - [ ] Fix contact mortel (ne one shot pas les obstacle)
+> Est-ce qu'un animal ayant 'piques pointues' contre attaque avant de mourir ? Oui
 - [x] Fix puant dans le cas où celui qui attaque à 0 atk ne lui rajoute pas d'hp
+- [ ] Faire une classe `ObjectCardFactory` 
 - [ ] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 
