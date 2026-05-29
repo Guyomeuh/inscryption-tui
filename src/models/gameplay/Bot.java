@@ -3,28 +3,28 @@ package models.gameplay;
 import java.util.ArrayList;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
 import models.observer.BotObserver;
 
-public class Bot extends Playable {
-    private PlayerBoard m_waitingBoard;
+public class Bot implements Playable {
+    private Board m_waitingBoard;
+    private Board m_board;
     private ArrayList<AliveCard> m_cards;
     private ArrayList<BotObserver> m_observer;
 
-    public Bot(PlayerBoard board, PlayerBoard waitingBoard, ArrayList<AliveCard> cards, BotObserver observer){
-        super(board);
+    public Bot(Board board, Board waitingBoard, ArrayList<AliveCard> cards, BotObserver observer){
+        this.m_board = board;
         this.m_waitingBoard = waitingBoard;
         this.m_cards = cards;
-        m_observer = new ArrayList<>();
-        m_observer.add(observer);
+        this.m_observer = new ArrayList<>();
+        this.m_observer.add(observer);
     }
 
-    public Bot(PlayerBoard board, PlayerBoard waitingBoard, ArrayList<AliveCard> cards)
+    public Bot(Board board, Board waitingBoard, ArrayList<AliveCard> cards)
     {
-        super(board);
+        this.m_board = board;
         this.m_waitingBoard = waitingBoard;
         this.m_cards = cards;
-        m_observer = new ArrayList<>();
+        this.m_observer = new ArrayList<>();
     }
 
     public void updateAll()
@@ -56,13 +56,29 @@ public class Bot extends Playable {
      *  transfer all present cards from waitingBoard to board 
      */
     public void transferCards(){
-        for (int i = 0; i < PlayerBoard.SIZE; i++){
+        for (int i = 0; i < Board.SIZE; i++){
             if (this.m_waitingBoard.isOccupied(i)){
                 this.m_board.set(i, this.m_waitingBoard.remove(i).get());
             }
         }
         updateAll();
 
+    }
+
+    @Override
+    public boolean getDamaged(int position, int damages) {
+        return this.m_board.getDamaged(position, damages);
+    }
+
+    @Override
+    public int[] endTurn() {
+        int[] damages = new int[4];
+
+        for (int i = 0; i < 4; i++){
+            damages[i] = this.m_board.getAttack(i);
+        }
+
+        return damages;
     }
 
     /**

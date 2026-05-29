@@ -2,11 +2,8 @@ package models.gameplay;
 
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
-import models.cards.ObjectCard;
-import models.observer.BotObserver;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class FirstMatch implements MatchStrategy {
     public FirstMatch()
@@ -22,8 +19,8 @@ public class FirstMatch implements MatchStrategy {
         deck.add(AnimalCard.Loup());
         deck.add(AnimalCard.Loup());
         deck.add(AnimalCard.Ecureuil());
-        PlayerBoard board = new PlayerBoard();
-        PlayerBoard waitingBoard = new PlayerBoard();
+        Board board = new Board();
+        Board waitingBoard = new Board();
         waitingBoard.set(3, AnimalCard.Coyote());
         return new Bot(board, waitingBoard, deck);
     }
@@ -33,7 +30,6 @@ public class FirstMatch implements MatchStrategy {
         switch (turnNumber)
         {
             case 1 -> {
-                bot.transferCards();
                 bot.place(0, 0);
             }
             case 2 -> {

@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
 import models.observer.PlayerObserver;
 
-public class Player extends Playable {
+public class Player implements Playable {
     private ArrayList<AliveCard> m_deck;
     private ArrayList<AliveCard> m_hand;
     private int m_blood, m_bone;
     private ArrayList<PlayerObserver> m_observer;
+    private PlayerBoard m_board;
 
     public Player(ArrayList<AliveCard> deck, PlayerBoard board, PlayerObserver observer){
-        super(board);
-
         m_observer = new ArrayList<PlayerObserver>();
         m_observer.add(observer);
 
         this.m_deck = deck;
-
+        this.m_board = board;
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();
 
@@ -38,6 +36,22 @@ public class Player extends Playable {
         updatePlayerHand();
         updatePlayerBoardName();
         updatePlayerDeckCount();
+    }
+
+    public void reinitPlayer()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            m_board.getDamaged(i,999);
+        }
+        for(int i = m_board.getCemetarySize() - 1; i >= 0; i--)
+        {
+            m_deck.add(m_board.getDeadCard(i));
+        }
+        for(int i = m_hand.size() - 1; i >= 0; i--)
+        {
+            m_deck.add(m_hand.remove(i));
+        }
     }
 
     public void updatePlayerDeckCount()
@@ -138,8 +152,8 @@ public class Player extends Playable {
     }
 
 
-    private void initHand(){
-        for (int i = 0; i < BASE_CARD_NUMBER; i++){
+    public void initHand(){
+        for (int i = 0; i < 4; i++){
             this.draw();
         }
     }
@@ -234,10 +248,20 @@ public class Player extends Playable {
     }
 
     @Override
+    public boolean getDamaged(int position, int damages) {
+        return this.m_board.getDamaged(position, damages);
+    }
+
+    @Override
     public int[] endTurn(){
         this.m_blood = 0;
+        int[] damages = new int[4];
 
-        return super.endTurn();
+        for (int i = 0; i < 4; i++){
+            damages[i] = this.m_board.getAttack(i);
+        }
+
+        return damages;
     }
 
     @Override

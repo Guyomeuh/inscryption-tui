@@ -6,11 +6,11 @@ import java.util.Optional;
 import models.cards.AliveCard;
 import models.cards.Card;
 
-public class PlayerBoard {
+public class Board {
     protected static final int SIZE = 4;
-    private ArrayList<Optional<Card>> m_cards;
+    protected ArrayList<Optional<Card>> m_cards;
 
-    public PlayerBoard(){
+    public Board(){
         this.m_cards = new ArrayList<Optional<Card>>();
 
         for (int i = 0; i < SIZE; i++){
@@ -18,7 +18,7 @@ public class PlayerBoard {
         }
     }
 
-    private void validatePosition(int position){
+    protected void validatePosition(int position){
         if (position < 0 || position >= SIZE){
             throw new IllegalArgumentException("Invalid position");
         }

@@ -2,7 +2,6 @@ import controller.GameController;
 import models.cards.AliveCard;
 import models.cards.AnimalCard;
 import models.gameplay.*;
-import models.observer.GameObserver;
 import view.BotTextObserver;
 import view.GameTextObserver;
 import view.GeneralView;
@@ -22,7 +21,11 @@ public class Main
 
         PlayerBoard board = new PlayerBoard();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
-
+        deck.add(AnimalCard.Chat());
+        deck.add(AnimalCard.Chat());
+        deck.add(AnimalCard.Chat());
+        deck.add(AnimalCard.Chat());
+        deck.add(AnimalCard.Chat());
         Player user = new Player(deck, board, playerObs);
         Game game = new Game(user, gameObs, botObs);
         GameController gameControl = new GameController(game, gen);

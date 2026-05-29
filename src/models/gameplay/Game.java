@@ -73,6 +73,13 @@ public class Game {
         return res;
     }
 
+    public void reinitPlayer()
+    {
+        m_player.reinitPlayer();
+        m_player.initHand();
+        m_player.updateAll();
+    }
+
     public int getBloodCost(int cardIndex)
     {
         return m_combat.getBloodCost(cardIndex);

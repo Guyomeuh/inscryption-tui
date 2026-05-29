@@ -24,6 +24,7 @@ public class Combat {
 
     public void botTurn()
     {
+        m_bot.transferCards();
         m_strategy.botAction(m_turn,m_bot);
         endTurn();
     }
