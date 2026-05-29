@@ -12,7 +12,7 @@ import models.gameplay.PlayerBoard;
 public class AnimalDecoratorsTest {
     @Test
     public void TouchOfDeath(){
-        TouchOfDeathAnimal viper = new TouchOfDeathAnimal(new AnimalCard("Viper", 1, 1, 2, 0));
+        AnimalCard viper = AnimalCard.Vipere();
 
         assertEquals("Contact mortel", viper.getModif());
         assertEquals(Integer.MAX_VALUE, viper.getAttack());
@@ -20,7 +20,7 @@ public class AnimalDecoratorsTest {
 
     @Test 
     public void Stinky(){
-        StinkyAnimal bedbug = new StinkyAnimal(new AnimalCard("Bedbug", 2, 1, 0, 2));
+        AnimalCard bedbug = AnimalCard.Punaise();
 
         assertEquals("Puant", bedbug.getModif());
         bedbug.getDamaged(2);
@@ -29,8 +29,9 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void SharpQuills(){
-        SharpQuillsAnimal porcupine = new SharpQuillsAnimal(new AnimalCard("Porcupine", 2, 1, 1, 0));
-        AnimalCard grizzly = new AnimalCard("grizzly", 6, 4, 3, 0);
+        AnimalCard porcupine = AnimalCard.PorcEpic();
+        AnimalCard grizzly = AnimalCard.Grizzly();
+        
 
         assertEquals("Piques pointues", porcupine.getModif());
         grizzly.attack(porcupine);
@@ -39,7 +40,7 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void ManyLives(){
-        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
+        AnimalCard cat = AnimalCard.Chat();
         assertEquals("Nombreuses vies", cat.getModif());
 
         PlayerBoard pb = new PlayerBoard();
@@ -51,8 +52,8 @@ public class AnimalDecoratorsTest {
 
     @Test 
     public void Airborne(){
-        AirborneAnimal raven = new AirborneAnimal(new AnimalCard("raven", 3, 2, 2, 0));
-        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
+        AnimalCard raven = AnimalCard.Corbeau();
+        AnimalCard cat = AnimalCard.Chat();
         assertEquals("Volant", raven.getModif());
 
 
@@ -67,12 +68,12 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void Sprinter(){
-        SprinterAnimal elk = new SprinterAnimal(new AnimalCard("elk", 4, 2, 2, 0));
+        AnimalCard elk = AnimalCard.Elan();
 
         assertEquals("Coureur", elk.getModif());
 
         PlayerBoard pb = new PlayerBoard();
-        ManyLivesAnimal cat = new ManyLivesAnimal(new AnimalCard("cat", 1, 0, 1, 0));
+        AnimalCard cat = AnimalCard.Chat();
 
         pb.set(0, elk);
         pb.set(1, cat);
