@@ -23,7 +23,7 @@ public class GameController {
                 m_view.show();
                 boolean valid = false;
                 boolean endTurn = false;
-                boolean pioche = false;
+                boolean pioche = m_game.getDeckSize() == 0;
                 int errorNb = 0;
                 while (!valid || !endTurn)
                 {
@@ -46,7 +46,11 @@ public class GameController {
                                     }
                                     else
                                     {
-                                        System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même");
+                                        if (m_game.getDeckSize() == 0) {
+                                            System.out.println("Vous êtes totalement à COURT de cartes.");
+                                        } else {
+                                            System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même.");
+                                        }
                                     }
                                 }
                         case "placer" ->

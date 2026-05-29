@@ -91,6 +91,7 @@ public class Game {
     {
         return m_player.getHandSize();
     }
+    public int getDeckSize() { return m_player.getDeckSize();}
 
     public int availableBlood()
     {
