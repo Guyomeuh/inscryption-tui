@@ -25,6 +25,8 @@ public class AnimalDecoratorsTest {
         assertEquals("Puant", bedbug.getModif());
         bedbug.getDamaged(2);
         assertEquals(1, bedbug.getHp());
+        bedbug.getDamaged(0);
+        assertEquals(1, bedbug.getHp());
     }
 
     @Test

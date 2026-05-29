@@ -8,7 +8,15 @@ public class StinkyAnimal extends AnimalDecorator {
     }
 
     @Override
-    public void getDamaged(int damages){ super.getDamaged(damages - 1); }
+    public void getDamaged(int damages){ 
+        // Avoid getting -1 of damages
+        if (damages > 0){
+            super.getDamaged(damages - 1); 
+        }
+        else {
+            super.getDamaged(damages); 
+        }
+    }
 
     @Override
     public String getModif(){ return "Puant"; }
