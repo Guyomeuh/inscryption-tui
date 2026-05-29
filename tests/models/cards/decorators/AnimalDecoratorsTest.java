@@ -36,6 +36,7 @@ public class AnimalDecoratorsTest {
 
         assertEquals("Piques pointues", porcupine.getModif());
         grizzly.attack(porcupine);
+        assertEquals(0, porcupine.getHp());
         assertEquals(5, grizzly.getHp());
     }
 

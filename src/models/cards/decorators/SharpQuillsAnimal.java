@@ -13,9 +13,5 @@ public class SharpQuillsAnimal extends AnimalDecorator {
     public String getModif(){ return "Piques pointues"; }
 
     @Override
-    public void getDamaged(int damages){
-    }
-
-    @Override
     public String toString(){ return super.toString() + " " + this.getModif(); }
 }
