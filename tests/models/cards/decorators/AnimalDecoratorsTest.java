@@ -7,15 +7,28 @@ import org.junit.Test;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
+import models.cards.ObjectCard;
 import models.gameplay.PlayerBoard;
 
 public class AnimalDecoratorsTest {
     @Test
     public void TouchOfDeath(){
         AliveCard viper = AliveCardFactory.Vipere();
+        AliveCard grizzly = AliveCardFactory.Grizzly();
+        AliveCard porcupine = AliveCardFactory.PorcEpic();
+        ObjectCard rock = new ObjectCard("rock", 6);
 
         assertEquals("Contact mortel", viper.getModif());
-        assertEquals(Integer.MAX_VALUE, viper.getAttack());
+
+        viper.attack(grizzly);
+        assertEquals(0, grizzly.getHp());
+
+        viper.attack(rock);
+        assertEquals(5, rock.getHp());
+
+        viper.attack(porcupine);
+        assertEquals(0, porcupine.getHp());
+        assertEquals(0, viper.getHp());
     }
 
     @Test 

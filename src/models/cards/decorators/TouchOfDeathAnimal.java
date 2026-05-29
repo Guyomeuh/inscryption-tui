@@ -1,6 +1,8 @@
 package models.cards.decorators;
 
 import models.cards.AliveCard;
+import models.cards.Card;
+import models.cards.ObjectCard;
 
 public class TouchOfDeathAnimal extends AnimalDecorator {
     public TouchOfDeathAnimal(AliveCard card){
@@ -11,7 +13,13 @@ public class TouchOfDeathAnimal extends AnimalDecorator {
     public String getModif(){ return "Contact mortel"; }
 
     @Override
-    public int getAttack(){ return Integer.MAX_VALUE; }
+    public void attack(Card opponent){
+        super.attack(opponent); // So SharpQuills animals can counter-attack before dying
+
+        if (!(opponent instanceof ObjectCard)){
+            opponent.getDamaged(Integer.MAX_VALUE);
+        }
+    }
 
     @Override
     public String toString(){ return super.toString() + " " + this.getModif(); }
