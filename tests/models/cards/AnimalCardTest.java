@@ -17,7 +17,7 @@ public class AnimalCardTest {
 
     @Test
     public void attack(){
-        ObjectCard oc = new ObjectCard("rock", 5);
+        Card oc = ObjectCardFactory.Rocher();
         AliveCard ac = AliveCardFactory.Corbeau();
         AliveCard ac1 = AliveCardFactory.Corbeau();
 

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
-import models.cards.ObjectCard;
+import models.cards.ObjectCardFactory;
 import view.PlayerTextObserver;
 
 public class PlayerTest {
@@ -27,7 +27,7 @@ public class PlayerTest {
         }
 
         PlayerBoard pb = new PlayerBoard();
-        pb.set(3, new ObjectCard("rock", 6));
+        pb.set(3, ObjectCardFactory.Rocher());
         pb.set(0, AliveCardFactory.Corbeau());
         PlayerTextObserver pt = new PlayerTextObserver();
         Player p = new Player(d, pb,pt);
