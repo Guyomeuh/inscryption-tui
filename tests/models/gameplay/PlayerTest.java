@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 import models.cards.ObjectCard;
 import view.PlayerTextObserver;
 
 public class PlayerTest {
     public Player createPlayer(){
-        AnimalCard ac = AnimalCard.Chat();
-        AnimalCard ac1 = AnimalCard.Grizzly();
+        AliveCard ac = AliveCardFactory.Chat();
+        AliveCard ac1 = AliveCardFactory.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -28,7 +28,7 @@ public class PlayerTest {
 
         PlayerBoard pb = new PlayerBoard();
         pb.set(3, new ObjectCard("rock", 6));
-        pb.set(0, AnimalCard.Corbeau());
+        pb.set(0, AliveCardFactory.Corbeau());
         PlayerTextObserver pt = new PlayerTextObserver();
         Player p = new Player(d, pb,pt);
         p.sacrifice(0);

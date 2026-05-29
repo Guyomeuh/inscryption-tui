@@ -3,18 +3,19 @@ package models.gameplay;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 
 public class BotTest {
     public Bot createBot(){
-        AnimalCard ac = AnimalCard.Chat();
-        AnimalCard ac1 = AnimalCard.Grizzly();
+        AliveCard ac = AliveCardFactory.Chat();
+        AliveCard ac1 = AliveCardFactory.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -33,8 +34,8 @@ public class BotTest {
     public void place(){
         Bot b = createBot();
 
-        assertEquals(b.place(0, 0),1);
-        assertEquals(b.place(0, 0), 0);
+        assertTrue(b.place(0, 0));
+        assertTrue(!b.place(0, 0));
 
         assertThrows(IllegalArgumentException.class, ()->{ b.place(0, -1); });
         assertThrows(IllegalArgumentException.class, ()->{ b.place(0, b.getCardsSize()); });

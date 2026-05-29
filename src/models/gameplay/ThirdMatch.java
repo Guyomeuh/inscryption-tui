@@ -1,8 +1,7 @@
 package models.gameplay;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
-import models.observer.BotObserver;
+import models.cards.AliveCardFactory;
 
 import java.util.ArrayList;
 
@@ -16,12 +15,12 @@ public class ThirdMatch implements MatchStrategy{
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
         PlayerBoard board = new PlayerBoard();
-        deck.add(AnimalCard.Corbeau());
-        deck.add(AnimalCard.Elan());
-        deck.add(AnimalCard.Louveteau());
-        deck.add(AnimalCard.PorcEpic());
+        deck.add(AliveCardFactory.Corbeau());
+        deck.add(AliveCardFactory.Elan());
+        deck.add(AliveCardFactory.Louveteau());
+        deck.add(AliveCardFactory.PorcEpic());
         PlayerBoard waitingBoard = new PlayerBoard();
-        waitingBoard.set(1,AnimalCard.Moineau());
+        waitingBoard.set(1,AliveCardFactory.Moineau());
         return new Bot(board, waitingBoard, deck);
     }
 

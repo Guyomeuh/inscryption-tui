@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 import models.cards.ObjectCard;
 
 public class PlayerBoardTest {
@@ -33,7 +33,7 @@ public class PlayerBoardTest {
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(4); });
 
         pb.set(0, new ObjectCard("rock", 6));
-        pb.set(1, AnimalCard.Moineau());
+        pb.set(1, AliveCardFactory.Moineau());
         assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(-1); });
         assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(4); });
         assertTrue(!pb.isAirborne(0));
@@ -44,7 +44,7 @@ public class PlayerBoardTest {
     public void sacrifice(){
         PlayerBoard pb = new PlayerBoard();
         pb.set(0, new ObjectCard("rock", 6));
-        pb.set (1, AnimalCard.Chat());
+        pb.set (1, AliveCardFactory.Chat());
 
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(-1); });
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(4); });

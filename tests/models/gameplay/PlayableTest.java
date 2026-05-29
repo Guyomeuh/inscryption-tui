@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 import view.PlayerTextObserver;
 
 public class PlayableTest {
     public Player createPlayer(){
-        AnimalCard ac = AnimalCard.Chat();
-        AnimalCard ac1 = AnimalCard.Grizzly();
+        AliveCard ac = AliveCardFactory.Chat();
+        AliveCard ac1 = AliveCardFactory.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 

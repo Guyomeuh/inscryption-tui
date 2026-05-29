@@ -1,8 +1,7 @@
 package models.gameplay;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
-import models.observer.BotObserver;
+import models.cards.AliveCardFactory;
 
 import java.util.ArrayList;
 
@@ -16,9 +15,9 @@ public class SecondMatch implements MatchStrategy{
     public Bot initBot()
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
-        deck.add(AnimalCard.Loup());
-        deck.add(AnimalCard.Grizzly());
-        deck.add(AnimalCard.Vipere());
+        deck.add(AliveCardFactory.Loup());
+        deck.add(AliveCardFactory.Grizzly());
+        deck.add(AliveCardFactory.Vipere());
         PlayerBoard board = new PlayerBoard();
         PlayerBoard waitingBoard = new PlayerBoard();
         return new Bot(board, waitingBoard, deck);

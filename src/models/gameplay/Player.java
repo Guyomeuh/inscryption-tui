@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
 import models.observer.PlayerObserver;
 
 public class Player extends Playable {

@@ -3,7 +3,6 @@ package models.gameplay;
 import java.util.ArrayList;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
 import models.observer.BotObserver;
 
 public class Bot extends Playable {

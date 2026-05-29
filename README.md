@@ -1,7 +1,7 @@
 # TO-DO 
 
-- [ ] Ajouter classe `AliveCardFactory` et y mettre les méthodes factory de `AnimalCard` 
-- [ ] Modifier types des variables `AnimalCard` en `AliveCard` pour accepter les modifiers
+- [x] Ajouter classe `AliveCardFactory` et y mettre les méthodes factory de `AnimalCard` 
+- [x] Modifier types des variables `AnimalCard` en `AliveCard` pour accepter les modifiers
 - [ ] Ajouter decorators: 
     - [x] Volant
     - [x] Nombreuses vies 

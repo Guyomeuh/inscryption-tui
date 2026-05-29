@@ -5,13 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import models.cards.AnimalCard;
+import models.cards.AliveCard;
+import models.cards.AliveCardFactory;
 import models.gameplay.PlayerBoard;
 
 public class AnimalDecoratorsTest {
     @Test
     public void TouchOfDeath(){
-        AnimalCard viper = AnimalCard.Vipere();
+        AliveCard viper = AliveCardFactory.Vipere();
 
         assertEquals("Contact mortel", viper.getModif());
         assertEquals(Integer.MAX_VALUE, viper.getAttack());
@@ -19,7 +20,7 @@ public class AnimalDecoratorsTest {
 
     @Test 
     public void Stinky(){
-        AnimalCard bedbug = AnimalCard.Punaise();
+        AliveCard bedbug = AliveCardFactory.Punaise();
 
         assertEquals("Puant", bedbug.getModif());
         bedbug.getDamaged(2);
@@ -28,9 +29,8 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void SharpQuills(){
-        AnimalCard porcupine = AnimalCard.PorcEpic();
-        AnimalCard grizzly = AnimalCard.Grizzly();
-        
+        AliveCard porcupine = AliveCardFactory.PorcEpic();
+        AliveCard grizzly = AliveCardFactory.Grizzly();
 
         assertEquals("Piques pointues", porcupine.getModif());
         grizzly.attack(porcupine);
@@ -39,7 +39,7 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void ManyLives(){
-        AnimalCard cat = AnimalCard.Chat();
+        AliveCard cat = AliveCardFactory.Chat();
         assertEquals("Nombreuses vies", cat.getModif());
 
         PlayerBoard pb = new PlayerBoard();
@@ -51,8 +51,8 @@ public class AnimalDecoratorsTest {
 
     @Test 
     public void Airborne(){
-        AnimalCard raven = AnimalCard.Corbeau();
-        AnimalCard cat = AnimalCard.Chat();
+        AliveCard raven = AliveCardFactory.Corbeau();
+        AliveCard cat = AliveCardFactory.Chat();
         assertEquals("Volant", raven.getModif());
 
 
@@ -67,12 +67,12 @@ public class AnimalDecoratorsTest {
 
     @Test
     public void Sprinter(){
-        AnimalCard elk = AnimalCard.Elan();
+        AliveCard elk = AliveCardFactory.Elan();
 
         assertEquals("Coureur", elk.getModif());
 
         PlayerBoard pb = new PlayerBoard();
-        AnimalCard cat = AnimalCard.Chat();
+        AliveCard cat = AliveCardFactory.Chat();
 
         pb.set(0, elk);
         pb.set(1, cat);
