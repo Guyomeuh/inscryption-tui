@@ -39,4 +39,9 @@ public class SecondMatch implements MatchStrategy{
             default -> {}
         }
     }
+
+    @Override
+    public PlayerBoard initPlayerBoard() {
+        return new PlayerBoard();
+    }
 }

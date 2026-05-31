@@ -6,7 +6,7 @@ public class Combat {
     private final Player m_player;
     private final Bot m_bot;
     private Playable m_currentPlayer;
-    private MatchStrategy m_strategy;
+    private final MatchStrategy m_strategy;
     private Integer m_turn;
     private int m_balance;
 
@@ -17,6 +17,7 @@ public class Combat {
         m_bot = m_strategy.initBot();
         m_bot.addObserver(botObserver);
         m_currentPlayer = player;
+        m_player.setNewBoard(m_strategy.initPlayerBoard());
         m_balance = 0;
         m_turn = 1;
         m_bot.updateAll();

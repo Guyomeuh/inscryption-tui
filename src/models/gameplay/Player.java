@@ -38,6 +38,8 @@ public class Player implements Playable {
         updatePlayerDeckCount();
     }
 
+
+
     public void reinitPlayer()
     {
         for (int i = 0; i < 4; i++)
@@ -52,6 +54,11 @@ public class Player implements Playable {
         {
             m_deck.add(m_hand.remove(i));
         }
+    }
+
+    public void setNewBoard(PlayerBoard board)
+    {
+        m_board = board;
     }
 
     public void updatePlayerDeckCount()
