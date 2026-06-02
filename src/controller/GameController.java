@@ -98,7 +98,12 @@ public class GameController {
 
     public boolean verifBlood(String input)
     {
-        return (m_game.availableBlood() >= m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1)) && (m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) !=0);
+        return m_game.availableBlood() >= m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
+    }
+
+    public boolean verifBone(String input)
+    {
+        return (m_game.getBoneCost(Integer.parseInt(input.split(" ")[2]) - 1) <= m_game.getPlayerBone());
     }
 
     public boolean verifCardIndex(String input)
@@ -111,6 +116,26 @@ public class GameController {
         return (input.split(" ").length == wordCount);
     }
 
+    public boolean costBlood(String input)
+    {
+        return m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) != 0;
+    }
+
+    public boolean costBone(String input)
+    {
+        return m_game.getBoneCost(Integer.parseInt(input.split(" ")[2]) - 1) != 0;
+    }
+
+    public int getBloodCost(String input)
+    {
+        return m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
+    }
+
+    public int getBoneCost(String input)
+    {
+        return m_game.getBoneCost(Integer.parseInt(input.split(" ")[2]) - 1);
+    }
+
     public boolean placer(boolean valid, String input)
     {
         int error = 0;
@@ -119,7 +144,7 @@ public class GameController {
             error++;
         } else
         {
-            if (m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1) == 0) {
+            if (!costBlood(input) && !costBone(input)) {
                 valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                 if (!valid) {
                     System.out.println("Emplacement déjà occupé");
@@ -127,10 +152,10 @@ public class GameController {
                 } else {
                     error = 0;
                 }
-            } else if (!verifBlood(input)) {
-                System.out.println("Tu manquerais pas de sang par hasard ?");
+            } else if ((!verifBlood(input) && getBloodCost(input) != 0) || (!verifBone(input) && getBoneCost(input) != 0)) {
+                System.out.println("Tu manquerais pas de ressources par hasard ?");
                 error++;
-            } else if (verifBlood(input)) {
+            } else if (verifBlood(input) && getBoneCost(input) == 0) {
                 int remainingSacrifice = m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
                 boolean validSacrifice = false;
 
@@ -166,6 +191,15 @@ public class GameController {
                     }
                 }
                 error = 0;
+            } else if (verifBone(input) && getBloodCost(input) == 0 )
+            {
+                valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
+                if (!valid) {
+                    System.out.println("Emplacement déjà occupé");
+                    error++;
+                } else {
+                    error = 0;
+                }
             }
         }
         if (error == 0) {

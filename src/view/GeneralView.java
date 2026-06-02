@@ -72,37 +72,37 @@ public class GeneralView {
 
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "|" + String.format("%1$-11s",m_botObserver.getBotWaitingBoardName(i)) + "|\t" : "*           *\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "|" + String.format("%1$-16s",m_botObserver.getBotWaitingBoardName(i)) + "|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*           *\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*----------------*\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|PV: %1$-7s",m_botObserver.getBotWaitingBoardHp(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|PV: %1$-12s",m_botObserver.getBotWaitingBoardHp(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|Att: %1$-6s",m_botObserver.getBotWaitingBoardAtt(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|Att: %1$-11s",m_botObserver.getBotWaitingBoardAtt(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|%1$-11s",m_botObserver.getBotWaitingBoardModif(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? String.format("|%1$-16s",m_botObserver.getBotWaitingBoardModif(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (int i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_botObserver.getBotWaitingBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
         endString+="\n\t\t\t | |\t\t\t | |\t\t\t | |\t\t\t | |\n";
         endString+="\t\t\t \\ /\t\t\t \\ /\t\t\t \\ /\t\t\t \\ /\n";
@@ -116,37 +116,37 @@ public class GeneralView {
 
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? "|" + String.format("%1$-11s",m_botObserver.getBotBoardName(i)) + "|\t" : "*           *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? "|" + String.format("%1$-16s",m_botObserver.getBotBoardName(i)) + "|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? "*-----------*\t" : "*           *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? "*----------------*\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|PV: %1$-7s",m_botObserver.getBotBoardHp(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|PV: %1$-12s",m_botObserver.getBotBoardHp(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|Att: %1$-6s",m_botObserver.getBotBoardAtt(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|Att: %1$-11s",m_botObserver.getBotBoardAtt(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|%1$-11s",m_botObserver.getBotBoardModif(i)) +"|\t" : "*           *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|%1$-16s",m_botObserver.getBotBoardModif(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
 
 
@@ -159,37 +159,37 @@ public class GeneralView {
 
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "|" + String.format("%1$-11s",m_playerObserver.getPlayerBoardName(i)) + "|\t" : "*           *\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "|" + String.format("%1$-16s",m_playerObserver.getPlayerBoardName(i)) + "|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*-----------*\t" : "*           *\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*----------------*\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|PV: %1$-7s",m_playerObserver.getPlayerBoardHp(i)) +"|\t" : "*           *\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|PV: %1$-12s",m_playerObserver.getPlayerBoardHp(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|Att: %1$-6s",m_playerObserver.getPlayerBoardAtt(i)) +"|\t" : "*           *\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|Att: %1$-11s",m_playerObserver.getPlayerBoardAtt(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|%1$-11s",m_playerObserver.getPlayerBoardModif(i)) +"|\t" : "*           *\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? String.format("|%1$-16s",m_playerObserver.getPlayerBoardModif(i)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*-----------*\t" : "*************\t";
+            endString += (m_playerObserver.getPlayerBoardStatus(i)) ? "*----------------*\t" : "******************\t";
         }
 
 
@@ -198,36 +198,36 @@ public class GeneralView {
 
     public void printPlayerHand()
     {
-        String res = String.format("Votre main: %1$121s","*------------*") + "\n";
+        String res = String.format("Votre main: %1$131s","*------------*") + "\n";
         for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 6; i++)
         {
             if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res += String.format("%1s %2$50s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
+                res += String.format("%1s %2$60s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
             }
             else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
-                res += String.format("%1$134s","|            |\n");
+                res += String.format("%1$144s","|            |\n");
             }
             else if (i == 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= String.format("%1$s %2$50s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
+                res+= String.format("%1$s %2$60s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
             }
             else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
             {
-                res+= String.format("%1$119s|     %2$-7s","",m_playerObserver.getPlayerDeckCount()) + "|\n";
+                res+= String.format("%1$129s|     %2$-7s","",m_playerObserver.getPlayerDeckCount()) + "|\n";
             }
             else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+=   String.format("%1s %2$50s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
+                res+=   String.format("%1s %2$60s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
             }
             else if (i == 5 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= String.format("%1$134s","*------------*\n");
+                res+= String.format("%1$144s","*------------*\n");
             }
             else if (i < m_playerObserver.getPlayerHandSize())
             {
-                res+= String.format("%1$s %2$50s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
+                res+= String.format("%1$s %2$60s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
             }
             else
             {

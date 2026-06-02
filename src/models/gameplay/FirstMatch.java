@@ -43,4 +43,9 @@ public class FirstMatch implements MatchStrategy {
         }
 
     }
+
+    @Override
+    public PlayerBoard initPlayerBoard() {
+        return new PlayerBoard();
+    }
 }

@@ -39,6 +39,8 @@ public class Player implements Playable {
         updatePlayerDeckCount();
     }
 
+
+
     public void reinitPlayer()
     {
         for (int i = 0; i < 4; i++)
@@ -53,6 +55,11 @@ public class Player implements Playable {
         {
             m_deck.add(m_hand.remove(i));
         }
+    }
+
+    public void setNewBoard(PlayerBoard board)
+    {
+        m_board = board;
     }
 
     public void updatePlayerDeckCount()
@@ -191,6 +198,7 @@ public class Player implements Playable {
         int blood = this.m_board.sacrifice(position);
 
         this.m_blood += blood;
+        this.m_bone++;
 
         updateAll();
         return blood;
@@ -238,6 +246,13 @@ public class Player implements Playable {
 
     public void addToDeck(AliveCard card){
         this.m_deck.add(card);
+	}
+
+    public int getBoneCost(int cardIndex)
+    {
+        validateHandIndex(cardIndex);
+
+        return m_hand.get(cardIndex).getBoneCost();
     }
 
     @Override
@@ -249,6 +264,7 @@ public class Player implements Playable {
         }
 
         this.m_blood -= this.m_hand.get(cardIndex).getBloodCost();
+        this.m_bone -= this.m_hand.get(cardIndex).getBoneCost();
         this.m_board.set(position, this.m_hand.get(cardIndex));
         this.m_hand.remove(cardIndex);
         updatePlayerBoardStatus();
@@ -262,7 +278,14 @@ public class Player implements Playable {
 
     @Override
     public boolean getDamaged(int position, int damages) {
-        return this.m_board.getDamaged(position, damages);
+        boolean res = this.m_board.getDamaged(position, damages);
+
+        if (res && !m_board.isOccupied(position))
+        {
+            this.m_bone++;
+        }
+
+        return res;
     }
 
     @Override
