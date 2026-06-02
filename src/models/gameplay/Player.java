@@ -16,14 +16,13 @@ public class Player implements Playable {
     private PlayerBoard m_board;
 
     public Player(ArrayList<AliveCard> deck, PlayerBoard board, PlayerObserver observer){
-        m_observer = new ArrayList<PlayerObserver>();
-        m_observer.add(observer);
-
-        this.m_deck = new ArrayList<>(deck);
+        this.m_observer = new ArrayList<PlayerObserver>();
+        this.m_observer.add(observer);
+        this.m_deck = new ArrayList<>();
         this.m_board = board;
         this.m_hand = new ArrayList<AliveCard>();
+        this.reinitPlayer(deck);
         this.initHand();
-
         this.m_blood = 0;
         this.m_bone = 0;
         updateAll();
@@ -44,7 +43,10 @@ public class Player implements Playable {
     public void reinitPlayer(ArrayList<AliveCard> originalDeck)
     {
         m_deck = new ArrayList<>();
-        m_deck.addAll(originalDeck);
+        for(AliveCard a : originalDeck)
+        {
+            m_deck.add(AliveCardFactory.Copy(a));
+        }
         for (int i = 0; i < 4; i++)
         {
             m_board.getDamaged(i, 99999);

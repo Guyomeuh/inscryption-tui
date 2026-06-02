@@ -67,4 +67,19 @@ public class AliveCardFactory {
     {
         return new SharpQuillsAnimal(new AnimalCard("Porc-épic", 2,1,1,0));
     }
+
+    public static AliveCard Copy(AliveCard other)
+    {
+        return new AnimalCard(other.getName(), other.getHp(), other.getAttack(), other.getBloodCost(), other.getBoneCost());
+    }
+
+    public static AliveCard applyModifier(AliveCard other, String modif)
+    {
+        switch (modif)
+        {
+            default -> {
+                return other;
+            }
+        }
+    }
 }

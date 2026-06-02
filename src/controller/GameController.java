@@ -3,11 +3,9 @@ package controller;
 import models.gameplay.Game;
 import view.GeneralView;
 
-import java.util.Objects;
-
 public class GameController {
-    private Game m_game;
-    private GeneralView m_view;
+    private final Game m_game;
+    private final GeneralView m_view;
 
     public GameController(Game game, GeneralView view)
     {
