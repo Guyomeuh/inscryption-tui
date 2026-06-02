@@ -38,6 +38,7 @@ public class Player implements Playable {
         updatePlayerHand();
         updatePlayerBoardName();
         updatePlayerDeckCount();
+        updatePlayerBoneAmount();
     }
 
     public void reinitPlayer(ArrayList<AliveCard> originalDeck)
@@ -75,6 +76,14 @@ public class Player implements Playable {
         for(PlayerObserver i : m_observer)
         {
             i.updatePlayerHand(playerCards);
+        }
+    }
+
+    public void updatePlayerBoneAmount()
+    {
+        for (PlayerObserver i : m_observer)
+        {
+            i.updatePlayerBoneAmount(m_bone);
         }
     }
 

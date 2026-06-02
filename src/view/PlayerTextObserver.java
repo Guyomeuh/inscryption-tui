@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class PlayerTextObserver implements PlayerObserver {
     private int m_deckCardAmount;
     private ArrayList<String> m_playerHand;
+    private int m_boneAmount;
     private boolean[] m_playerBoardStatus;
     private int[] m_playerBoardHp;
     private int[] m_playerBoardAtt;
@@ -16,6 +17,7 @@ public class PlayerTextObserver implements PlayerObserver {
     public PlayerTextObserver()
     {
         m_deckCardAmount = 0;
+        m_boneAmount = 0;
         m_playerHand = new ArrayList<String>();
         m_playerBoardStatus = new boolean[4];
         m_playerBoardHp = new int[4];
@@ -34,6 +36,11 @@ public class PlayerTextObserver implements PlayerObserver {
     @Override
     public void updatePlayerHand(ArrayList<String> hand) {
         m_playerHand = hand;
+    }
+
+    @Override
+    public void updatePlayerBoneAmount(int bone) {
+        m_boneAmount = bone;
     }
 
     @Override
@@ -62,17 +69,22 @@ public class PlayerTextObserver implements PlayerObserver {
     }
 
     @Override
-    public Boolean getPlayerBoardStatus(int index) {
+    public boolean getPlayerBoardStatus(int index) {
         return m_playerBoardStatus[index];
     }
 
     @Override
-    public Integer getPlayerBoardHp(int index) {
+    public int getPlayerBoardHp(int index) {
         return m_playerBoardHp[index];
     }
 
     @Override
-    public Integer getPlayerBoardAtt(int index) {
+    public int getPlayerBoneAmount() {
+        return m_boneAmount;
+    }
+
+    @Override
+    public int getPlayerBoardAtt(int index) {
         return m_playerBoardAtt[index];
     }
 
@@ -88,12 +100,12 @@ public class PlayerTextObserver implements PlayerObserver {
 
 
     @Override
-    public Integer getPlayerHandSize() {
+    public int getPlayerHandSize() {
         return m_playerHand.size();
     }
 
     @Override
-    public Integer getPlayerDeckCount() {
+    public int getPlayerDeckCount() {
         return m_deckCardAmount;
     }
 

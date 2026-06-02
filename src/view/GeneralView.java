@@ -28,6 +28,7 @@ public class GeneralView {
         printPlayerBoard();
         printPlayerHand();
         printAction();
+        printRessources();
     }
 
     public boolean gameStart()
@@ -242,6 +243,11 @@ public class GeneralView {
         System.out.println("Action possibles :\n\t[fin] Terminer votre tour\n" +
                 "\t[piocher] Piocher une carte\n" +
                 "\t[placer <position> <numero de carte>] Placer une carte sur le plateau\n");
+    }
+
+    public void printRessources()
+    {
+        System.out.println("Quantité d'os : " + m_playerObserver.getPlayerBoneAmount());
     }
 
     public void askNextGame()
