@@ -28,11 +28,16 @@ public class GameController {
                 while (!valid || !endTurn) {
                     String input = m_view.promptUser();
                     System.out.println(input);
-                    if (input.matches("^(fin|piocher|placer(\\s[1-4]){2}){1}$")) {
+                    if (input.matches("^fin|piocher|placer(\\s[1-4]){2}$")) {
                         switch (input.split(" ")[0]) {
                             case "fin" -> {
-                                valid = m_game.endTurn();
-                                endTurn = true;
+                                if (!pioche)
+                                {
+                                    System.out.println("Pioches d'abord une carte");
+                                } else {
+                                    valid = m_game.endTurn();
+                                    endTurn = true;
+                                }
                             }
                             case "piocher" -> {
                                 if (!pioche) {
@@ -124,61 +129,61 @@ public class GameController {
     public boolean placer(boolean valid, String input)
     {
         int error = 0;
-        if (!input.matches("^placer(\\s[1-4]){2}$"))
-        {
-            System.out.println("Position ou numero de carte incorrect");
-            error++;
-        } else
-        {
-            if (!costBlood(input) && !costBone(input)) {
-                valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
-                if (!valid) {
-                    System.out.println("Emplacement déjà occupé");
-                    error++;
-                } else {
-                    error = 0;
-                }
-            } else if ((!verifBlood(input) && getBloodCost(input) != 0) || (!verifBone(input) && getBoneCost(input) != 0)) {
-                System.out.println("Tu manquerais pas de ressources par hasard ?");
+        if (!costBlood(input) && !costBone(input)) {
+            valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
+            if (!valid) {
+                System.out.println("Emplacement déjà occupé");
                 error++;
-            } else if (verifBlood(input) && getBoneCost(input) == 0) {
-                int remainingSacrifice = m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
-                boolean validSacrifice = false;
-
-                while (remainingSacrifice != 0 || !validSacrifice)
-                {
-                    validSacrifice = false;
-                    m_view.askForBlood(remainingSacrifice);
-                    String sacrificeInput = m_view.promptUser();
-                    if (sacrificeInput.matches("^sacrifier\\s[1-4]$"))
-                    {
-                        remainingSacrifice-=m_game.sacrifice(Integer.parseInt(sacrificeInput.split(" ")[1]) - 1);
-                        validSacrifice = true;
-                    }
-                    else
-                    {
-                        System.out.println("Veuillez saisir une commande valide");
-                    }
-                }
-                boolean positionValid = false;
-                while(!positionValid) {
-                    System.out.println("Où voulez vous poser la carte ?\n[placer] <numero de la case>");
-                    String sacrificePosition = m_view.promptUser();
-
-
-                    if (sacrificePosition.matches("^placer\\s[1-4]$")) {
-                        valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
-                        if (!valid) {
-                            System.out.println("Emplacement déjà occupé");
-                            error++;
-                        } else {
-                            positionValid = true;
-                        }
-                    }
-                }
+            } else {
                 error = 0;
-            } else if (verifBone(input) && getBloodCost(input) == 0 )
+            }
+        }
+
+        else if ((!verifBlood(input) && getBloodCost(input) != 0) || (!verifBone(input) && getBoneCost(input) != 0)) {
+            System.out.println("Tu manquerais pas de ressources par hasard ?");
+            error++;
+        }
+
+        else if (verifBlood(input) && getBoneCost(input) == 0) {
+            int remainingSacrifice = m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
+            boolean validSacrifice = false;
+            while (remainingSacrifice != 0 || !validSacrifice)
             {
+                validSacrifice = false;
+                m_view.askForBlood(remainingSacrifice);
+                String sacrificeInput = m_view.promptUser();
+
+                if (sacrificeInput.matches("^sacrifier\\s[1-4]$"))
+                {
+                    remainingSacrifice-=m_game.sacrifice(Integer.parseInt(sacrificeInput.split(" ")[1]) - 1);
+                    validSacrifice = true;
+                }
+
+                else
+                {
+                    System.out.println("Veuillez saisir une commande valide");
+                }
+            }
+            boolean positionValid = false;
+            while(!positionValid) {
+                System.out.println("Où voulez vous poser la carte ?\n[placer] <numero de la case>");
+                String sacrificePosition = m_view.promptUser();
+
+                if (sacrificePosition.matches("^placer\\s[1-4]$")) {
+                    valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
+
+                    if (!valid) {
+                        System.out.println("Emplacement déjà occupé");
+                        error++;
+                    }
+
+                    else {
+                        positionValid = true;
+                    }
+                }
+            }
+            error = 0;
+        } else if (verifBone(input) && getBloodCost(input) == 0 ) {
                 valid = m_game.place(Integer.parseInt(input.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                 if (!valid) {
                     System.out.println("Emplacement déjà occupé");
@@ -187,7 +192,6 @@ public class GameController {
                     error = 0;
                 }
             }
-        }
         if (error == 0) {
             m_view.show();
         }
