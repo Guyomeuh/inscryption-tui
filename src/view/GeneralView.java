@@ -259,6 +259,6 @@ public class GeneralView {
         System.out.println("1. " + AliveCardFactory.Elan().toString());
         System.out.println("2. " + AliveCardFactory.Vipere().toString());
         System.out.println("3. " + AliveCardFactory.PorcEpic().toString());
-        System.out.print("Choisir une nouvelle carte :");
+        System.out.print("Choisir une nouvelle carte : ");
     }
 }

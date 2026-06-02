@@ -28,7 +28,7 @@ public class GameController {
                 while (!valid || !endTurn) {
                     String input = m_view.promptUser();
                     System.out.println(input);
-                    if (input.split(" ").length >= 1 || input.split(" ").length <= 3) {
+                    if (input.matches("^(fin|piocher|placer(\\s[1-4]){2}){1}$")) {
                         switch (input.split(" ")[0]) {
                             case "fin" -> {
                                 valid = m_game.endTurn();
@@ -91,11 +91,6 @@ public class GameController {
         }
     }
 
-    public boolean verifPlacementIndex(String input)
-    {
-        return (((Integer.parseInt(input) -1) >= 0) && ((Integer.parseInt(input) - 1) <= 4));
-    }
-
     public boolean verifBlood(String input)
     {
         return m_game.availableBlood() >= m_game.getBloodCost(Integer.parseInt(input.split(" ")[2]) - 1);
@@ -104,16 +99,6 @@ public class GameController {
     public boolean verifBone(String input)
     {
         return (m_game.getBoneCost(Integer.parseInt(input.split(" ")[2]) - 1) <= m_game.getPlayerBone());
-    }
-
-    public boolean verifCardIndex(String input)
-    {
-        return ((Integer.parseInt(input) - 1) >= 0) && ((Integer.parseInt(input) - 1) < m_game.getHandSize());
-    }
-
-    public boolean verifInputSize(String input, int wordCount)
-    {
-        return (input.split(" ").length == wordCount);
     }
 
     public boolean costBlood(String input)
@@ -139,7 +124,8 @@ public class GameController {
     public boolean placer(boolean valid, String input)
     {
         int error = 0;
-        if (!verifPlacementIndex(input.split(" ")[1]) || !verifCardIndex(input.split(" ")[2]) || !verifInputSize(input,3)) {
+        if (!input.matches("^placer(\\s[1-4]){2}$"))
+        {
             System.out.println("Position ou numero de carte incorrect");
             error++;
         } else
@@ -164,7 +150,7 @@ public class GameController {
                     validSacrifice = false;
                     m_view.askForBlood(remainingSacrifice);
                     String sacrificeInput = m_view.promptUser();
-                    if (Objects.equals(sacrificeInput.split(" ")[0], "sacrifier") && verifPlacementIndex(sacrificeInput.split(" ")[1]) && verifInputSize(sacrificeInput,2))
+                    if (sacrificeInput.matches("^sacrifier\\s[1-4]$"))
                     {
                         remainingSacrifice-=m_game.sacrifice(Integer.parseInt(sacrificeInput.split(" ")[1]) - 1);
                         validSacrifice = true;
@@ -180,9 +166,9 @@ public class GameController {
                     String sacrificePosition = m_view.promptUser();
 
 
-                    if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && verifPlacementIndex(sacrificePosition.split(" ")[1])) {
+                    if (sacrificePosition.matches("^placer\\s[1-4]$")) {
                         valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
-                        if (valid = false) {
+                        if (!valid) {
                             System.out.println("Emplacement déjà occupé");
                             error++;
                         } else {
@@ -216,8 +202,10 @@ public class GameController {
             this.m_view.askNewCard();
             String input = this.m_view.promptUser();
 
-            if (verifInputSize(input, 1) && input.matches("[1-3]"))
-            indexCard = Integer.parseInt(input);
+            if (input.matches("^[1-4]$"))
+            {
+                indexCard = Integer.parseInt(input);
+            }
         } while (indexCard < 1 || indexCard >= 4);
 
         return newCards[indexCard - 1];
