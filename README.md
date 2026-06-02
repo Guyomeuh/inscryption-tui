@@ -1,7 +1,6 @@
 # TO-DO 
 
-- [ ] merge dans `rendu3` 
-- [ ] Ajouter nouvelle carte au deck entre les parties (choisie)
+- [x] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Mettre à jour uml 
 

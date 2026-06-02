@@ -3,6 +3,8 @@ package view;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
+import models.cards.AliveCardFactory;
+
 public class GeneralView {
 
     private GameTextObserver m_gameObserver;
@@ -245,5 +247,12 @@ public class GeneralView {
     public void askNextGame()
     {
         System.out.println("Prêt pour une autre partie ? (y/n)");
+    }
+
+    public void askNewCard(){
+        System.out.println("1. " + AliveCardFactory.Elan().toString());
+        System.out.println("2. " + AliveCardFactory.Vipere().toString());
+        System.out.println("3. " + AliveCardFactory.PorcEpic().toString());
+        System.out.print("Choisir une nouvelle carte :");
     }
 }

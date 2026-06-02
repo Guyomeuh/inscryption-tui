@@ -1,5 +1,7 @@
 package models.gameplay;
 
+import models.cards.AliveCard;
+import models.cards.AliveCardFactory;
 import models.observer.BotObserver;
 import models.observer.GameObserver;
 
@@ -64,6 +66,32 @@ public class Game {
             m_gameNumber = 1;
             updateAll();
         }
+    }
+
+    public void addNewCard(String cardName){
+        AliveCard card;
+        switch (cardName) {
+            case "Elan":
+                card = AliveCardFactory.Elan();
+                break;
+
+            case "Vipère":
+                card = AliveCardFactory.Vipere();
+                break;
+
+            case "Porc-épic":
+                card = AliveCardFactory.PorcEpic();
+
+            // never the case
+            default:
+                card = AliveCardFactory.Vipere();
+                break;
+        }
+        this.m_player.addToDeck(card);
+    }
+
+    public int getGameNumber(){
+        return this.m_gameNumber;
     }
 
     public boolean endTurn()

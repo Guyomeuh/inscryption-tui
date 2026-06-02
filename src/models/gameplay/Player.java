@@ -236,6 +236,10 @@ public class Player implements Playable {
         return m_hand.get(cardIndex).getBloodCost();
     }
 
+    public void addToDeck(AliveCard card){
+        this.m_deck.add(card);
+    }
+
     @Override
     public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);

@@ -77,6 +77,10 @@ public class GameController {
                 System.out.println("Félication vous avez gagné !");
                 m_game.reinitPlayer();
                 m_game.nextCombat();
+                // If it's the second game
+                if (this.m_game.getGameNumber() == 1){
+                    this.m_game.addNewCard(getNewCard());
+                }
                 startGame();
             }
             else if (m_game.checkVictory() <= -1)
@@ -168,5 +172,18 @@ public class GameController {
             m_view.show();
         }
         return valid;
+    }
+
+    public String getNewCard(){
+        String[] newCards = {"Elan", "Vipère", "Porc-épic"};
+        int indexCard = -1;
+
+        do {
+            this.m_view.askNewCard();
+            
+            indexCard = Integer.parseInt(this.m_view.promptUser());
+        } while (indexCard < 1 || indexCard >= 4);
+
+        return newCards[indexCard + 1];
     }
 }
