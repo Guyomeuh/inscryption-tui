@@ -21,6 +21,7 @@ public class Combat {
         m_balance = 0;
         m_turn = 1;
         m_bot.updateAll();
+        m_player.updateAll();
     }
 
     public void botTurn()
@@ -55,7 +56,7 @@ public class Combat {
         if (m_currentPlayer == m_player) {
             for (int i = 0; i < 4; i++)
             {
-                if (m_bot.isAirborne(i) || !m_bot.getDamaged(i, damages[i]))
+                if (m_player.isAirborne(i) || !m_bot.getDamaged(i, damages[i]))
                 {
                     m_balance+=damages[i];
                 }
@@ -65,12 +66,13 @@ public class Combat {
         } else{
             for (int i = 0; i < 4; i++)
             {
-                if (m_player.isAirborne(i) || !m_player.getDamaged(i, damages[i]))
+                if (m_bot.isAirborne(i) || !m_player.getDamaged(i, damages[i]))
                 {
                     m_balance-=damages[i];
                 }
             }
             m_player.updateAll();
+            m_bot.updateAll();
             m_currentPlayer = m_player;
             m_turn++;
         }

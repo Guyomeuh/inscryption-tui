@@ -5,6 +5,7 @@ import java.util.Random;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
+import models.cards.AnimalCard;
 import models.observer.PlayerObserver;
 
 public class Player implements Playable {
@@ -18,7 +19,7 @@ public class Player implements Playable {
         m_observer = new ArrayList<PlayerObserver>();
         m_observer.add(observer);
 
-        this.m_deck = deck;
+        this.m_deck = new ArrayList<>(deck);
         this.m_board = board;
         this.m_hand = new ArrayList<AliveCard>();
         this.initHand();
@@ -39,21 +40,13 @@ public class Player implements Playable {
         updatePlayerDeckCount();
     }
 
-
-
-    public void reinitPlayer()
+    public void reinitPlayer(ArrayList<AliveCard> originalDeck)
     {
+        m_deck = new ArrayList<>();
+        m_deck.addAll(originalDeck);
         for (int i = 0; i < 4; i++)
         {
-            m_board.getDamaged(i,999);
-        }
-        for(int i = m_board.getCemetarySize() - 1; i >= 0; i--)
-        {
-            m_deck.add(m_board.getDeadCard(i));
-        }
-        for(int i = m_hand.size() - 1; i >= 0; i--)
-        {
-            m_deck.add(m_hand.remove(i));
+            m_board.getDamaged(i, 99999);
         }
     }
 
@@ -161,6 +154,10 @@ public class Player implements Playable {
 
 
     public void initHand(){
+        if (!m_hand.isEmpty())
+        {
+            m_hand.clear();
+        }
         for (int i = 0; i < 4; i++){
             this.draw();
         }

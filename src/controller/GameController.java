@@ -180,7 +180,7 @@ public class GameController {
                     String sacrificePosition = m_view.promptUser();
 
 
-                    if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && verifPlacementIndex(input.split(" ")[1])) {
+                    if (Objects.equals(sacrificePosition.split(" ")[0], "placer") && verifPlacementIndex(sacrificePosition.split(" ")[1])) {
                         valid = m_game.place(Integer.parseInt(sacrificePosition.split(" ")[1]) - 1, Integer.parseInt(input.split(" ")[2]) - 1);
                         if (valid = false) {
                             System.out.println("Emplacement déjà occupé");

@@ -2,6 +2,7 @@ package models.gameplay;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
+import models.cards.ObjectCard;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,8 @@ public class FirstMatch implements MatchStrategy {
 
     @Override
     public PlayerBoard initPlayerBoard() {
-        return new PlayerBoard();
+        PlayerBoard board = new PlayerBoard();
+        board.set(0, new ObjectCard("Arbre", 1));
+        return board;
     }
 }

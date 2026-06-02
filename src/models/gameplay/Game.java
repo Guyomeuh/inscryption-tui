@@ -10,19 +10,22 @@ import java.util.ArrayList;
 public class Game {
     private int m_gameNumber;
     private final Player m_player;
+    private final ArrayList<AliveCard> m_originalDeck;
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
     private BotObserver m_botObserver;
 
-    public Game(Player player, GameObserver gameObs, BotObserver botObs)
+    public Game(Player player, ArrayList<AliveCard> deck, GameObserver gameObs, BotObserver botObs)
     {
         m_player = player;
+        m_originalDeck = new ArrayList<>(deck);
         m_observer = new ArrayList<>();
         m_observer.add(gameObs);
         m_botObserver = botObs;
         m_gameNumber = 1;
         MatchStrategy strategy = new FirstMatch();
         m_combat = new Combat(m_player, strategy, m_botObserver);
+        updateAll();
     }
     public void botTurn()
     {
@@ -103,7 +106,7 @@ public class Game {
 
     public void reinitPlayer()
     {
-        m_player.reinitPlayer();
+        m_player.reinitPlayer(m_originalDeck);
         m_player.initHand();
         m_player.updateAll();
     }

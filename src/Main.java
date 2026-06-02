@@ -29,7 +29,7 @@ public class Main
         deck.add(AliveCardFactory.Chat());
         deck.add(AliveCardFactory.Chat());
         Player user = new Player(deck, board, playerObs);
-        Game game = new Game(user, gameObs, botObs);
+        Game game = new Game(user, deck, gameObs, botObs);
         GameController gameControl = new GameController(game, gen);
         gameControl.startGame();
 
