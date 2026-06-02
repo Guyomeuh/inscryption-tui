@@ -44,12 +44,7 @@ public class Combat {
     {
         return m_player.availableBlood();
     }
-
-    public int getBloodCost(int cardIndex)
-    {
-        return m_player.getBloodCost(cardIndex);
-    }
-
+    
     public int sacrifice(Integer position)
     {
         return m_player.sacrifice(position);

@@ -82,7 +82,16 @@ public class Game {
 
     public int getBloodCost(int cardIndex)
     {
-        return m_combat.getBloodCost(cardIndex);
+        return m_player.getBloodCost(cardIndex);
+    }
+
+    public int getBoneCost(int cardIndex){
+        return m_player.getBoneCost(cardIndex);
+    }
+
+    public int getPlayerBone()
+    {
+        return m_player.getBone();
     }
     public int sacrifice(Integer position)
     {

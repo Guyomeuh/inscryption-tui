@@ -21,6 +21,8 @@ public class Main
 
         PlayerBoard board = new PlayerBoard();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
+        deck.add(AliveCardFactory.Coyote());
+        deck.add(AliveCardFactory.Elan());
         deck.add(AliveCardFactory.Chat());
         deck.add(AliveCardFactory.Chat());
         deck.add(AliveCardFactory.Chat());

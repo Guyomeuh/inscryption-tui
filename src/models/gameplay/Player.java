@@ -198,6 +198,7 @@ public class Player implements Playable {
         int blood = this.m_board.sacrifice(position);
 
         this.m_blood += blood;
+        this.m_bone++;
 
         updateAll();
         return blood;
@@ -243,6 +244,13 @@ public class Player implements Playable {
         return m_hand.get(cardIndex).getBloodCost();
     }
 
+    public int getBoneCost(int cardIndex)
+    {
+        validateHandIndex(cardIndex);
+
+        return m_hand.get(cardIndex).getBoneCost();
+    }
+
     @Override
     public boolean place(int position, int cardIndex){
         validateHandIndex(cardIndex);
@@ -252,6 +260,7 @@ public class Player implements Playable {
         }
 
         this.m_blood -= this.m_hand.get(cardIndex).getBloodCost();
+        this.m_bone -= this.m_hand.get(cardIndex).getBoneCost();
         this.m_board.set(position, this.m_hand.get(cardIndex));
         this.m_hand.remove(cardIndex);
         updatePlayerBoardStatus();
@@ -265,7 +274,14 @@ public class Player implements Playable {
 
     @Override
     public boolean getDamaged(int position, int damages) {
-        return this.m_board.getDamaged(position, damages);
+        boolean res = this.m_board.getDamaged(position, damages);
+
+        if (res && !m_board.isOccupied(position))
+        {
+            this.m_bone++;
+        }
+
+        return res;
     }
 
     @Override
