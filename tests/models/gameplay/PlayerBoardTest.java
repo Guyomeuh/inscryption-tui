@@ -6,9 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import models.cards.AliveCard;
-import models.cards.AnimalCard;
-import models.cards.ObjectCard;
+import models.cards.AliveCardFactory;
+import models.cards.ObjectCardFactory;
 
 public class PlayerBoardTest {
     @Test
@@ -20,25 +19,32 @@ public class PlayerBoardTest {
 
         assertTrue(!pb.isOccupied(0));
         
-        pb.set(0, new ObjectCard("rock", 6));
+        pb.set(0, ObjectCardFactory.Rocher());
         assertTrue(pb.isOccupied(0));
         assertTrue(!pb.isOccupied(1));
 
-        assertThrows(IllegalArgumentException.class, ()-> { pb.set(-1, new ObjectCard("rock", 6)); });
-        assertThrows(IllegalArgumentException.class, ()-> { pb.set(4, new ObjectCard("rock", 6)); });
+        assertThrows(IllegalArgumentException.class, ()-> { pb.set(-1, ObjectCardFactory.Rocher()); });
+        assertThrows(IllegalArgumentException.class, ()-> { pb.set(4, ObjectCardFactory.Rocher()); });
 
         pb.remove(0);
         assertTrue(!pb.isOccupied(0));
 
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(-1); });
         assertThrows(IllegalArgumentException.class, ()-> { pb.remove(4); });
+
+        pb.set(0, ObjectCardFactory.Rocher());
+        pb.set(1, AliveCardFactory.Moineau());
+        assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(-1); });
+        assertThrows(IllegalArgumentException.class, ()-> { pb.isAirborne(4); });
+        assertTrue(!pb.isAirborne(0));
+        assertTrue(pb.isAirborne(1));
     }
 
     @Test
     public void sacrifice(){
         PlayerBoard pb = new PlayerBoard();
-        pb.set(0, new ObjectCard("rock", 6));
-        pb.set (1, AnimalCard.Chat());
+        pb.set(0, ObjectCardFactory.Rocher());
+        pb.set (1, AliveCardFactory.Chat());
 
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(-1); });
         assertThrows(IllegalArgumentException.class, ()->{ pb.sacrifice(4); });

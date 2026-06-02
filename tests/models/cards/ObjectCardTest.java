@@ -1,21 +1,22 @@
+package models.cards;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import models.cards.ObjectCard;
 import org.junit.Test;
 
 public class ObjectCardTest {
     @Test
     public void getters(){
-        ObjectCard oc = new ObjectCard("rock", 3);
+        Card oc = ObjectCardFactory.Sapin();
 
-        assertTrue(oc.getName() == "rock");
+        assertTrue(oc.getName() == "Sapin");
         assertTrue(oc.getHp() == 3);
     }
 
     @Test
     public void getDamaged(){
-        ObjectCard oc = new ObjectCard("rock", 3);
+        Card oc = ObjectCardFactory.Sapin();
         
         oc.getDamaged(2);
         assertTrue(oc.getHp() == 1);
@@ -26,8 +27,8 @@ public class ObjectCardTest {
 
     @Test
     public void tostring(){
-        ObjectCard oc = new ObjectCard("rock", 3);
+        Card oc = ObjectCardFactory.Rocher();
 
-        assertEquals(oc.toString(), "rock: 3 hp");
+        assertEquals(oc.toString(), "Rocher: 5 hp");
     }
 }

@@ -1,7 +1,7 @@
 package models.gameplay;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 
 import java.util.ArrayList;
 
@@ -15,13 +15,13 @@ public class FirstMatch implements MatchStrategy {
     public Bot initBot()
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
-        deck.add(AnimalCard.Coyote());
-        deck.add(AnimalCard.Loup());
-        deck.add(AnimalCard.Loup());
-        deck.add(AnimalCard.Ecureuil());
+        deck.add(AliveCardFactory.Coyote());
+        deck.add(AliveCardFactory.Loup());
+        deck.add(AliveCardFactory.Loup());
+        deck.add(AliveCardFactory.Ecureuil());
         Board board = new Board();
         Board waitingBoard = new Board();
-        waitingBoard.set(3, AnimalCard.Coyote());
+        waitingBoard.set(3, AliveCardFactory.Coyote());
         return new Bot(board, waitingBoard, deck);
     }
 

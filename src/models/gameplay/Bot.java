@@ -3,6 +3,7 @@ package models.gameplay;
 import java.util.ArrayList;
 
 import models.cards.AliveCard;
+import models.cards.AliveCardFactory;
 import models.observer.BotObserver;
 
 public class Bot implements Playable {
@@ -65,6 +66,14 @@ public class Bot implements Playable {
 
     }
 
+    public boolean isAirborne(int position){
+        return this.m_board.isAirborne(position);
+    }
+
+    public boolean isSprinter(int position){
+        return this.m_board.isSprinter(position);
+    }
+
     @Override
     public boolean getDamaged(int position, int damages) {
         return this.m_board.getDamaged(position, damages);
@@ -72,10 +81,19 @@ public class Bot implements Playable {
 
     @Override
     public int[] endTurn() {
-        int[] damages = new int[4];
+        int[] damages = new int[PlayerBoard.SIZE];
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < PlayerBoard.SIZE; i++){
+            // if a Fledgling card is still on the board, it's there since a turn ago
+            if (this.m_board.getModif(i).equals("Croissance")){
+                this.m_board.set(i, AliveCardFactory.Loup());
+            }
+
             damages[i] = this.m_board.getAttack(i);
+
+            if (this.m_board.isSprinter(i) && !this.m_board.moveRight(i)){
+                this.m_board.moveLeft(i);
+            }
         }
 
         return damages;
