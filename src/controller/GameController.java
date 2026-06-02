@@ -78,7 +78,7 @@ public class GameController {
                 m_game.reinitPlayer();
                 m_game.nextCombat();
                 // If it's the second game
-                if (this.m_game.getGameNumber() == 1){
+                if (this.m_game.getGameNumber() == 2){
                     this.m_game.addNewCard(getNewCard());
                 }
                 startGame();
@@ -214,10 +214,12 @@ public class GameController {
 
         do {
             this.m_view.askNewCard();
-            
-            indexCard = Integer.parseInt(this.m_view.promptUser());
+            String input = this.m_view.promptUser();
+
+            if (verifInputSize(input, 1) && input.matches("[1-3]"))
+            indexCard = Integer.parseInt(input);
         } while (indexCard < 1 || indexCard >= 4);
 
-        return newCards[indexCard + 1];
+        return newCards[indexCard - 1];
     }
 }
