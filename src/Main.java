@@ -1,6 +1,6 @@
 import controller.GameController;
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 import models.gameplay.*;
 import view.BotTextObserver;
 import view.GameTextObserver;
@@ -21,11 +21,11 @@ public class Main
 
         PlayerBoard board = new PlayerBoard();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
-        deck.add(AnimalCard.Chat());
-        deck.add(AnimalCard.Chat());
-        deck.add(AnimalCard.Chat());
-        deck.add(AnimalCard.Chat());
-        deck.add(AnimalCard.Chat());
+        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Chat());
         Player user = new Player(deck, board, playerObs);
         Game game = new Game(user, gameObs, botObs);
         GameController gameControl = new GameController(game, gen);

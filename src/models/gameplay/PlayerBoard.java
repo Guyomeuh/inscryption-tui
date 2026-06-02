@@ -1,6 +1,7 @@
 package models.gameplay;
 
 import models.cards.AliveCard;
+import models.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -14,11 +15,10 @@ public class PlayerBoard extends Board {
         m_cemetary = new ArrayList<AliveCard>();
     }
 
-    @Override
-    public boolean getDamaged(int position, int damages) {
+    public boolean getDamaged(int position, int damages){
         validatePosition(position);
 
-        if (damages < 0) {
+        if (damages < 0){
             throw new IllegalArgumentException("damages must be superior than 0");
         }
 
@@ -44,10 +44,13 @@ public class PlayerBoard extends Board {
         return m_cemetary.remove(index);
     }
 
+    @Override
+    public String toString(){
+        return "PlayerBoard";
+    }
+
     public int getCemetarySize()
     {
         return m_cemetary.size();
     }
-
-
 }

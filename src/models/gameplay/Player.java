@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import models.cards.AliveCard;
+import models.cards.AliveCardFactory;
 import models.observer.PlayerObserver;
 
 public class Player implements Playable {
@@ -178,6 +179,14 @@ public class Player implements Playable {
         return this.m_bone;
     }
 
+    public boolean isAirborne(int position){
+        return this.m_board.isAirborne(position);
+    }
+
+    public boolean isSprinter(int position){
+        return this.m_board.isSprinter(position);
+    }
+
     public int sacrifice(int position){
         int blood = this.m_board.sacrifice(position);
 
@@ -255,10 +264,19 @@ public class Player implements Playable {
     @Override
     public int[] endTurn(){
         this.m_blood = 0;
-        int[] damages = new int[4];
+        int[] damages = new int[PlayerBoard.SIZE];
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < PlayerBoard.SIZE; i++){
+            // if a Fledgling card is still on the board, it's there since a turn ago
+            if (this.m_board.getModif(i).equals("Croissance")){
+                this.m_board.set(i, AliveCardFactory.Loup());
+            }
+
             damages[i] = this.m_board.getAttack(i);
+
+            if (this.m_board.isSprinter(i) && !this.m_board.moveRight(i)){
+                this.m_board.moveLeft(i);
+            }
         }
 
         return damages;

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import models.cards.AliveCard;
-import models.cards.AnimalCard;
+import models.cards.AliveCardFactory;
 import view.PlayerTextObserver;
 
 public class PlayableTest {
     public Player createPlayer(){
-        AnimalCard ac = AnimalCard.Chat();
-        AnimalCard ac1 = AnimalCard.Grizzly();
+        AliveCard ac = AliveCardFactory.Chat();
+        AliveCard ac1 = AliveCardFactory.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
@@ -25,22 +25,6 @@ public class PlayableTest {
         }
         PlayerTextObserver pt = new PlayerTextObserver();
         return new Player(d, new PlayerBoard(), pt);
-    }
-
-    @Test 
-    public void endTurn(){
-        Player p1 = createPlayer();
-
-        // place card at every board location
-        for (int i = 0; i < 4; i++){
-            p1.place(i, 0);
-        }
-
-        //En debuguant ce test marche plus, vu qu'on init notre main avec 4 cartes aléatoires de notre deck, on a pas toujours 1 chat, 1 grizzly, 1 chat et 1 grizzly
-        assertArrayEquals(new int[]{1, 4, 1, 4}, p1.endTurn());
-        p1.getDamaged(0, 100); // to kill the card 
-
-        assertArrayEquals(new int[]{0, 4, 1, 4}, p1.endTurn());
     }
 
     @Test

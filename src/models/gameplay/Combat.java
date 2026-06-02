@@ -59,7 +59,7 @@ public class Combat {
         if (m_currentPlayer == m_player) {
             for (int i = 0; i < 4; i++)
             {
-                if (!m_bot.getDamaged(i, damages[i]))
+                if (m_bot.isAirborne(i) || !m_bot.getDamaged(i, damages[i]))
                 {
                     m_balance+=damages[i];
                 }
@@ -69,7 +69,7 @@ public class Combat {
         } else{
             for (int i = 0; i < 4; i++)
             {
-                if (!m_player.getDamaged(i, damages[i]))
+                if (m_player.isAirborne(i) || !m_player.getDamaged(i, damages[i]))
                 {
                     m_balance-=damages[i];
                 }

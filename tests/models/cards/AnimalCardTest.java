@@ -1,14 +1,14 @@
+package models.cards;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import models.cards.AnimalCard;
-import models.cards.ObjectCard;
 import org.junit.Test;
 
 public class AnimalCardTest {
     @Test
     public void getters(){
-        AnimalCard ac = AnimalCard.Corbeau();
+        AliveCard ac = AliveCardFactory.Corbeau();
 
         assertTrue(ac.getAttack() == 2);
         assertTrue(ac.getBloodCost() == 2);
@@ -17,9 +17,9 @@ public class AnimalCardTest {
 
     @Test
     public void attack(){
-        ObjectCard oc = new ObjectCard("rock", 5);
-        AnimalCard ac = AnimalCard.Corbeau();
-        AnimalCard ac1 = AnimalCard.Corbeau();
+        Card oc = ObjectCardFactory.Rocher();
+        AliveCard ac = AliveCardFactory.Corbeau();
+        AliveCard ac1 = AliveCardFactory.Corbeau();
 
         ac.attack(oc);
         assertTrue(oc.getHp() == 3);
@@ -33,8 +33,8 @@ public class AnimalCardTest {
 
     @Test
     public void tostring(){
-        AnimalCard ac = AnimalCard.Corbeau();
+        AliveCard ac = AliveCardFactory.Corbeau();
 
-        assertEquals(ac.toString(), "Corbeau: 3 hp, 2 atk, 2 blood, 0 bones");
+        assertEquals(ac.toString(), "Corbeau: 3 hp, 2 atk, 2 blood, 0 bones Volant");
     }
 }
