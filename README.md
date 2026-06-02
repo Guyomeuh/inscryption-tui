@@ -2,6 +2,7 @@
 
 - [x] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
+- [ ] Refaire tous les tests
 - [ ] Mettre à jour uml 
 
 # Methode de travail
