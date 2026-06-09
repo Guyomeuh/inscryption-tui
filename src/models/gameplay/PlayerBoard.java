@@ -1,7 +1,6 @@
 package models.gameplay;
 
 import models.cards.AliveCard;
-import models.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Optional;

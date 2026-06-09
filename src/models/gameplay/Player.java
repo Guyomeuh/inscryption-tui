@@ -5,7 +5,6 @@ import java.util.Random;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
-import models.cards.AnimalCard;
 import models.observer.PlayerObserver;
 
 public class Player implements Playable {
