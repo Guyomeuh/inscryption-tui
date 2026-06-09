@@ -1,6 +1,7 @@
 # TO-DO 
 
 - [x] Ajouter nouvelle carte au deck entre les parties (choisie)
+- [ ] Les chat n'ont pas manylives ? 
 - [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Modifier le deck du joueur 
 - [ ] Modifier comportement du bot ? 
