@@ -81,6 +81,7 @@ public class Bot implements Playable {
 
     @Override
     public int[] endTurn() {
+        this.m_board.resetTurn();
         int[] damages = new int[PlayerBoard.SIZE];
 
         for (int i = PlayerBoard.SIZE - 1; i >= 0; i--){

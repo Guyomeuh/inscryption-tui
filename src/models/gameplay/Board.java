@@ -101,9 +101,9 @@ public class Board {
         validatePosition(position);
         int cardBlood = getBlood(position);
 
-        // if the card doesn't have the 'Many lives' modifier it gets removed
         if (!this.m_cards.get(position).isEmpty()){
             Card card = this.m_cards.get(position).get();
+            card.onSacrifice();
 
             if (!card.getModif().equals("Nombreuses vies")){
                 this.m_cards.set(position, Optional.empty());
@@ -111,6 +111,14 @@ public class Board {
         }
 
         return cardBlood;
+    }
+
+    public void resetTurn(){
+        for (int i = 0; i < SIZE; i++){
+            if (this.m_cards.get(i).isPresent()){
+                this.m_cards.get(i).get().resetTurn();
+            }
+        }
     }
 
     public int getBlood(int position)

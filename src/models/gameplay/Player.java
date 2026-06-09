@@ -298,6 +298,7 @@ public class Player implements Playable {
     @Override
     public int[] endTurn(){
         this.m_blood = 0;
+        this.m_board.resetTurn();
         int[] damages = new int[PlayerBoard.SIZE];
 
         for (int i = PlayerBoard.SIZE - 1; i >= 0; i--){

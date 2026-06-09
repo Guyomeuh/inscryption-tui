@@ -35,5 +35,11 @@ public abstract class AnimalDecorator implements AliveCard {
     public boolean isSacrifiable(){ return m_card.isSacrifiable(); }
 
     @Override
+    public void onSacrifice(){ m_card.onSacrifice(); }
+
+    @Override
+    public void resetTurn(){ m_card.resetTurn(); }
+
+    @Override
     public String toString() { return m_card.toString(); }
 }

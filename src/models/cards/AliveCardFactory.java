@@ -70,16 +70,39 @@ public class AliveCardFactory {
 
     public static AliveCard Copy(AliveCard other)
     {
-        return new AnimalCard(other.getName(), other.getHp(), other.getAttack(), other.getBloodCost(), other.getBoneCost());
+        AliveCard copy = new AnimalCard(other.getName(), other.getHp(), other.getAttack(), other.getBloodCost(), other.getBoneCost());
+
+        if (other instanceof ManyLivesAnimal) {
+            copy = new ManyLivesAnimal(copy);
+        } else if (other instanceof AirborneAnimal) {
+            copy = new AirborneAnimal(copy);
+        } else if (other instanceof FledglingAnimal) {
+            copy = new FledglingAnimal(copy);
+        } else if (other instanceof StinkyAnimal) {
+            copy = new StinkyAnimal(copy);
+        } else if (other instanceof SprinterAnimal) {
+            copy = new SprinterAnimal(copy);
+        } else if (other instanceof TouchOfDeathAnimal) {
+            copy = new TouchOfDeathAnimal(copy);
+        } else if (other instanceof SharpQuillsAnimal) {
+            copy = new SharpQuillsAnimal(copy);
+        }
+
+        return copy;
     }
 
     public static AliveCard applyModifier(AliveCard other, String modif)
     {
-        switch (modif)
+        return switch (modif)
         {
-            default -> {
-                return other;
-            }
-        }
+            case "Nombreuses vies" -> new ManyLivesAnimal(other);
+            case "Volant" -> new AirborneAnimal(other);
+            case "Croissance" -> new FledglingAnimal(other);
+            case "Puant" -> new StinkyAnimal(other);
+            case "Coureur" -> new SprinterAnimal(other);
+            case "Piques pointues" -> new SharpQuillsAnimal(other);
+            case "Contact mortel" -> new TouchOfDeathAnimal(other);
+            default -> other;
+        };
     }
 }
