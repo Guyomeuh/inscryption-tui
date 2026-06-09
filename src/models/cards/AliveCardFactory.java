@@ -1,6 +1,7 @@
 package models.cards;
 
 import models.cards.decorators.*;
+import java.util.ArrayList;
 
 public class AliveCardFactory {
     public static AliveCard Chat()
@@ -71,24 +72,28 @@ public class AliveCardFactory {
     public static AliveCard Copy(AliveCard other)
     {
         AliveCard copy = new AnimalCard(other.getName(), other.getHp(), other.getAttack(), other.getBloodCost(), other.getBoneCost());
+        ArrayList<String> modifiers = getModifiers(other);
 
-        if (other instanceof ManyLivesAnimal) {
-            copy = new ManyLivesAnimal(copy);
-        } else if (other instanceof AirborneAnimal) {
-            copy = new AirborneAnimal(copy);
-        } else if (other instanceof FledglingAnimal) {
-            copy = new FledglingAnimal(copy);
-        } else if (other instanceof StinkyAnimal) {
-            copy = new StinkyAnimal(copy);
-        } else if (other instanceof SprinterAnimal) {
-            copy = new SprinterAnimal(copy);
-        } else if (other instanceof TouchOfDeathAnimal) {
-            copy = new TouchOfDeathAnimal(copy);
-        } else if (other instanceof SharpQuillsAnimal) {
-            copy = new SharpQuillsAnimal(copy);
+        for (String modif : modifiers) {
+            copy = applyModifier(copy, modif);
         }
 
         return copy;
+    }
+
+    public static ArrayList<String> getModifiers(AliveCard other)
+    {
+        ArrayList<String> modifiers = new ArrayList<>();
+        collectModifiers(other, modifiers);
+        return modifiers;
+    }
+
+    private static void collectModifiers(AliveCard card, ArrayList<String> modifiers)
+    {
+        if (card instanceof AnimalDecorator decorator) {
+            collectModifiers(decorator.getWrappedCard(), modifiers);
+            modifiers.add(card.getModif());
+        }
     }
 
     public static AliveCard applyModifier(AliveCard other, String modif)

@@ -2,7 +2,7 @@
 
 - [x] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [x] Les chat n'ont pas manylives ? 
-- [ ] Ajouter le transfert de décorator par un sacrifice entre les parties 
+- [x] Ajouter le transfert de décorator par un sacrifice entre les parties 
 - [ ] Modifier le deck du joueur 
 - [ ] Modifier comportement du bot ? 
 - [ ] Refaire tous les tests

@@ -10,6 +10,10 @@ public abstract class AnimalDecorator implements AliveCard {
         this.m_card = card;
     }
 
+    public AliveCard getWrappedCard() {
+        return m_card;
+    }
+
     @Override
     public String getName() { return m_card.getName(); }
 

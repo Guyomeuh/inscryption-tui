@@ -1,5 +1,7 @@
 package controller;
 
+import models.cards.AliveCard;
+import models.cards.AliveCardFactory;
 import models.gameplay.Game;
 import view.GeneralView;
 
@@ -82,6 +84,7 @@ public class GameController {
                 // If it's the second game
                 if (this.m_game.getGameNumber() == 2){
                     this.m_game.addNewCard(getNewCard());
+                    handleDeckSacrifice();
                 }
                 m_game.nextCombat();
                 startGame();
@@ -194,6 +197,103 @@ public class GameController {
             m_view.show();
         }
         return valid;
+    }
+
+    private void handleDeckSacrifice()
+    {
+        while (true)
+        {
+            m_view.askSacrificeFromDeck();
+            String input = m_view.promptUser().trim().toLowerCase();
+            if (input.equals("oui"))
+            {
+                performDeckSacrifice();
+                return;
+            }
+            else if (input.equals("non"))
+            {
+                return;
+            }
+            else
+            {
+                System.out.println("Veuillez répondre par oui ou non.");
+            }
+        }
+    }
+
+    private void performDeckSacrifice()
+    {
+        if (m_game.getDeckSize() == 0)
+        {
+            System.out.println("Aucune carte dans le deck à sacrifier.");
+            return;
+        }
+
+        boolean validSelection = false;
+        while (!validSelection)
+        {
+            m_view.showDeckCards(m_game.getDeckCardDescriptions());
+            m_view.askDeckSacrificeChoice();
+            String input = m_view.promptUser();
+            if (input.matches("^sacrifier\\s[1-9][0-9]*$"))
+            {
+                int choice = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (choice < 0 || choice >= m_game.getDeckSize())
+                {
+                    System.out.println("Choix invalide.");
+                    continue;
+                }
+
+                AliveCard sacrificed = m_game.removeDeckCard(choice);
+                validSelection = true;
+                java.util.ArrayList<String> modifiers = AliveCardFactory.getModifiers(sacrificed);
+
+                if (!modifiers.isEmpty() && m_game.getDeckSize() > 0)
+                {
+                    while (true)
+                    {
+                        m_view.askTransferModifiers(String.join(", ", modifiers));
+                        String transferInput = m_view.promptUser().trim().toLowerCase();
+                        if (transferInput.equals("oui"))
+                        {
+                            m_view.showDeckCards(m_game.getDeckCardDescriptions());
+                            m_view.askTransferTarget();
+                            String targetInput = m_view.promptUser();
+                            if (targetInput.matches("^transfert\\s[1-9][0-9]*$"))
+                            {
+                                int targetChoice = Integer.parseInt(targetInput.split(" ")[1]) - 1;
+                                if (targetChoice < 0 || targetChoice >= m_game.getDeckSize())
+                                {
+                                    System.out.println("Choix de cible invalide.");
+                                    continue;
+                                }
+
+                                String targetName = m_game.getDeckCardName(targetChoice);
+                                m_game.registerAnimalModifiers(targetName, modifiers);
+                                System.out.println("Les modifs ont été transférées à toutes les cartes " + targetName + ".");
+                                break;
+                            }
+                            else
+                            {
+                                System.out.println("Veuillez utiliser la commande 'transfert <numero>'.");
+                            }
+                        }
+                        else if (transferInput.equals("non"))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            System.out.println("Veuillez répondre par oui ou non.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Veuillez saisir une commande valide.");
+            }
+        }
     }
 
     public String getNewCard(){

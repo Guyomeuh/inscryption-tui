@@ -1,6 +1,7 @@
 package models.gameplay;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 import models.cards.AliveCard;
@@ -253,7 +254,64 @@ public class Player implements Playable {
 
     public void addToDeck(AliveCard card){
         this.m_deck.add(card);
-	}
+    }
+
+    public ArrayList<String> getDeckCards()
+    {
+        ArrayList<String> cards = new ArrayList<String>();
+        for (AliveCard card : this.m_deck)
+        {
+            cards.add(card.toString());
+        }
+        return cards;
+    }
+
+    public String getDeckCardName(int index)
+    {
+        validateDeckIndex(index);
+        return this.m_deck.get(index).getName();
+    }
+
+    public AliveCard removeDeckCard(int index)
+    {
+        validateDeckIndex(index);
+        AliveCard removed = this.m_deck.remove(index);
+        updatePlayerDeckCount();
+        return removed;
+    }
+
+    public void applyModifiersToExistingCards(Map<String, ArrayList<String>> modifiers)
+    {
+        for (int i = 0; i < this.m_deck.size(); i++)
+        {
+            this.m_deck.set(i, applyModifiersToCard(this.m_deck.get(i), modifiers));
+        }
+
+        for (int i = 0; i < this.m_hand.size(); i++)
+        {
+            this.m_hand.set(i, applyModifiersToCard(this.m_hand.get(i), modifiers));
+        }
+
+        updateAll();
+    }
+
+    private AliveCard applyModifiersToCard(AliveCard card, Map<String, ArrayList<String>> modifiers)
+    {
+        if (!modifiers.containsKey(card.getName()))
+        {
+            return card;
+        }
+
+        ArrayList<String> cardModifiers = AliveCardFactory.getModifiers(card);
+        for (String modifier : modifiers.get(card.getName()))
+        {
+            if (!cardModifiers.contains(modifier))
+            {
+                card = AliveCardFactory.applyModifier(card, modifier);
+            }
+        }
+        return card;
+    }
 
     public int getBoneCost(int cardIndex)
     {

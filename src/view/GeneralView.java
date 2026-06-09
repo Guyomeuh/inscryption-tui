@@ -1,6 +1,5 @@
 package view;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import models.cards.AliveCardFactory;
@@ -54,6 +53,35 @@ public class GeneralView {
     public void askForBlood(int remainingSacrifice)
     {
         System.out.println("Vous devez sacrifier " + remainingSacrifice + " créatures\n[sacrifier] <position>");
+    }
+
+    public void askSacrificeFromDeck()
+    {
+        System.out.println("Voulez-vous sacrifier un animal de votre deck ? (oui/non)");
+    }
+
+    public void showDeckCards(java.util.List<String> cards)
+    {
+        System.out.println("Cartes dans le deck :");
+        for (int i = 0; i < cards.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + cards.get(i));
+        }
+    }
+
+    public void askDeckSacrificeChoice()
+    {
+        System.out.println("Choisissez un animal à sacrifier dans le deck : [sacrifier] <numero>");
+    }
+
+    public void askTransferModifiers(String modifiers)
+    {
+        System.out.println("La carte sacrifiée contient des modifs : " + modifiers + ".\nVoulez-vous les transférer à un autre animal du deck ? (oui/non)");
+    }
+
+    public void askTransferTarget()
+    {
+        System.out.println("Choisissez la carte cible pour le transfert : [transfert] <numero>");
     }
 
     public String promptUser()

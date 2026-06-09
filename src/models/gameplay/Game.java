@@ -6,11 +6,14 @@ import models.observer.BotObserver;
 import models.observer.GameObserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
     private int m_gameNumber;
     private final Player m_player;
     private final ArrayList<AliveCard> m_originalDeck;
+    private final Map<String, ArrayList<String>> m_animalModifiers = new HashMap<>();
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
     private BotObserver m_botObserver;
@@ -84,17 +87,72 @@ public class Game {
 
             case "Porc-épic":
                 card = AliveCardFactory.PorcEpic();
+                break;
 
             // never the case
             default:
                 card = AliveCardFactory.Vipere();
                 break;
         }
+        card = applyExtraModifiers(card);
         this.m_player.addToDeck(card);
     }
 
     public int getGameNumber(){
         return this.m_gameNumber;
+    }
+
+    private AliveCard applyExtraModifiers(AliveCard card)
+    {
+        ArrayList<String> extras = m_animalModifiers.get(card.getName());
+        if (extras == null || extras.isEmpty())
+        {
+            return card;
+        }
+
+        for (String modifier : extras)
+        {
+            if (!AliveCardFactory.getModifiers(card).contains(modifier))
+            {
+                card = AliveCardFactory.applyModifier(card, modifier);
+            }
+        }
+
+        return card;
+    }
+
+    public void registerAnimalModifiers(String animalName, ArrayList<String> modifiers)
+    {
+        ArrayList<String> existing = m_animalModifiers.computeIfAbsent(animalName, k -> new ArrayList<>());
+        for (String modifier : modifiers)
+        {
+            if (!existing.contains(modifier))
+            {
+                existing.add(modifier);
+            }
+        }
+
+        this.m_player.applyModifiersToExistingCards(m_animalModifiers);
+    }
+
+    public ArrayList<String> getDeckCardDescriptions()
+    {
+        return this.m_player.getDeckCards();
+    }
+
+    public String getDeckCardName(int index)
+    {
+        return this.m_player.getDeckCardName(index);
+    }
+
+    public AliveCard removeDeckCard(int index)
+    {
+        return this.m_player.removeDeckCard(index);
+    }
+
+    public void applyRegisteredModifiers()
+    {
+        this.m_player.applyModifiersToExistingCards(m_animalModifiers);
     }
 
     public boolean endTurn()
@@ -108,6 +166,7 @@ public class Game {
     {
         m_player.reinitPlayer(m_originalDeck);
         m_player.initHand();
+        applyRegisteredModifiers();
         m_player.updateAll();
     }
 
