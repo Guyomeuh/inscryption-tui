@@ -51,6 +51,8 @@ public class Player implements Playable {
         {
             m_board.getDamaged(i, 99999);
         }
+        m_blood = 0;
+        m_bone = 0;
     }
 
     public void setNewBoard(PlayerBoard board)

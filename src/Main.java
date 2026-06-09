@@ -21,13 +21,21 @@ public class Main
 
         PlayerBoard board = new PlayerBoard();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Ecureuil());
+        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Chat());
         deck.add(AliveCardFactory.Coyote());
-        deck.add(AliveCardFactory.Elan());
-        deck.add(AliveCardFactory.Chat());
-        deck.add(AliveCardFactory.Chat());
-        deck.add(AliveCardFactory.Chat());
-        deck.add(AliveCardFactory.Chat());
-        deck.add(AliveCardFactory.Chat());
+        deck.add(AliveCardFactory.Loup());
+        deck.add(AliveCardFactory.Louveteau());
+        deck.add(AliveCardFactory.Moineau());
+        deck.add(AliveCardFactory.Punaise());
         Player user = new Player(deck, board, playerObs);
         Game game = new Game(user, deck, gameObs, botObs);
         GameController gameControl = new GameController(game, gen);

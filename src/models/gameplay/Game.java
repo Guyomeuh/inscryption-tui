@@ -12,7 +12,7 @@ import java.util.Map;
 public class Game {
     private int m_gameNumber;
     private final Player m_player;
-    private final ArrayList<AliveCard> m_originalDeck;
+    private final ArrayList<AliveCard> m_baseDeck;
     private final Map<String, ArrayList<String>> m_animalModifiers = new HashMap<>();
     private Combat m_combat;
     private ArrayList<GameObserver> m_observer;
@@ -21,11 +21,12 @@ public class Game {
     public Game(Player player, ArrayList<AliveCard> deck, GameObserver gameObs, BotObserver botObs)
     {
         m_player = player;
-        m_originalDeck = new ArrayList<>(deck);
+        m_baseDeck = new ArrayList<>(deck);
         m_observer = new ArrayList<>();
         m_observer.add(gameObs);
         m_botObserver = botObs;
         m_gameNumber = 1;
+        reinitPlayer();
         MatchStrategy strategy = new FirstMatch();
         m_combat = new Combat(m_player, strategy, m_botObserver);
         updateAll();
@@ -51,27 +52,26 @@ public class Game {
     }
     public void nextCombat()
     {
+        MatchStrategy strategy;
         if (m_gameNumber == 1)
         {
-            MatchStrategy strategy = new SecondMatch();
-            m_combat = new Combat(m_player, strategy, m_botObserver);
+            strategy = new SecondMatch();
             m_gameNumber++;
-            updateAll();
         }
         else if (m_gameNumber == 2)
         {
-            MatchStrategy strategy = new ThirdMatch();
-            m_combat = new Combat(m_player, strategy, m_botObserver);
+            strategy = new ThirdMatch();
             m_gameNumber++;
-            updateAll();
         }
         else
         {
-            MatchStrategy strategy = new FirstMatch();
-            m_combat = new Combat(m_player, strategy, m_botObserver);
+            strategy = new FirstMatch();
             m_gameNumber = 1;
-            updateAll();
         }
+
+        reinitPlayer();
+        m_combat = new Combat(m_player, strategy, m_botObserver);
+        updateAll();
     }
 
     public void addNewCard(String cardName){
@@ -96,6 +96,7 @@ public class Game {
         }
         card = applyExtraModifiers(card);
         this.m_player.addToDeck(card);
+        this.m_baseDeck.add(AliveCardFactory.Copy(card));
     }
 
     public int getGameNumber(){
@@ -164,10 +165,47 @@ public class Game {
 
     public void reinitPlayer()
     {
-        m_player.reinitPlayer(m_originalDeck);
+        m_player.reinitPlayer(buildPlayerDeckForGame(m_gameNumber));
         m_player.initHand();
         applyRegisteredModifiers();
         m_player.updateAll();
+    }
+
+    private ArrayList<AliveCard> buildPlayerDeckForGame(int gameNumber)
+    {
+        ArrayList<AliveCard> deck = new ArrayList<>();
+        for (AliveCard card : m_baseDeck)
+        {
+            deck.add(AliveCardFactory.Copy(card));
+        }
+
+        if (gameNumber == 2)
+        {
+            replaceDeckCard(deck, "Chat", AliveCardFactory.Loup());
+            replaceDeckCard(deck, "Chat", AliveCardFactory.Hermine());
+        }
+        else if (gameNumber == 3)
+        {
+            replaceDeckCard(deck, "Chat", AliveCardFactory.Grizzly());
+            replaceDeckCard(deck, "Chat", AliveCardFactory.Corbeau());
+            replaceDeckCard(deck, "Chat", AliveCardFactory.Vipere());
+        }
+
+        return deck;
+    }
+
+    private void replaceDeckCard(ArrayList<AliveCard> deck, String sourceName, AliveCard replacement)
+    {
+        for (int i = 0; i < deck.size(); i++)
+        {
+            if (deck.get(i).getName().equals(sourceName))
+            {
+                deck.set(i, replacement);
+                return;
+            }
+        }
+
+        deck.add(replacement);
     }
 
     public int getBloodCost(int cardIndex)

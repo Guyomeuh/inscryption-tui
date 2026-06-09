@@ -2,6 +2,7 @@ package models.gameplay;
 
 import models.cards.AliveCard;
 import models.cards.AliveCardFactory;
+import models.cards.ObjectCard;
 
 import java.util.ArrayList;
 
@@ -15,12 +16,14 @@ public class ThirdMatch implements MatchStrategy{
     {
         ArrayList<AliveCard> deck = new ArrayList<>();
         Board board = new Board();
-        deck.add(AliveCardFactory.Corbeau());
+        deck.add(AliveCardFactory.Grizzly());
         deck.add(AliveCardFactory.Elan());
-        deck.add(AliveCardFactory.Louveteau());
+        deck.add(AliveCardFactory.Corbeau());
+        deck.add(AliveCardFactory.Vipere());
         deck.add(AliveCardFactory.PorcEpic());
         Board waitingBoard = new Board();
         waitingBoard.set(1,AliveCardFactory.Moineau());
+        waitingBoard.set(3,AliveCardFactory.Coyote());
         return new Bot(board, waitingBoard, deck);
     }
 
@@ -44,6 +47,9 @@ public class ThirdMatch implements MatchStrategy{
 
     @Override
     public PlayerBoard initPlayerBoard() {
-        return new PlayerBoard();
+        PlayerBoard board = new PlayerBoard();
+        board.set(1, new ObjectCard("Racine", 3));
+        board.set(2, new ObjectCard("Pierre", 2));
+        return board;
     }
 }

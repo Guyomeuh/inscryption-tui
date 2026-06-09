@@ -80,7 +80,6 @@ public class GameController {
             {
                 m_view.show();
                 System.out.println("Félication vous avez gagné !");
-                m_game.reinitPlayer();
                 // If it's the second game
                 if (this.m_game.getGameNumber() == 2){
                     this.m_game.addNewCard(getNewCard());
