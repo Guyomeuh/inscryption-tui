@@ -27,8 +27,8 @@ public class GameController {
                 int errorNb = 0;
                 while (!valid || !endTurn) {
                     String input = m_view.promptUser();
-                    System.out.println(input);
-                    if (input.matches("^fin|piocher|placer(\\s[1-4]){2}$")) {
+                    // System.out.println(input); // debug
+                    if (input.matches("^fin|piocher|placer\\s[1-4]\\s[1-9][0-9]*$")) {
                         switch (input.split(" ")[0]) {
                             case "fin" -> {
                                 if (!pioche)
@@ -56,7 +56,13 @@ public class GameController {
                                 if (!pioche) {
                                     System.out.println("Vous devenez d'abord piocher non mais oh");
                                 } else {
-                                    valid = placer(valid, input);
+                                    try {
+                                        valid = placer(valid, input);
+                                    }
+                                    catch (IllegalArgumentException e){
+                                        System.out.println("Numéro de carte invalide");
+                                        valid = false;
+                                    }
                                 }
                             }
 
