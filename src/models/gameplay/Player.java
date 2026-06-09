@@ -300,7 +300,7 @@ public class Player implements Playable {
         this.m_blood = 0;
         int[] damages = new int[PlayerBoard.SIZE];
 
-        for (int i = PlayerBoard.SIZE; i >= 0; i--){
+        for (int i = PlayerBoard.SIZE - 1; i >= 0; i--){
             // if a Fledgling card is still on the board, it's there since a turn ago
             if (this.m_board.getModif(i).equals("Croissance")){
                 this.m_board.set(i, AliveCardFactory.Loup());
