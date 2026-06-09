@@ -83,7 +83,7 @@ public class Bot implements Playable {
     public int[] endTurn() {
         int[] damages = new int[PlayerBoard.SIZE];
 
-        for (int i = 0; i < PlayerBoard.SIZE; i++){
+        for (int i = PlayerBoard.SIZE; i >= 0; i--){
             // if a Fledgling card is still on the board, it's there since a turn ago
             if (this.m_board.getModif(i).equals("Croissance")){
                 this.m_board.set(i, AliveCardFactory.Loup());
@@ -95,7 +95,6 @@ public class Bot implements Playable {
                 this.m_board.moveLeft(i);
             }
         }
-
         return damages;
     }
 
