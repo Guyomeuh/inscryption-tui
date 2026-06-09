@@ -139,6 +139,17 @@ public class GeneralView {
         System.out.println(endString);
     }
 
+    private String truncate(String value, int width)
+    {
+        if (value == null) {
+            return "";
+        }
+        if (value.length() <= width) {
+            return value;
+        }
+        return value.substring(0, width - 3) + "...";
+    }
+
     public void printBotBoard()
     {
         String endString = "\t\t";
@@ -150,7 +161,7 @@ public class GeneralView {
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? "|" + String.format("%1$-16s",m_botObserver.getBotBoardName(i)) + "|\t" : "*                *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? "|" + String.format("%1$-16s",truncate(m_botObserver.getBotBoardName(i), 16)) + "|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
@@ -170,7 +181,7 @@ public class GeneralView {
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
         {
-            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|%1$-16s",m_botObserver.getBotBoardModif(i)) +"|\t" : "*                *\t";
+            endString += (m_botObserver.getBotBoardStatus(i)) ? String.format("|%1$-16s",truncate(m_botObserver.getBotBoardModif(i), 16)) +"|\t" : "*                *\t";
         }
         endString+="\n\t\t";
         for (Integer i = 0; i < 4; i++)
@@ -230,9 +241,10 @@ public class GeneralView {
         String res = String.format("Votre main: %1$131s","*------------*") + "\n";
         for (int i = 0; i < m_playerObserver.getPlayerHandSize() + 6; i++)
         {
+            String cardText = i < m_playerObserver.getPlayerHandSize() ? truncate(m_playerObserver.getPlayerHandCard(i), 60) : "";
             if (i < 5 && i != 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res += String.format("%1s %2$60s %3$80s", i+1 + ".", m_playerObserver.getPlayerHandCard(i),"|            |\n") ;
+                res += String.format("%1s %2$-60s %3$80s", i+1 + ".", cardText,"|            |\n") ;
             }
             else if (i < 5 && i != 2 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
@@ -240,7 +252,7 @@ public class GeneralView {
             }
             else if (i == 2 && i < m_playerObserver.getPlayerHandSize()) //Works
             {
-                res+= String.format("%1$s %2$60s %3$78s",i+1+".",m_playerObserver.getPlayerHandCard(i),String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
+                res+= String.format("%1$s %2$-60s %3$78s",i+1+".",cardText,String.format("|     %1$-7s", m_playerObserver.getPlayerDeckCount())) + "|\n";
             }
             else if (i == 2 && i >= m_playerObserver.getPlayerHandSize())
             {
@@ -248,7 +260,7 @@ public class GeneralView {
             }
             else if (i == 5 && i < m_playerObserver.getPlayerHandSize())
             {
-                res+=   String.format("%1s %2$60s %3$80s",i+1 + ".",m_playerObserver.getPlayerHandCard(i),"*------------*\n");
+                res+=   String.format("%1s %2$-60s %3$80s",i+1 + ".",cardText,"*------------*\n");
             }
             else if (i == 5 && i >= m_playerObserver.getPlayerHandSize()) //Works
             {
@@ -256,7 +268,7 @@ public class GeneralView {
             }
             else if (i < m_playerObserver.getPlayerHandSize())
             {
-                res+= String.format("%1$s %2$60s",i+1+".",m_playerObserver.getPlayerHandCard(i)) + "\n";
+                res+= String.format("%1$s %2$-60s",i+1+".",cardText) + "\n";
             }
             else
             {

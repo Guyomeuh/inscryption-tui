@@ -41,7 +41,9 @@ public class Board {
             return false;
         }
 
-        this.m_cards.set(position + 1, this.m_cards.remove(position));
+        Optional<Card> card = this.m_cards.get(position);
+        this.m_cards.set(position, Optional.empty());
+        this.m_cards.set(position + 1, card);
 
         return true;
     }
@@ -53,7 +55,9 @@ public class Board {
             return false;
         }
 
-        this.m_cards.set(position - 1, this.m_cards.remove(position));
+        Optional<Card> card = this.m_cards.get(position);
+        this.m_cards.set(position, Optional.empty());
+        this.m_cards.set(position - 1, card);
 
         return true;
     }
@@ -83,7 +87,7 @@ public class Board {
         validatePosition(position);
         if (m_cards.get(position).isPresent())
         {
-            return m_cards.get(position).get().getModif();
+            return m_cards.get(position).get().getAllModifs();
         }
         return "";
     }

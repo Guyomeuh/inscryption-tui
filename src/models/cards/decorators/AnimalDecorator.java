@@ -15,6 +15,15 @@ public abstract class AnimalDecorator implements AliveCard {
     }
 
     @Override
+    public String getAllModifs() {
+        String inner = m_card.getAllModifs();
+        if (inner == null || inner.isEmpty()) {
+            return getModif();
+        }
+        return inner + ", " + getModif();
+    }
+
+    @Override
     public String getName() { return m_card.getName(); }
 
     @Override

@@ -5,6 +5,7 @@ public interface Card {
     public int getHp();
     public void getDamaged(int damages);
     public String getModif();
+    default String getAllModifs() { return getModif(); }
     default void onSacrifice() {}
     default void resetTurn() {}
     public boolean isSacrifiable();
