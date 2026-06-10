@@ -33,7 +33,7 @@ public class GameController {
                             case "fin" -> {
                                 if (!pioche)
                                 {
-                                    System.out.println("Pioches d'abord une carte");
+                                    System.out.println("Vous devez d'abord commencer par piocher.");
                                 } else {
                                     valid = m_game.endTurn();
                                     endTurn = true;
@@ -46,15 +46,15 @@ public class GameController {
                                     m_view.show();
                                 } else {
                                     if (m_game.getDeckSize() == 0) {
-                                        System.out.println("Tu es à court de cartes");
+                                        System.out.println("Tu es à court de cartes.");
                                     } else {
-                                        System.out.println("Allons, tu ne vas pas piocher PLUSIEURS FOIS quand même");
+                                        System.out.println("Tu ne vas tout de même pas essayer de piocher plus cartes.");
                                     }
                                 }
                             }
                             case "placer" -> {
                                 if (!pioche) {
-                                    System.out.println("Vous devenez d'abord piocher non mais oh");
+                                    System.out.println("Vous devez d'abord commencer par piocher.");
                                 } else {
                                     try {
                                         valid = placer(valid, input);
@@ -67,7 +67,7 @@ public class GameController {
                             }
 
                             default -> {
-                                System.out.println("Choisissez une action valide");
+                                System.out.println("Saisissez une action valide.");
                                 errorNb++;
                                 if (errorNb >= 5) {
                                     m_view.show();
@@ -97,7 +97,7 @@ public class GameController {
             else if (m_game.checkVictory() <= -1)
             {
                 m_view.show();
-                System.out.println("Bouh le nul");
+                System.out.println("Vous rejoignez mes précédents adversaires..");
             }
         }
     }
