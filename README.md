@@ -6,7 +6,7 @@
 - [x] Modifier le deck du joueur 
 - [x] Modifier comportement du bot ? 
 - [x] Refaire tous les tests
-- [ ] Mettre à jour uml 
+- [x] Mettre à jour uml 
 
 # Methode de travail
 
