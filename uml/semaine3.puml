@@ -1,0 +1,556 @@
+@startuml diagramme_classes
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+skinparam nodesep 30
+skinparam ranksep 40
+skinparam padding 2
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+package "models.cards" {
+
+    interface Card {
+        + getName() : String
+        + getHp() : int
+        + getDamaged(damages: int) : void
+        + getModif() : String
+        + isSacrifiable() : boolean
+    }
+
+    interface AliveCard {
+        + getBloodCost() : int
+        + getBoneCost() : int
+        + getAttack() : int
+        + attack(opponent: Card) : void
+    }
+
+    abstract class BaseCard {
+        - m_name : String
+        - m_hp : int
+        + BaseCard(name: String, hp: int)
+        + getName() : String
+        + getHp() : int
+        + getDamaged(damages: int) : void
+        + getModif() : String
+        + toString() : String
+    }
+
+    class AnimalCard {
+        - m_attack : int
+        - m_bloodCost : int
+        - m_boneCost : int
+        + AnimalCard(name: String, hp: int, attack: int, blood: int, bone: int)
+        + getAttack() : int
+        + getBloodCost() : int
+        + getBoneCost() : int
+        + attack(opponent: Card) : void
+        + isSacrifiable() : boolean
+        + toString() : String
+    }
+
+    class ObjectCard {
+        + ObjectCard(name: String, hp: int)
+        + isSacrifiable() : boolean
+    }
+
+    class AliveCardFactory {
+        + {static} Chat() : AliveCard
+        + {static} Grizzly() : AliveCard
+        + {static} Coyote() : AliveCard
+        + {static} Moineau() : AliveCard
+        + {static} Corbeau() : AliveCard
+        + {static} Ecureuil() : AliveCard
+        + {static} Hermine() : AliveCard
+        + {static} Louveteau() : AliveCard
+        + {static} Loup() : AliveCard
+        + {static} Punaise() : AliveCard
+        + {static} Elan() : AliveCard
+        + {static} Vipere() : AliveCard
+        + {static} PorcEpic() : AliveCard
+    }
+
+    class ObjectCardFactory {
+        + {static} Rocher() : Card
+        + {static} Sapin() : Card
+    }
+}
+
+package "models.cards.decorators" {
+    abstract class AnimalDecorator {
+        - m_card : AliveCard
+        + AnimalDecorator(card: AliveCard)
+        + getName() : String
+        + getHp() : int
+        + getDamaged(damages: int) : void
+        + getBloodCost() : int
+        + getBoneCost() : int
+        + getAttack() : int
+        + attack(opponent: Card) : void
+        + isSacrifiable() : boolean
+        + toString() : String
+    }
+
+    abstract class ObjectDecorator {
+        - m_card : Card
+        + ObjectDecorator(card: Card)
+        + toString() : String
+    }
+
+    class AirborneAnimal {
+        + AirborneAnimal(card: AliveCard)
+        + getModif() : String
+        + toString() : String
+    }
+
+    class FledglingAnimal {
+        + FledglingAnimal(card: AliveCard)
+        + getModif() : String
+        + toString() : String
+    }
+
+    class ManyLivesAnimal {
+        + ManyLivesAnimal(card: AliveCard)
+        + getModif() : String
+        + toString() : String
+    }
+
+    class SharpQuillsAnimal {
+        + {static} COUNTER_ATTACK : int = 1
+        + SharpQuillsAnimal(card: AliveCard)
+        + getModif() : String
+        + toString() : String
+    }
+
+    class SprinterAnimal {
+        + SprinterAnimal(card: AliveCard)
+        + getModif() : String
+        + toString() : String
+    }
+
+    class StinkyAnimal {
+        + StinkyAnimal(card: AliveCard)
+        + getDamaged(damages: int) : void
+        + getModif() : String
+        + toString() : String
+    }
+
+    class TouchOfDeathAnimal {
+        + TouchOfDeathAnimal(card: AliveCard)
+        + getModif() : String
+        + attack(opponent: Card) : void
+        + toString() : String
+    }
+}
+
+package "models.gameplay" {
+
+    interface Playable {
+        + getDamaged(position: int, damages: int) : boolean
+        + endTurn() : int[]
+        + place(position: int, cardIndex: int) : boolean
+    }
+
+    interface MatchStrategy {
+        + initBot() : Bot
+        + botAction(turnNumber: int, bot: Bot) : void
+        + initPlayerBoard() : PlayerBoard
+    }
+
+    class Board {
+        # {static} SIZE : int = 4
+        # m_cards : ArrayList<Optional<Card>>
+        + Board()
+        # validatePosition(position: int) : void
+        + isOccupied(position: int) : boolean
+        + set(position: int, card: Card) : void
+        + moveRight(position: int) : boolean
+        + moveLeft(position: int) : boolean
+        + getName(position: int) : String
+        + getHp(position: int) : int
+        + getModif(position: int) : String
+        + remove(position: int) : Optional<Card>
+        + sacrifice(position: int) : int
+        + getBlood(position: int) : int
+        + isSacrifiable(position: int) : boolean
+        + getAttack(position: int) : int
+        + getDamaged(position: int, damages: int) : boolean
+        + isAirborne(position: int) : boolean
+        + isSprinter(position: int) : boolean
+        + toString() : String
+    }
+
+    class PlayerBoard {
+        - m_cemetary : ArrayList<AliveCard>
+        + PlayerBoard()
+        + getDamaged(position: int, damages: int) : boolean
+        + getDeadCard(index: int) : AliveCard
+        + getCemetarySize() : int
+        + toString() : String
+    }
+
+    class Player {
+        - m_deck : ArrayList<AliveCard>
+        - m_hand : ArrayList<AliveCard>
+        - m_blood : int
+        - m_bone : int
+        - m_observer : ArrayList<PlayerObserver>
+        - m_board : PlayerBoard
+        + Player(deck: ArrayList<AliveCard>, board: PlayerBoard, observer: PlayerObserver)
+        + updateAll() : void
+        + reinitPlayer(originalDeck: ArrayList<AliveCard>) : void
+        + setNewBoard(board: PlayerBoard) : void
+        + initHand() : void
+        + getBlood() : int
+        + getBone() : int
+        + isAirborne(position: int) : boolean
+        + isSprinter(position: int) : boolean
+        + sacrifice(position: int) : int
+        + getDeckSize() : int
+        + getHandSize() : int
+        + draw() : boolean
+        + availableBlood() : int
+        + getBloodCost(cardIndex: int) : int
+        + getBoneCost(cardIndex: int) : int
+        + addToDeck(card: AliveCard) : void
+        + place(position: int, cardIndex: int) : boolean
+        + getDamaged(position: int, damages: int) : boolean
+        + endTurn() : int[]
+        + toString() : String
+    }
+
+    class Bot {
+        - m_waitingBoard : Board
+        - m_board : Board
+        - m_cards : ArrayList<AliveCard>
+        - m_observer : ArrayList<BotObserver>
+        + Bot(board: Board, waitingBoard: Board, cards: ArrayList<AliveCard>, observer: BotObserver)
+        + Bot(board: Board, waitingBoard: Board, cards: ArrayList<AliveCard>)
+        + updateAll() : void
+        + getCardsSize() : int
+        + transferCards() : void
+        + isAirborne(position: int) : boolean
+        + isSprinter(position: int) : boolean
+        + getDamaged(position: int, damages: int) : boolean
+        + endTurn() : int[]
+        + place(position: int, cardIndex: int) : boolean
+        + addObserver(observer: BotObserver) : void
+        + toString() : String
+    }
+
+    class Combat {
+        - m_player : Player
+        - m_bot : Bot
+        - m_currentPlayer : Playable
+        - m_strategy : MatchStrategy
+        - m_turn : Integer
+        - m_balance : int
+        + Combat(player: Player, strategy: MatchStrategy, botObserver: BotObserver)
+        + botTurn() : void
+        + draw() : boolean
+        + place(position: int, numCard: int) : boolean
+        + availableBlood() : int
+        + sacrifice(position: Integer) : int
+        + endTurn() : boolean
+        + getTurn() : Integer
+        + getBalance() : int
+        + checkVictory() : int
+    }
+
+    class Game {
+        - m_gameNumber : int
+        - m_player : Player
+        - m_originalDeck : ArrayList<AliveCard>
+        - m_combat : Combat
+        - m_observer : ArrayList<GameObserver>
+        - m_botObserver : BotObserver
+        + Game(player: Player, deck: ArrayList<AliveCard>, gameObs: GameObserver, botObs: BotObserver)
+        + botTurn() : void
+        + setStrategy(strategy: MatchStrategy) : void
+        + updateAll() : void
+        + nextCombat() : void
+        + addNewCard(cardName: String) : void
+        + getGameNumber() : int
+        + endTurn() : boolean
+        + reinitPlayer() : void
+        + getBloodCost(cardIndex: int) : int
+        + getBoneCost(cardIndex: int) : int
+        + getPlayerBone() : int
+        + sacrifice(position: Integer) : int
+        + place(position: Integer, numCard: Integer) : boolean
+        + getHandSize() : int
+        + getDeckSize() : int
+        + availableBlood() : int
+        + draw() : boolean
+        + addObserver(observer: GameObserver) : void
+        + checkVictory() : int
+    }
+
+    class FirstMatch {
+        + FirstMatch()
+        + initBot() : Bot
+        + botAction(turnNumber: int, bot: Bot) : void
+        + initPlayerBoard() : PlayerBoard
+    }
+
+    class SecondMatch {
+        + SecondMatch()
+        + initBot() : Bot
+        + botAction(turnNumber: int, bot: Bot) : void
+        + initPlayerBoard() : PlayerBoard
+    }
+
+    class ThirdMatch {
+        + ThirdMatch()
+        + initBot() : Bot
+        + botAction(turnNumber: int, bot: Bot) : void
+        + initPlayerBoard() : PlayerBoard
+    }
+}
+
+package "models.observer" {
+
+    interface GameObserver {
+        + updateTurn(turnNumber: Integer) : void
+        + updateBalance(balance: Integer) : void
+        + updateGameNumber(gameNumber: Integer) : void
+    }
+
+    interface PlayerObserver {
+        + updatePlayerDeckCount(cardsAmount: int) : void
+        + updatePlayerHand(hand: ArrayList<String>) : void
+        + updatePlayerBoardStatus(boardStatus: boolean[]) : void
+        + updatePlayerBoardHp(boardHp: int[]) : void
+        + updatePlayerBoardAtt(boardAtt: int[]) : void
+        + updatePlayerBoardModif(boardModif: String[]) : void
+        + updatePlayerBoardName(boardName: String[]) : void
+        + getPlayerBoardStatus(index: int) : Boolean
+        + getPlayerBoardHp(index: int) : Integer
+        + getPlayerBoardAtt(index: int) : Integer
+        + getPlayerBoardModif(index: int) : String
+        + getPlayerHandCard(index: int) : String
+        + getPlayerDeckCount() : Integer
+        + getPlayerBoardName(index: int) : String
+        + getPlayerHandSize() : Integer
+    }
+
+    interface BotObserver {
+        + updateBotWaitingBoardStatus(nextBoardStatus: boolean[]) : void
+        + updateBotWaitingBoardHp(nextBoardHp: int[]) : void
+        + updateBotWaitingBoardAtt(nextBoardAtt: int[]) : void
+        + updateBotWaitingBoardModif(nextBoardModif: String[]) : void
+        + updateBotWaitingBoardName(nextBoardName: String[]) : void
+        + updateBotBoardStatus(boardStatus: boolean[]) : void
+        + updateBotBoardHp(boardHp: int[]) : void
+        + updateBotBoardAtt(boardAtt: int[]) : void
+        + updateBotBoardModif(boardModif: String[]) : void
+        + updateBotBoardName(boardName: String[]) : void
+        + getBotWaitingBoardStatus(index: int) : boolean
+        + getBotWaitingBoardHp(index: int) : int
+        + getBotWaitingBoardAtt(index: int) : int
+        + getBotWaitingBoardModif(index: int) : String
+        + getBotWaitingBoardName(index: int) : String
+        + getBotBoardStatus(index: int) : boolean
+        + getBotBoardHp(index: int) : int
+        + getBotBoardAtt(index: int) : int
+        + getBotBoardModif(index: int) : String
+        + getBotBoardName(index: int) : String
+    }
+}
+
+package "view" {
+
+    class GameTextObserver {
+        - m_turn : Integer
+        - m_balance : Integer
+        - m_gameNumber : Integer
+        + GameTextObserver()
+        + updateTurn(turnNumber: Integer) : void
+        + updateBalance(balance: Integer) : void
+        + updateGameNumber(gameNumber: Integer) : void
+        + getGameNumber() : String
+        + getBalance() : String
+        + getTurn() : String
+    }
+
+    class PlayerTextObserver {
+        - m_deckCardAmount : int
+        - m_playerHand : ArrayList<String>
+        - m_playerBoardStatus : boolean[]
+        - m_playerBoardHp : int[]
+        - m_playerBoardAtt : int[]
+        - m_playerBoardModif : String[]
+        - m_playerBoardName : String[]
+        + PlayerTextObserver()
+        + updatePlayerDeckCount(cardsAmount: int) : void
+        + updatePlayerHand(hand: ArrayList<String>) : void
+        + updatePlayerBoardStatus(boardStatus: boolean[]) : void
+        + updatePlayerBoardHp(boardHp: int[]) : void
+        + updatePlayerBoardAtt(boardAtt: int[]) : void
+        + updatePlayerBoardModif(boardModif: String[]) : void
+        + updatePlayerBoardName(boardName: String[]) : void
+        + getPlayerBoardStatus(index: int) : Boolean
+        + getPlayerBoardHp(index: int) : Integer
+        + getPlayerBoardAtt(index: int) : Integer
+        + getPlayerBoardModif(index: int) : String
+        + getPlayerHandCard(index: int) : String
+        + getPlayerHandSize() : Integer
+        + getPlayerDeckCount() : Integer
+        + getPlayerBoardName(index: int) : String
+    }
+
+    class BotTextObserver {
+        - m_waitingBoardStatus : boolean[]
+        - m_waitingBoardHp : int[]
+        - m_waitingBoardAtt : int[]
+        - m_waitingBoardModif : String[]
+        - m_waitingBoardName : String[]
+        - m_boardStatus : boolean[]
+        - m_boardHp : int[]
+        - m_boardAtt : int[]
+        - m_boardModif : String[]
+        - m_boardName : String[]
+        + BotTextObserver()
+        + updateBotWaitingBoardStatus(nextBoardStatus: boolean[]) : void
+        + updateBotWaitingBoardHp(nextBoardHp: int[]) : void
+        + updateBotWaitingBoardAtt(nextBoardAtt: int[]) : void
+        + updateBotWaitingBoardModif(nextBoardModif: String[]) : void
+        + updateBotWaitingBoardName(nextBoardName: String[]) : void
+        + updateBotBoardStatus(boardStatus: boolean[]) : void
+        + updateBotBoardHp(boardHp: int[]) : void
+        + updateBotBoardAtt(boardAtt: int[]) : void
+        + updateBotBoardModif(boardModif: String[]) : void
+        + updateBotBoardName(boardName: String[]) : void
+        + getBotWaitingBoardStatus(index: int) : boolean
+        + getBotWaitingBoardHp(index: int) : int
+        + getBotWaitingBoardAtt(index: int) : int
+        + getBotWaitingBoardModif(index: int) : String
+        + getBotWaitingBoardName(index: int) : String
+        + getBotBoardStatus(index: int) : boolean
+        + getBotBoardHp(index: int) : int
+        + getBotBoardAtt(index: int) : int
+        + getBotBoardModif(index: int) : String
+        + getBotBoardName(index: int) : String
+    }
+
+    class GeneralView {
+        - m_gameObserver : GameTextObserver
+        - m_playerObserver : PlayerTextObserver
+        - m_botObserver : BotTextObserver
+        - m_scanner : Scanner
+        + GeneralView(game: GameTextObserver, player: PlayerTextObserver, bot: BotTextObserver)
+        + show() : void
+        + gameStart() : boolean
+        + askForBlood(remainingSacrifice: int) : void
+        + promptUser() : String
+        + printGameInfo() : void
+        + printBotWaitingBoard() : void
+        + printBotBoard() : void
+        + printPlayerBoard() : void
+        + printPlayerHand() : void
+        + printAction() : void
+        + askNextGame() : void
+        + askNewCard() : void
+    }
+}
+
+package "controller" {
+
+    class GameController {
+        - m_game : Game
+        - m_view : GeneralView
+        + GameController(game: Game, view: GeneralView)
+        + startGame() : void
+        + verifPlacementIndex(input: String) : boolean
+        + verifBlood(input: String) : boolean
+        + verifBone(input: String) : boolean
+        + verifCardIndex(input: String) : boolean
+        + verifInputSize(input: String, wordCount: int) : boolean
+        + costBlood(input: String) : boolean
+        + costBone(input: String) : boolean
+        + getBloodCost(input: String) : int
+        + getBoneCost(input: String) : int
+        + placer(valid: boolean, input: String) : boolean
+        + getNewCard() : String
+    }
+}
+
+class Main {
+    + {static} main(args: String[]) : void
+}
+
+Card <|.. AliveCard
+Card <|.. BaseCard
+BaseCard <|-- AnimalCard
+BaseCard <|-- ObjectCard
+AliveCard <|.. AnimalCard
+
+AliveCardFactory ..> AnimalCard : <<creates>>
+AliveCardFactory ..> "models.cards.decorators" : <<uses>>
+ObjectCardFactory ..> ObjectCard : <<creates>>
+
+AliveCard <|.. AnimalDecorator
+Card <|.. ObjectDecorator
+
+AnimalDecorator <|-- AirborneAnimal
+AnimalDecorator <|-- FledglingAnimal
+AnimalDecorator <|-- ManyLivesAnimal
+AnimalDecorator <|-- SharpQuillsAnimal
+AnimalDecorator <|-- SprinterAnimal
+AnimalDecorator <|-- StinkyAnimal
+AnimalDecorator <|-- TouchOfDeathAnimal
+
+AnimalDecorator o-- AliveCard : wraps
+
+Playable <|.. Player
+Playable <|.. Bot
+
+Board <|-- PlayerBoard
+
+MatchStrategy <|.. FirstMatch
+MatchStrategy <|.. SecondMatch
+MatchStrategy <|.. ThirdMatch
+
+Game "1" *--> "1" Combat
+Game "1" *--> "1" Player
+Game o--> MatchStrategy
+Game o-->"1..*" GameObserver
+Game o-->BotObserver
+
+Combat "1" *-->"1" Player
+Combat "1" *-->"1" Bot
+Combat o-->MatchStrategy
+
+Player "1" *-->"1" PlayerBoard
+Player o-->"1..*" PlayerObserver
+
+Bot "1" *-->"2" Board
+Bot o-->"0..*" BotObserver
+
+FirstMatch ..> Bot : <<creates>>
+FirstMatch ..> PlayerBoard : <<creates>>
+SecondMatch ..> Bot : <<creates>>
+SecondMatch ..> PlayerBoard : <<creates>>
+ThirdMatch ..> Bot : <<creates>>
+ThirdMatch ..> PlayerBoard : <<creates>>
+
+GameObserver <|.. GameTextObserver
+PlayerObserver <|.. PlayerTextObserver
+BotObserver <|.. BotTextObserver
+
+GeneralView o-->GameTextObserver
+GeneralView o-->PlayerTextObserver
+GeneralView o-->BotTextObserver
+
+GameController o-->Game
+GameController o-->GeneralView
+
+Main ..> GameController : <<creates>>
+Main ..> Game : <<creates>>
+Main ..> Player : <<creates>>
+Main ..> GeneralView : <<creates>>
+
+@enduml
