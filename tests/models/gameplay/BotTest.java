@@ -23,8 +23,8 @@ public class BotTest {
             d.add(ac1);
         }
 
-        PlayerBoard board = new PlayerBoard();
-        PlayerBoard waitingBoard = new PlayerBoard();
+        Board board = new Board();
+        Board waitingBoard = new Board();
 
         return new Bot(board, waitingBoard, d);
     }
@@ -44,7 +44,7 @@ public class BotTest {
     public void transferCards(){
         Bot b = createBot();
 
-        for (int i = 0; i < PlayerBoard.SIZE; i++){
+        for (int i = 0; i < Board.SIZE; i++){
             b.place(i, 0);
         }
         b.transferCards();

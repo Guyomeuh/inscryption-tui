@@ -3,9 +3,9 @@
 - [x] Ajouter nouvelle carte au deck entre les parties (choisie)
 - [x] Les chat n'ont pas manylives ? 
 - [x] Ajouter le transfert de décorator par un sacrifice entre les parties 
-- [ ] Modifier le deck du joueur 
-- [ ] Modifier comportement du bot ? 
-- [ ] Refaire tous les tests
+- [x] Modifier le deck du joueur 
+- [x] Modifier comportement du bot ? 
+- [x] Refaire tous les tests
 - [ ] Mettre à jour uml 
 
 # Methode de travail

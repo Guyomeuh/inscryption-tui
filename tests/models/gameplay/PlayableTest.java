@@ -24,7 +24,7 @@ public class PlayableTest {
             d.add(ac1);
         }
         PlayerTextObserver pt = new PlayerTextObserver();
-        return new Player(d, new PlayerBoard(), pt);
+        return new Player(d, new Board(), pt);
     }
 
     @Test
