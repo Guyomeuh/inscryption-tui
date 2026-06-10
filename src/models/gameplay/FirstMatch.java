@@ -46,8 +46,8 @@ public class FirstMatch implements MatchStrategy {
     }
 
     @Override
-    public PlayerBoard initPlayerBoard() {
-        PlayerBoard board = new PlayerBoard();
+    public Board initPlayerBoard() {
+        Board board = new Board();
         board.set(0, new ObjectCard("Arbre", 1));
         return board;
     }

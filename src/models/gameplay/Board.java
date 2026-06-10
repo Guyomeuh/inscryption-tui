@@ -37,7 +37,7 @@ public class Board {
     public boolean moveRight(int position){
         validatePosition(position);
 
-        if (position + 1 >= PlayerBoard.SIZE || this.m_cards.get(position + 1).isPresent()){
+        if (position + 1 >= Board.SIZE || this.m_cards.get(position + 1).isPresent()){
             return false;
         }
 
@@ -109,7 +109,7 @@ public class Board {
             Card card = this.m_cards.get(position).get();
             card.onSacrifice();
 
-            if (!card.getModif().equals("Nombreuses vies")){
+            if (!card.getModif().equals("Nombreuses vies") && card.isSacrifiable()){
                 this.m_cards.set(position, Optional.empty());
             }
         }
@@ -181,7 +181,7 @@ public class Board {
         this.m_cards.get(position).get().getDamaged(damages);
 
         // deletes the card if it's at 0Hp
-        if (this.m_cards.get(position).get().getHp() == 0){
+        if (this.m_cards.get(position).get().getHp() <= 0){
             this.m_cards.set(position, Optional.empty());
         }
 

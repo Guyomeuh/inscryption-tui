@@ -44,8 +44,8 @@ public class SecondMatch implements MatchStrategy{
     }
 
     @Override
-    public PlayerBoard initPlayerBoard() {
-        PlayerBoard board = new PlayerBoard();
+    public Board initPlayerBoard() {
+        Board board = new Board();
         board.set(2, new ObjectCard("Rocher", 2));
         return board;
     }

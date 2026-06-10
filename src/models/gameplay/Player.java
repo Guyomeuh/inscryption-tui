@@ -13,9 +13,9 @@ public class Player implements Playable {
     private ArrayList<AliveCard> m_hand;
     private int m_blood, m_bone;
     private ArrayList<PlayerObserver> m_observer;
-    private PlayerBoard m_board;
+    private Board m_board;
 
-    public Player(ArrayList<AliveCard> deck, PlayerBoard board, PlayerObserver observer){
+    public Player(ArrayList<AliveCard> deck, Board board, PlayerObserver observer){
         this.m_observer = new ArrayList<PlayerObserver>();
         this.m_observer.add(observer);
         this.m_deck = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Player implements Playable {
         m_bone = 0;
     }
 
-    public void setNewBoard(PlayerBoard board)
+    public void setNewBoard(Board board)
     {
         m_board = board;
     }
@@ -359,9 +359,9 @@ public class Player implements Playable {
     public int[] endTurn(){
         this.m_blood = 0;
         this.m_board.resetTurn();
-        int[] damages = new int[PlayerBoard.SIZE];
+        int[] damages = new int[Board.SIZE];
 
-        for (int i = PlayerBoard.SIZE - 1; i >= 0; i--){
+        for (int i = Board.SIZE - 1; i >= 0; i--){
             // if a Fledgling card is still on the board, it's there since a turn ago
             if (this.m_board.getModif(i).equals("Croissance")){
                 this.m_board.set(i, AliveCardFactory.Loup());

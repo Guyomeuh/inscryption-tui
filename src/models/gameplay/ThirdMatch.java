@@ -46,8 +46,8 @@ public class ThirdMatch implements MatchStrategy{
     }
 
     @Override
-    public PlayerBoard initPlayerBoard() {
-        PlayerBoard board = new PlayerBoard();
+    public Board initPlayerBoard() {
+        Board board = new Board();
         board.set(1, new ObjectCard("Racine", 3));
         board.set(2, new ObjectCard("Pierre", 2));
         return board;

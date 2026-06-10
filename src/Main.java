@@ -19,7 +19,7 @@ public class Main
         GameTextObserver gameObs = new GameTextObserver();
         GeneralView gen = new GeneralView(gameObs, playerObs, botObs);
 
-        PlayerBoard board = new PlayerBoard();
+        Board board = new Board();
         ArrayList<AliveCard> deck = new ArrayList<AliveCard>();
         deck.add(AliveCardFactory.Ecureuil());
         deck.add(AliveCardFactory.Ecureuil());
