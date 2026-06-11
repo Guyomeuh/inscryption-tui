@@ -12,7 +12,7 @@ import models.cards.AliveCardFactory;
 import models.cards.Card;
 import models.cards.ObjectCardFactory;
 import models.gameplay.Player;
-import models.gameplay.PlayerBoard;
+import models.gameplay.Board;
 import view.PlayerTextObserver;
 
 public class AnimalDecoratorsTest {
@@ -63,7 +63,7 @@ public class AnimalDecoratorsTest {
         AliveCard cat = AliveCardFactory.Chat();
         assertEquals("Nombreuses vies", cat.getModif());
 
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
 
         pb.set(0, cat);
         assertEquals(1, pb.sacrifice(0));
@@ -77,7 +77,7 @@ public class AnimalDecoratorsTest {
         assertEquals("Volant", raven.getModif());
 
 
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
         pb.set(0, raven);
         pb.set(2, cat);
 
@@ -92,7 +92,7 @@ public class AnimalDecoratorsTest {
 
         assertEquals("Coureur", elk.getModif());
 
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
         AliveCard cat = AliveCardFactory.Chat();
 
         pb.set(0, elk);
@@ -109,9 +109,10 @@ public class AnimalDecoratorsTest {
 
         assertEquals("Croissance", wolfCub.getModif());
 
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
         pb.set(0, wolfCub);
-        Player p = new Player(new ArrayList<>(), pb, new PlayerTextObserver());
+        Player p = new Player(new ArrayList<>(), new Board(), new PlayerTextObserver());
+        p.setNewBoard(pb);
         p.endTurn();
 
         assertEquals("", pb.getModif(0));

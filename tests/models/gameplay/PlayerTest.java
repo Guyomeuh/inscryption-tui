@@ -26,7 +26,7 @@ public class PlayerTest {
             d.add(ac1);
         }
 
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
         pb.set(3, ObjectCardFactory.Rocher());
         pb.set(0, AliveCardFactory.Corbeau());
         PlayerTextObserver pt = new PlayerTextObserver();
@@ -83,5 +83,17 @@ public class PlayerTest {
         p1.place(0, 0);
         assertEquals(p1.sacrifice(0),1);
         assertEquals(p1.sacrifice(3),0);
+    }
+
+    @Test
+    public void sacrificeGivesBloodAndBone(){
+        Player p1 = createPlayer();
+
+        p1.place(0, 0);
+        int beforeBone = p1.getBone();
+
+        assertEquals(1, p1.sacrifice(0));
+        assertEquals(beforeBone + 1, p1.getBone());
+        assertEquals(1, p1.getBlood());
     }
 }

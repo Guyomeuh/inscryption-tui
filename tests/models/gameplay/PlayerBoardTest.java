@@ -12,7 +12,7 @@ import models.cards.ObjectCardFactory;
 public class PlayerBoardTest {
     @Test
     public void testAll(){
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
 
         assertThrows(IllegalArgumentException.class, ()->{ pb.isOccupied(-1); });
         assertThrows(IllegalArgumentException.class, ()->{ pb.isOccupied(4); });
@@ -42,7 +42,7 @@ public class PlayerBoardTest {
 
     @Test
     public void sacrifice(){
-        PlayerBoard pb = new PlayerBoard();
+        Board pb = new Board();
         pb.set(0, ObjectCardFactory.Rocher());
         pb.set (1, AliveCardFactory.Chat());
 
