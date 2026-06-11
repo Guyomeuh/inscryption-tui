@@ -21,9 +21,8 @@ public class PlayerTest {
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 10; i++){
             d.add(ac);
-            d.add(ac1);
         }
 
         Board pb = new Board();
