@@ -571,38 +571,38 @@ Main .> GameTextObserver : <<use>>
 Main .> AliveCardFactory : <<use>>
 
 ' Controller
-GameController "1" *--> "1\n -m_game" Game : belongs to >
-GameController "1" *--> "1\n -m_view" GeneralView : belongs to >
+GameController "1" o--> "1\n -m_game" Game : belongs to >
+GameController "1" o--> "1\n -m_view" GeneralView : belongs to >
 
 ' GeneralView aggregates observers
-GeneralView "1" *--> "1\n -m_gameObserver" GameTextObserver : belongs to >
-GeneralView "1" *--> "1\n -m_playerObserver" PlayerTextObserver : belongs to >
-GeneralView "1" *--> "1\n -m_botObserver" BotTextObserver : belongs to >
+GeneralView "1" o--> "1\n -m_gameObserver" GameTextObserver : belongs to >
+GeneralView "1" o--> "1\n -m_playerObserver" PlayerTextObserver : belongs to >
+GeneralView "1" o--> "1\n -m_botObserver" BotTextObserver : belongs to >
 
 ' Game compositions
-Game "1" *--> "1\n -m_player" Player : belongs to >
+Game "1" o--> "1\n -m_player" Player : belongs to >
 Game "1" *--> "1\n -m_combat" Combat : belongs to >
 Game "*" o--> "2..*\n -m_observer" GameObserver : is part of >
 
 ' Combat compositions
-Combat "1" *--> "1\n -m_player" Player : belongs to >
-Combat "1" *--> "1\n -m_bot" Bot : belongs to >
-Combat "1" *--> "1\n -m_strategy" MatchStrategy : belongs to >
+Combat "1" o--> "1\n -m_player" Player : belongs to >
+Combat "1" o--> "1\n -m_bot" Bot : belongs to >
+Combat "1" o--> "1\n -m_strategy" MatchStrategy : belongs to >
 
 ' Player compositions
-Player "1" *--> "1\n -m_board" Board : belongs to >
+Player "1" o--> "1\n -m_board" Board : belongs to >
 Player "*" o--> "2..*\n -m_observer" PlayerObserver : is part of >
 
 ' Bot compositions
-Bot "1" *--> "1\n -m_board" Board : belongs to >
-Bot "1" *--> "1\n -m_waitingBoard" Board : belongs to >
+Bot "1" o--> "1\n -m_board" Board : belongs to >
+Bot "1" o--> "1\n -m_waitingBoard" Board : belongs to >
 Bot "*" o--> "2..*\n -m_observer" BotObserver : is part of >
 
 ' AnimalDecorator wraps AliveCard
-AnimalDecorator "1" *--> "1\n -m_card" AliveCard : belongs to >
+AnimalDecorator "1" o--> "1\n -m_card" AliveCard : belongs to >
 
 ' ObjectDecorator wraps Card
-ObjectDecorator "1" *--> "1\n -m_card" Card : belongs to >
+ObjectDecorator "1" o--> "1\n -m_card" Card : belongs to >
 
 ' Factories use
 AliveCardFactory .> AnimalCard : <<use>>
