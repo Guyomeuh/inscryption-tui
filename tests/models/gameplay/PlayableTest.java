@@ -15,13 +15,11 @@ import view.PlayerTextObserver;
 public class PlayableTest {
     public Player createPlayer(){
         AliveCard ac = AliveCardFactory.Chat();
-        AliveCard ac1 = AliveCardFactory.Grizzly();
 
         ArrayList<AliveCard> d = new ArrayList<AliveCard>();
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 10; i++){
             d.add(ac);
-            d.add(ac1);
         }
         PlayerTextObserver pt = new PlayerTextObserver();
         return new Player(d, new Board(), pt);
